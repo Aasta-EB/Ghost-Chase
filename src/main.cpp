@@ -1,10 +1,13 @@
 #include <raylib.h>
 #include "Player.h"
+#include "Grid.h"
+#include "Enemy.h"
 
 int windowWidth = 1500;
 int windowHeight = 800;
 
 Player player;
+Grid square;
 
 
 int main()
@@ -18,9 +21,9 @@ int main()
 
 		ClearBackground(BLACK);
 
-		player.DrawPlayer(windowWidth/2, windowHeight/2);
+		player.DrawPlayer();
 
-		DrawRectangle(200, 200, 100, 100, ORANGE);
+		square.DrawRectangles({200, 200});
 
 
 		EndDrawing();

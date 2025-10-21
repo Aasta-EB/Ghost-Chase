@@ -3,6 +3,8 @@
 
 class Vector2d
 {
+public: 
+
 	// Vector class variables
 	float x;
 	float y; 

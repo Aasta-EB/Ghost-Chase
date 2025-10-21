@@ -1,26 +1,28 @@
 #include "Player.h"
 
+
 void Player::PlayerController()
 {
-	if (IsKeyDown(KEY_W) || IsKeyDown(KEY_UP))
+	if (IsKeyDown(KEY_W))
 	{
-		playerPositionX -= 1 * GetFrameTime();
+		
 	}
-	if (IsKeyDown(KEY_S) || IsKeyDown(KEY_DOWN))
+	if (IsKeyDown(KEY_S))
 	{
-		playerPositionX += 1 * GetFrameTime();
+		
 	}
-	if (IsKeyDown(KEY_A) || IsKeyDown(KEY_LEFT))
+	if (IsKeyDown(KEY_A))
 	{
-		playerPositionY -= 1 * GetFrameTime();
+		
 	}
-	if (IsKeyDown(KEY_D) || IsKeyDown(KEY_RIGHT))
+	if (IsKeyDown(KEY_D))
 	{
-		playerPositionX += 1 * GetFrameTime();
+		
 	}
 }
 
-void Player::DrawPlayer(float playerPositionX, float playerPositionY)
+void Player::DrawPlayer()
 {
-	DrawCircle(playerPositionX, playerPositionY, playerSize, playerColor);
+	playerPosition.x = 10;
+	DrawCircle(playerPosition.x, playerPosition.y, playerSize, playerColor);
 }
