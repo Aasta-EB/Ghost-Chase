@@ -1,7 +1,7 @@
 #include <raylib.h>
 #include "Player.h"
 
-int windowWidth = 1440;
+int windowWidth = 1500;
 int windowHeight = 800;
 
 Player player;
@@ -19,6 +19,8 @@ int main()
 		ClearBackground(BLACK);
 
 		player.DrawPlayer(windowWidth/2, windowHeight/2);
+
+		DrawRectangle(200, 200, 100, 100, ORANGE);
 
 
 		EndDrawing();
