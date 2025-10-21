@@ -1,6 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include "Vector2d.h"
+#include "Grid.h"
 
 class Player
 {
@@ -8,10 +9,10 @@ public:
 
 	// Player variables
 	Vector2d playerPosition;
-	float playerSpeed = 10;
+	float playerXPosition;
+	float playerYPosition;
+	float playerSpeed = 100;
 	float playerSize = 30;
-	float playerPositionX;
-	float playerPositionY;
 	Color playerColor = PINK;
 
 	// Player movement function

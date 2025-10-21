@@ -8,12 +8,19 @@ int windowHeight = 700;
 
 Player player;
 Grid square;
+Grid map; 
 
 
 int main()
 {
 	InitWindow(windowWidth, windowHeight, "Ghost-Chase");
 	SetTargetFPS(60);
+	
+	map.DrawMap();
+
+	player.playerXPosition = windowWidth / 2;
+	player.playerYPosition = windowHeight / 2;
+	
 
 	while (!WindowShouldClose())
 	{
@@ -22,8 +29,9 @@ int main()
 		ClearBackground(BLACK);
 
 		player.DrawPlayer();
+		player.PlayerController();
 
-		square.DrawRectangles({200, 200});
+		map.DrawMap();
 
 
 		EndDrawing();

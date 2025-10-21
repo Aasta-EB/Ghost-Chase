@@ -3,26 +3,27 @@
 
 void Player::PlayerController()
 {
+	Grid box; 
+
 	if (IsKeyDown(KEY_W))
 	{
-		
+		playerYPosition -= playerSpeed * GetFrameTime();
 	}
-	if (IsKeyDown(KEY_S))
+	else if (IsKeyDown(KEY_S))
 	{
-		
+		playerYPosition += playerSpeed * GetFrameTime();
 	}
-	if (IsKeyDown(KEY_A))
+	else if (IsKeyDown(KEY_A))
 	{
-		
+		playerXPosition -= playerSpeed * GetFrameTime();
 	}
-	if (IsKeyDown(KEY_D))
+	else if (IsKeyDown(KEY_D))
 	{
-		
+		playerXPosition += playerSpeed * GetFrameTime();
 	}
 }
 
 void Player::DrawPlayer()
 {
-	playerPosition.x = 10;
-	DrawCircle(playerPosition.x, playerPosition.y, playerSize, playerColor);
+	DrawCircle(playerXPosition, playerYPosition, playerSize, playerColor);
 }
