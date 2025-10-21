@@ -3,8 +3,8 @@
 #include "Grid.h"
 #include "Enemy.h"
 
-int windowWidth = 1500;
-int windowHeight = 800;
+int windowWidth = 1400;
+int windowHeight = 700;
 
 Player player;
 Grid square;
