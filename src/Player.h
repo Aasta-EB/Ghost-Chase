@@ -8,12 +8,19 @@ class Player
 public:
 
 	// Player variables
-	Vector2d playerPosition;
+	Vector2d playerPosition = { playerYPosition, playerXPosition };
 	float playerXPosition;
 	float playerYPosition;
 	float playerSpeed = 100;
-	float playerSize = 30;
+	float playerSize = 20;
 	Color playerColor = PINK;
+	Grid mapBoxes;
+
+	bool playerHitBox;
+
+	void FindPlayerTilePosition(Vector2d inPlayerPosition);
+
+	void PlayerCheckCollisionWithBox(Vector2d inPlayerPosition);
 
 	// Player movement function
 	void PlayerController();

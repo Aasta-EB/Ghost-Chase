@@ -14,16 +14,20 @@ void Grid::DrawMap()
 				//std::cout << map[i][j];
 			/*	std::cout << "0, ";*/
 			}
-			if (map[i][j] == 1 )
+			if (map[i][j] == 1)
 			{
 				//std::cout << map[i][j];
 				/*std::cout << "1, ";*/
 				int positionY = i * 50;
 				int positionX = j * 50;
 
-				DrawRectangle(positionX, positionY, boxWidth, boxHeight, boxColor);
-				boxPositionX.push_back(positionX);
-				boxPositionY.push_back(positionY);
+				DrawRectangle(positionX, positionY, boxSize, boxSize, boxColor);
+
+				// Not important as of now
+				//boxCoordinates.push_back({saveBoxPosition});
+				//boxPositionY.push_back(positionY);
+				//Vector2d boxPosition = { positionX, positionY };
+				//std::cout << boxPosition.x << " " << boxPosition.y << "\n";
 
 			}
 		}

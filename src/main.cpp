@@ -6,13 +6,13 @@
 int windowWidth = 1400;
 int windowHeight = 700;
 
-Player player;
-Grid square;
-Grid map; 
-
 
 int main()
 {
+	Player player;
+	Grid square;
+	Grid map;
+
 	InitWindow(windowWidth, windowHeight, "Ghost-Chase");
 	SetTargetFPS(60);
 	
