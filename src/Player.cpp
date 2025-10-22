@@ -3,12 +3,14 @@
 
 void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
 {
-	playerXPosition = inPlayerPosition.x;
-	playerYPosition = inPlayerPosition.y; 
+	float positionX = inPlayerPosition.x;
+	float positionY = inPlayerPosition.y; 
 
-	float playerTileXPosition = std::round(playerXPosition/50);
-	std::cout << playerTileXPosition << "\n";
-	int playerTileYPosition; 
+	float playerTileYPosition = std::round(positionX/50);
+	std::cout << "(" << playerTileYPosition << ", ";
+	int playerTileXPosition = std::round(positionY / 50);
+	std::cout << playerTileXPosition << ")" << "\n";
+
 }
 
 void Player::PlayerCheckCollisionWithBox(Vector2d inPlayerPosition)
