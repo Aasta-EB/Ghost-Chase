@@ -28,6 +28,8 @@ int main()
 
 		ClearBackground(BLACK);
 
+		DrawText("(", 100, 100, 20, WHITE);
+
 		player.DrawPlayer();
 		player.PlayerController();
 

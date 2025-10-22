@@ -15,6 +15,8 @@ public:
 	float playerSize = 20;
 	Color playerColor = PINK;
 	Grid mapBoxes;
+	int playerTileXPosition;
+	float playerTileYPosition;
 
 	bool playerHitBox;
 

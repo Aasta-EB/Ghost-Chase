@@ -6,11 +6,10 @@ void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
 	float positionX = inPlayerPosition.x;
 	float positionY = inPlayerPosition.y; 
 
-	float playerTileYPosition = std::round(positionX/50);
-	std::cout << "(" << playerTileYPosition << ", ";
-	int playerTileXPosition = std::round(positionY / 50);
-	std::cout << playerTileXPosition << ")" << "\n";
-
+	playerTileXPosition = std::round(positionY / 50);
+	std::cout << "(" << playerTileXPosition << ", ";
+	playerTileYPosition = std::round(positionX / 50);
+	std::cout << playerTileYPosition << ")" << "\n";
 }
 
 void Player::PlayerCheckCollisionWithBox(Vector2d inPlayerPosition)
@@ -49,17 +48,19 @@ void Player::PlayerController()
 {
 	if (IsKeyDown(KEY_W))
 	{
+		playerYPosition -= playerSpeed * GetFrameTime();
+
 		PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
-		if (playerHitBox == true)
-		{
-			playerYPosition += playerSpeed * GetFrameTime();
-		}
-		else if (playerHitBox == false)
-		{
-			playerYPosition -= playerSpeed * GetFrameTime();
-			//std::cout << playerYPosition << " " << playerXPosition << "\n";
-			PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
-		}
+		//if (playerHitBox == true)
+		//{
+		//	playerYPosition += playerSpeed * GetFrameTime();
+		//}
+		//else if (playerHitBox == false)
+		//{
+		//	playerYPosition -= playerSpeed * GetFrameTime();
+		//	//std::cout << playerYPosition << " " << playerXPosition << "\n";
+		//	PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
+		//}
 		FindPlayerTilePosition({ playerYPosition, playerXPosition });
 	}
 	else if (IsKeyDown(KEY_S))
