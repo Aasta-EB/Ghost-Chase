@@ -6,7 +6,6 @@
 int windowWidth = 1400;
 int windowHeight = 700;
 
-
 int main()
 {
 	Player player;
