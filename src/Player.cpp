@@ -18,12 +18,12 @@ void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
 	}
 	if (playerDirection.x == 0 && playerDirection.y == -1)
 	{
-		boxPositionX = std::round((positionX) / 50)+1;
+		boxPositionX = std::round((positionX) / 50);
 		boxPositionY = std::round((positionY) / 50);
 	}
 	if (playerDirection.x == 0 && playerDirection.y == 1)
 	{
-		boxPositionX = std::round((positionX) / 50);
+		boxPositionX = std::round((positionX) / 50) + 1;
 		boxPositionY = std::round((positionY) / 50);
 	}
 
