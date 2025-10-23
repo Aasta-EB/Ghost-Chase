@@ -36,7 +36,7 @@ public:
 	std::vector<int> boxPositionX;
 	std::vector<int> boxPositionY;
 
-	std::list<Vector2d> boxCoordinates; 
+	std::list<Vector2> boxCoordinates; 
 
 	void DrawMap();
 };

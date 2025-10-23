@@ -17,8 +17,12 @@ public:
 	Grid mapBoxes;
 	int playerTileXPosition;
 	float playerTileYPosition;
+	Vector2d playerDirection = { 0, 0 };
 
-	bool playerHitBox;
+	int boxPositionX = 6;
+	int boxPositionY = 13;
+
+	bool playerHitBox = false;
 
 	void FindPlayerTilePosition(Vector2d inPlayerPosition);
 

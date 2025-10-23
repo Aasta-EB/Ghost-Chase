@@ -3,14 +3,46 @@
 
 void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
 {
-	float positionX = inPlayerPosition.x;
-	float positionY = inPlayerPosition.y; 
+	int positionX = inPlayerPosition.x - 20;
+	int positionY = inPlayerPosition.y - 20; 
 
-	playerTileXPosition = std::round(positionY / 50);
+	if (playerDirection.x == 1 && playerDirection.y == 0)
+	{
+		boxPositionX = std::round((positionX) / 50);
+		boxPositionY = std::round((positionY) / 50)+1;
+	}
+	if (playerDirection.x == -1 && playerDirection.y == 0)
+	{
+		boxPositionX = std::round((positionX) / 50);
+		boxPositionY = std::round((positionY) / 50);
+	}
+	if (playerDirection.x == 0 && playerDirection.y == -1)
+	{
+		boxPositionX = std::round((positionX) / 50)+1;
+		boxPositionY = std::round((positionY) / 50);
+	}
+	if (playerDirection.x == 0 && playerDirection.y == 1)
+	{
+		boxPositionX = std::round((positionX) / 50);
+		boxPositionY = std::round((positionY) / 50);
+	}
+
+	playerTileXPosition = boxPositionY;
 	std::cout << "(" << playerTileXPosition << ", ";
-	playerTileYPosition = std::round(positionX / 50);
+	playerTileYPosition = boxPositionX;
 	std::cout << playerTileYPosition << ")" << "\n";
+
+	if (mapBoxes.map[boxPositionX][boxPositionY] == 1)
+	{
+		std::cout << "You've hit a wall, stop" << "\n";
+		playerHitBox = true; 
+	}
+	else if (mapBoxes.map[boxPositionX][boxPositionY] == 0)
+	{
+		playerHitBox = false; 
+	}
 }
+
 
 void Player::PlayerCheckCollisionWithBox(Vector2d inPlayerPosition)
 {
@@ -33,11 +65,11 @@ void Player::PlayerCheckCollisionWithBox(Vector2d inPlayerPosition)
 				if (CheckCollisionCircleRec(playerPos, 22.f, boxPos))
 				{
 					std::cout << "Oh no, collision with wall!" << "\n";
-					playerHitBox = true;
+					//playerHitBox = true;
 				}
 				else
 				{
-					playerHitBox = false;
+					//playerHitBox = false;
 				}
 			}
 		}
@@ -48,41 +80,119 @@ void Player::PlayerController()
 {
 	if (IsKeyDown(KEY_W))
 	{
-		playerYPosition -= playerSpeed * GetFrameTime();
-
-		PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
-		//if (playerHitBox == true)
-		//{
-		//	playerYPosition += playerSpeed * GetFrameTime();
-		//}
-		//else if (playerHitBox == false)
-		//{
-		//	playerYPosition -= playerSpeed * GetFrameTime();
-		//	//std::cout << playerYPosition << " " << playerXPosition << "\n";
-		//	PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
-		//}
 		FindPlayerTilePosition({ playerYPosition, playerXPosition });
+
+		if (playerDirection.y != -1 && playerHitBox == true)
+		{
+			playerDirection = { 0, -1 };
+			playerYPosition -= playerSpeed * GetFrameTime();
+		}
+		else if (playerHitBox == false)
+		{
+			playerDirection = { 0, -1 };
+			playerYPosition -= playerSpeed * GetFrameTime();
+		}
+
+	//	FindPlayerTilePosition({ playerYPosition, playerXPosition });
+
+	///*	PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });*/
+	//	if (playerHitBox == true)
+	//	{
+	//		std::cout << "I want to stop" << "\n";
+	//	}
+	//	else if (playerHitBox == false)
+	//	{
+	//		playerYPosition -= playerSpeed * GetFrameTime();
+	//		playerDirection = { 0, 1 };
+	//		//std::cout << playerYPosition << " " << playerXPosition << "\n";
+	//		//PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
+	//	}
 	}
 	else if (IsKeyDown(KEY_S))
 	{
-		playerYPosition += playerSpeed * GetFrameTime();
-		//std::cout << playerYPosition << " " << playerXPosition << "\n";
-		PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
 		FindPlayerTilePosition({ playerYPosition, playerXPosition });
+
+		if (playerDirection.y != 1 && playerHitBox == true)
+		{
+			playerDirection = { 0, 1 };
+			playerYPosition += playerSpeed * GetFrameTime();
+		}
+		else if (playerHitBox == false)
+		{
+			playerDirection = { 0, 1 };
+			playerYPosition += playerSpeed * GetFrameTime();
+		}
+
+		//std::cout << playerYPosition << " " << playerXPosition << "\n";
+		///*PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });*/
+		//FindPlayerTilePosition({ playerYPosition, playerXPosition });
+		//if (playerHitBox == true)
+		//{
+		//	std::cout << "I want to stop" << "\n";
+		//}
+		//else if (playerHitBox == false)
+		//{
+		//	std::cout << playerYPosition << " " << playerXPosition << "\n";
+		//	playerDirection = { 0, -1 };
+		//	//std::cout << playerYPosition << " " << playerXPosition << "\n";
+		//	//PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
+		//}
 	}
 	else if (IsKeyDown(KEY_A))
 	{
-		playerXPosition -= playerSpeed * GetFrameTime();
-		//std::cout << playerYPosition << " " << playerXPosition << "\n";
-		PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
+
 		FindPlayerTilePosition({ playerYPosition, playerXPosition });
+
+		if (playerDirection.x != -1 && playerHitBox == true)
+		{
+			playerDirection = { -1, 0 };
+			playerXPosition -= playerSpeed * GetFrameTime();
+		}
+		else if (playerHitBox == false)
+		{
+			playerDirection = { -1, 0 };
+			playerXPosition -= playerSpeed * GetFrameTime();
+		}
+		//std::cout << playerYPosition << " " << playerXPosition << "\n";
+		//FindPlayerTilePosition({ playerYPosition, playerXPosition });
+		//if (playerHitBox == true)
+		//{
+		//	std::cout << "I want to stop" << "\n";
+		//}
+		//else if (playerHitBox == false)
+		//{
+		//	playerXPosition -= playerSpeed * GetFrameTime();
+		//	playerDirection = { 1, 0 };
+		//	//std::cout << playerYPosition << " " << playerXPosition << "\n";
+		//	//PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
+		//}
 	}
 	else if (IsKeyDown(KEY_D))
 	{
-		playerXPosition += playerSpeed * GetFrameTime();
-		//std::cout << playerYPosition << " " << playerXPosition << "\n";
-		PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
 		FindPlayerTilePosition({ playerYPosition, playerXPosition });
+
+		if (playerDirection.x != 1 && playerHitBox == true)
+		{
+			playerDirection = { 1, 0 };
+			playerXPosition += playerSpeed * GetFrameTime();
+		}
+		else if (playerHitBox == false)
+		{
+			playerDirection = { 1, 0 };
+			playerXPosition += playerSpeed * GetFrameTime();
+		}
+		//std::cout << playerYPosition << " " << playerXPosition << "\n";
+		//if (playerHitBox == true)
+		//{
+		//	std::cout << "I want to stop" << "\n";
+		//}
+		//else if (playerHitBox == false)
+		//{
+		//	playerXPosition += playerSpeed * GetFrameTime();
+		//	playerDirection = { -1, 0 };
+		//	//std::cout << playerYPosition << " " << playerXPosition << "\n";
+		//	//PlayerCheckCollisionWithBox({ playerYPosition, playerXPosition });
+		//}
 	}
 }
 

@@ -6,3 +6,9 @@ float Vector2d::CalculateLenghtOfVector()
 
     return lenghtOfVector;
 }
+
+float Vector2d::CalculatePlayerPosition(Vector2d inPlayerPosition)
+{
+    
+    return 0.0f;
+}
