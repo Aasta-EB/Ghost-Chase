@@ -7,6 +7,7 @@ float Vector2d::CalculateLenghtOfVector()
     return lenghtOfVector;
 }
 
+// Hopefully we can use this function to calculate the player box position, then we get some more math ;)
 float Vector2d::CalculatePlayerPosition(Vector2d inPlayerPosition)
 {
     
