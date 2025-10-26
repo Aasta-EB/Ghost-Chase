@@ -10,6 +10,7 @@ int windowHeight = 700;
 // Acsessing classes
 Player player;
 Grid map;
+Enemy enemy;
 
 int main()
 {
@@ -23,7 +24,11 @@ int main()
 	// Sets player spawn position
 	player.playerXPosition = windowWidth / 2 - 25;
 	player.playerYPosition = windowHeight / 2 - 25;
-	
+
+	// Sets enemy position
+	enemy.enemyPositionX = 200;
+	enemy.enemyPositionY = 200;
+
 	// Game while loop
 	while (!WindowShouldClose())
 	{
@@ -39,6 +44,9 @@ int main()
 		// Draws player and activates the player controller
 		player.DrawPlayer();
 		player.PlayerController();
+
+		// Draws enemy
+		enemy.DrawEnemy();
 
 		// Draws the grid squares
 		map.DrawMap();
