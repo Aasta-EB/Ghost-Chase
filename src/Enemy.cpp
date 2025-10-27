@@ -6,6 +6,33 @@ void Enemy::FindEnemyBoxPosition(Vector2d inEnemyPosition)
 	int positionX = inEnemyPosition.x - 20;
 	int positionY = inEnemyPosition.y - 20;
 
+	int ChooseEnemyDirection = GetRandomValue(0, 3);
+	if (GetRandomValue(0, 100) < 5)
+	{
+		int ChooseEnemyDirection = GetRandomValue(0, 3);
+		switch (ChooseEnemyDirection)
+		{
+		case 0:
+			enemyPositionX -= enemySpeed * GetFrameTime();
+
+			break;
+		case 1:
+			enemyPositionX += enemySpeed * GetFrameTime();
+
+			break;
+		case 2:
+			enemyPositionY -= enemySpeed * GetFrameTime();
+			break;
+		case 3:
+			enemyPositionY += enemySpeed * GetFrameTime();
+			break;
+
+		default:
+			break;
+		}
+	}
+
+
 	// Checks the player direction and calculates the box the player is in
 	if (enemyDirection.x == 1 && enemyDirection.y == 0)
 	{
@@ -42,11 +69,11 @@ void Enemy::FindEnemyBoxPosition(Vector2d inEnemyPosition)
 
 void Enemy::EnemyMovement(Vector2d inEnemyPosition)
 {
-	for (enemyHitBox == false)
+	/*for (enemyHitBox == false)
 	{
 		int randomMovementX = rand() % 50;
 		inEnemyPosition += randomMovementX;
-	}
+	}*/
 }
 
 
