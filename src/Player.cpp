@@ -1,17 +1,17 @@
 #include "Player.h"
 
-// Finds the players position compared to the boxes position, 
+// Finds the players position compared to the boxes position,
 void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
 {
 	// Calculates (almost, the players position, it has to be changed as it is dependent on the driection of player movement
 	int positionX = inPlayerPosition.x - 20;
-	int positionY = inPlayerPosition.y - 20; 
+	int positionY = inPlayerPosition.y - 20;
 
 	// Checks the player direction and calculates the box the player is in
 	if (playerDirection.x == 1 && playerDirection.y == 0)
 	{
 		boxPositionX = std::round((positionX) / 50);
-		boxPositionY = std::round((positionY) / 50)+1;
+		boxPositionY = std::round((positionY) / 50) + 1;
 	}
 	if (playerDirection.x == -1 && playerDirection.y == 0)
 	{
@@ -38,11 +38,11 @@ void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
 	if (mapBoxes.map[boxPositionX][boxPositionY] == 1)
 	{
 		//std::cout << "You've hit a wall, stop" << "\n";
-		playerHitBox = true; 
+		playerHitBox = true;
 	}
 	else if (mapBoxes.map[boxPositionX][boxPositionY] == 0)
 	{
-		playerHitBox = false; 
+		playerHitBox = false;
 	}
 }
 
@@ -115,7 +115,6 @@ void Player::PlayerController()
 	}
 	else if (IsKeyDown(KEY_A))
 	{
-
 		FindPlayerTilePosition({ playerYPosition, playerXPosition });
 
 		if (playerDirection.x != -1 && playerHitBox == true)
