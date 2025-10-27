@@ -11,8 +11,11 @@ public:
 	int enemySize = 20;
 	Color enemyColor = YELLOW;
 
-	int enemyPositionX;
-	int enemyPositionY;
+	Vector2d enemyPosition;
+	bool enemyHitWall = false;
+
+	void EnemyMovement();
+	void DrawEnemy();
 
 
 };
