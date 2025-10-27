@@ -95,11 +95,7 @@ void Player::PlayerController()
 		else if (playerHitBox == false)
 		{
 			playerDirection = { 0, -1 };
-
-			for (int i = 0; playerHitBox == false; i = 0)
-			{
-				playerYPosition -= playerSpeed * GetFrameTime();
-			}
+			playerYPosition -= playerSpeed * GetFrameTime();
 		}
 	}
 	else if (IsKeyDown(KEY_S))

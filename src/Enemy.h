@@ -19,6 +19,7 @@ public:
 	Grid box;
 	bool enemyHitBox;
 	Vector2d enemyDirection = { 0, 0 };
+	int enemySpeed = 100;
 
 
 	void FindEnemyBoxPosition(Vector2d inEnemyPosition);
