@@ -42,7 +42,6 @@ int main()
 
 		// Draws player and activates the player controller
 		player.DrawPlayer();
-		player.PlayerController();
 
 		// Draws enemy
 		enemy.DrawEnemy();

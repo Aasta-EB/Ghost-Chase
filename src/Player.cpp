@@ -148,6 +148,7 @@ void Player::PlayerController()
 // Draw player function, could probably be updated to better the code
 void Player::DrawPlayer()
 {
+	PlayerController();
 	// DrawRectangle(playerXPosition - 25, playerYPosition - 25, 50, 50, BLUE);
 	DrawCircle(playerXPosition, playerYPosition, playerSize, playerColor);
 }
