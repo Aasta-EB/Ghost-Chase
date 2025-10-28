@@ -21,8 +21,8 @@ int main()
 	map.DrawMap();
 
 	// Sets player spawn position
-	player.playerXPosition = windowWidth / 2 - 25;
-	player.playerYPosition = windowHeight / 2 - 25;
+	player.playerXPosition = (13 * 50) + 25;
+	player.playerYPosition = (6 * 50) + 25;
 	
 	// Game while loop
 	while (!WindowShouldClose())
