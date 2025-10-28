@@ -4,14 +4,14 @@
 void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
 {
 	// Calculates (almost, the players position, it has to be changed as it is dependent on the driection of player movement
-	int positionX = inPlayerPosition.x - 20;
-	int positionY = inPlayerPosition.y - 20; 
+	int positionX = inPlayerPosition.x - 25;
+	int positionY = inPlayerPosition.y - 25; 
 
 	// Checks the player direction and calculates the box the player is in
 	if (playerDirection.x == 1 && playerDirection.y == 0)
 	{
 		boxPositionX = std::round((positionX) / 50);
-		boxPositionY = std::round((positionY) / 50)+1;
+		boxPositionY = std::round((positionY) / 50) + 1;
 	}
 	if (playerDirection.x == -1 && playerDirection.y == 0)
 	{
