@@ -55,28 +55,37 @@ void UpdateGame()
 	if (!gameOver)
 	{
 		// Player control
-		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && (player[0].speed.x == 0) && allowMove)
+		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && allowMove)
 		{
+			/*if (map.map[player[0].position.x] == 1)
+			{
+				allowMove = false; 
+			}
+			else
+			{
+				player[0].speed = Vector2{ SQUARE_SIZE, 0 };
+				allowMove = false;
+			}*/
 			player[0].speed = Vector2{ SQUARE_SIZE, 0 };
 			allowMove = false;
 		}
-		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && (player[0].speed.x == 0) && allowMove)
+		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && allowMove)
 		{
 			player[0].speed = Vector2{ -SQUARE_SIZE, 0 };
 			allowMove = false;
 		}
-		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) && (player[0].speed.y == 0) && allowMove)
+		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) && allowMove)
 		{
 			player[0].speed = Vector2{ 0, -SQUARE_SIZE };
 			allowMove = false;
 		}
-		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S) && (player[0].speed.y == 0) && allowMove)
+		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S) && allowMove)
 		{
 			player[0].speed = Vector2{ 0, SQUARE_SIZE };
 			allowMove = false;
 		}
 
-		// Snake movement
+		// Player movement
 		for (int i = 0; i < counterTail; i++) playerPosition[i] = player[i].position;
 
 		if ((framesCounter % 10) == 0)
@@ -93,21 +102,7 @@ void UpdateGame()
 			}
 		}
 
-		// Collision with yourself
-		for (int i = 1; i < counterTail; i++)
-		{
-			if ((player[0].position.x == player[i].position.x) && (player[0].position.y == player[i].position.y)) gameOver = true;
-		}
-
 		framesCounter++;
-	}
-	else
-	{
-		if (IsKeyPressed(KEY_ENTER))
-		{
-			InitGame();
-			gameOver = false;
-		}
 	}
 }
 
@@ -134,7 +129,6 @@ void DrawGame()
 		// Draw snake
 		for (int i = 0; i < counterTail; i++) DrawRectangleV(player[i].position, player[i].size, player[i].color);
 	}
-	else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
 
 	EndDrawing();
 }
