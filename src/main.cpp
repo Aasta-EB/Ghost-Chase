@@ -54,10 +54,13 @@ void UpdateGame()
 {
 	if (!gameOver)
 	{
+		int playerPositionX = player[0].position.x;
+		int playerPositionY = player[0].position.y;
+
 		// Player control
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && allowMove)
 		{
-			/*if (map.map[player[0].position.x] == 1)
+			if (map.map[playerPositionY][playerPositionX] == 1)
 			{
 				allowMove = false; 
 			}
@@ -65,9 +68,9 @@ void UpdateGame()
 			{
 				player[0].speed = Vector2{ SQUARE_SIZE, 0 };
 				allowMove = false;
-			}*/
-			player[0].speed = Vector2{ SQUARE_SIZE, 0 };
-			allowMove = false;
+			}
+			//player[0].speed = Vector2{ SQUARE_SIZE, 0 };
+			//allowMove = false;
 		}
 		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && allowMove)
 		{
@@ -94,11 +97,33 @@ void UpdateGame()
 			{
 				if (i == 0)
 				{
-					player[0].position.x += player[0].speed.x;
-					player[0].position.y += player[0].speed.y;
-					allowMove = true;
+					if (map.map[playerPositionY][playerPositionX] == 1)
+					{
+						allowMove = false;
+					}
+					else
+					{
+						player[0].position.x += player[0].speed.x;
+						player[0].position.y += player[0].speed.y;
+						allowMove = true;
+					}
+
+					//player[0].position.x += player[0].speed.x;
+					//player[0].position.y += player[0].speed.y;
+					//allowMove = true;
 				}
-				else player[i].position = playerPosition[i - 1];
+				else
+				{
+					/*if (map.map[playerPositionY][playerPositionX] == 1)
+					{
+						allowMove = false;
+					}
+					else
+					{
+						player[i].position = playerPosition[i - 1];
+					}*/
+					player[i].position = playerPosition[i - 1];
+				}
 			}
 		}
 
