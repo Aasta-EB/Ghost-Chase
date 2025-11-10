@@ -3,7 +3,6 @@
 #include "Grid.h"
 #include "Enemy.h"
 
-
 #define PLAYER_LENGHT 1
 #define SQUARE_SIZE 50
 
@@ -17,9 +16,9 @@ static bool gameOver = false;
 // Acsessing classes
 static Player player[PLAYER_LENGHT] = { 0 };
 static Vector2 playerPosition[PLAYER_LENGHT] = { 0 };
-static bool allowMove = false; 
+static bool allowMove = false;
 static Vector2 offset = { 0 };
-static int counterTail = 0; 
+static int counterTail = 0;
 
 Grid map;
 
@@ -62,7 +61,7 @@ void UpdateGame()
 		{
 			if (map.map[playerPositionY][playerPositionX] == 1)
 			{
-				allowMove = false; 
+				allowMove = false;
 			}
 			else
 			{
@@ -97,7 +96,7 @@ void UpdateGame()
 			{
 				if (i == 0)
 				{
-					if (map.map[playerPositionY][playerPositionX] == 1)
+					/*if (map.map[playerPositionY][playerPositionX] == 1)
 					{
 						allowMove = false;
 					}
@@ -106,23 +105,23 @@ void UpdateGame()
 						player[0].position.x += player[0].speed.x;
 						player[0].position.y += player[0].speed.y;
 						allowMove = true;
-					}
+					}*/
 
-					//player[0].position.x += player[0].speed.x;
-					//player[0].position.y += player[0].speed.y;
-					//allowMove = true;
+					player[0].position.x += player[0].speed.x;
+					player[0].position.y += player[0].speed.y;
+					allowMove = true;
 				}
 				else
 				{
-					/*if (map.map[playerPositionY][playerPositionX] == 1)
+					if (map.map[playerPositionY][playerPositionX] == 1)
 					{
 						allowMove = false;
 					}
 					else
 					{
 						player[i].position = playerPosition[i - 1];
-					}*/
-					player[i].position = playerPosition[i - 1];
+					}
+					//player[i].position = playerPosition[i - 1];
 				}
 			}
 		}
@@ -151,7 +150,7 @@ void DrawGame()
 		}
 		map.DrawMap();
 
-		// Draw snake
+		// Draw Player
 		for (int i = 0; i < counterTail; i++) DrawRectangleV(player[i].position, player[i].size, player[i].color);
 	}
 
@@ -169,19 +168,17 @@ int main()
 	// Starting game window
 	InitWindow(windowWidth, windowHeight, "Ghost-Chase");
 
-	InitGame(); 
+	InitGame();
 
 	SetTargetFPS(60);
-	
+
 	// Draws map
 	map.DrawMap();
 
-	
 	// Game while loop
 	while (!WindowShouldClose())
 	{
 		UpdateDrawFrame();
-
 	}
 	CloseWindow();
 
