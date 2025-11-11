@@ -24,6 +24,13 @@ public:
 	int boxPositionY = 13;
 
 	bool playerHitBox = false;
+
+
+	// New player variables 
+	Vector2 position;
+	Vector2 size;
+	Vector2 speed;
+	Color color; 
 	
 	// Grid class and variables
 	Grid mapBoxes;
