@@ -1,19 +1,13 @@
 #include <raylib.h>
 #include "Player.h"
 #include "Grid.h"
-#include "Enemy.h"
+#include "Enemy.h" 
 
-int playerSize = 1; 
-
-// Screen variables
-static int windowWidth = 1400;
-static int windowHeight = 700;
-
-// Acsessing classes
+// Acsessing classes _________________________________________________________________________________________________________________________________________________________
 static Player player = { 0 };
 Grid map;
 
-
+// Initiates game ____________________________________________________________________________________________________________________________________________________________
 static void InitGame()
 {
 	player.framesCounter = 0;
@@ -22,10 +16,10 @@ static void InitGame()
 	player.counterTail = 1;
 	player.allowMove = false;
 
-	map.offset.x = windowWidth % int(map.boxSize);
-	map.offset.y = windowHeight % int(map.boxSize);
+	map.offset.x = map.windowWidth % int(map.boxSize);
+	map.offset.y = map.windowHeight % int(map.boxSize);
 
-	for (int i = 0; i < playerSize; i++)
+	for (int i = 0; i < player.playerSize; i++)
 	{
 		player.position = Vector2{ 1400 / 2, 700 / 2 };
 		player.size = Vector2{ map.boxSize, map.boxSize };
@@ -35,13 +29,13 @@ static void InitGame()
 		else player.color = BLUE;
 	}
 
-	for (int i = 0; i < playerSize; i++)
+	for (int i = 0; i < player.playerSize; i++)
 	{
 		player.playerPosition = Vector2{ 0.0f, 0.0f };
 	}
 }
 
-
+// Updates each frame ________________________________________________________________________________________________________________________________________________________
 void UpdateDrawFrame()
 {
 	player.UpdateGame();
@@ -51,7 +45,7 @@ void UpdateDrawFrame()
 int main()
 {
 	// Starting game window
-	InitWindow(windowWidth, windowHeight, "Ghost-Chase");
+	InitWindow(map.windowWidth, map.windowHeight, "Ghost-Chase");
 
 	InitGame();
 

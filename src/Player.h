@@ -29,6 +29,8 @@ public:
 	int counterTail = 0;
 	int framesCounter = 0;
 
+	int playerSize = 1;
+
 	void CollisionCheck();
 
 	void UpdateGame();

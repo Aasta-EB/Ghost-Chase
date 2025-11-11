@@ -1,6 +1,6 @@
 #include "Player.h"
 
-
+// The players collision check __________________________________________________________________________________________________________________________________
 void Player::CollisionCheck()
 {
 	int playerPositionX = position.x / 50;
@@ -62,6 +62,7 @@ void Player::CollisionCheck()
 	std::cout << playerPositionX << " , " << playerPositionY << "\n";
 }
 
+// Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
 void Player::UpdateGame()
 {
 	if (!gameOver)
@@ -186,11 +187,13 @@ void Player::UpdateGame()
 	}
 }
 
+// Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
 void Player::DrawPlayer()
 {
 	for (int i = 0; i < counterTail; i++) DrawRectangleV(position, size, color);
 }
 
+// Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
 void Player::DrawGame()
 {
 	BeginDrawing();
