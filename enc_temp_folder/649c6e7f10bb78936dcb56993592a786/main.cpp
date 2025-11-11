@@ -30,8 +30,8 @@ Grid map;
 
 void CollisionCheck()
 {
-	int playerPositionX = player[0].position.x / 50;
-	int playerPositionY = player[0].position.y / 50;
+	int playerPositionX;
+	int playerPositionY; 
 
 	if (playerDirection.x == 1)
 	{
