@@ -36,73 +36,57 @@ void CollisionCheck()
 	if (playerDirection.x == 1)
 	{
 		playerPositionX = (player[0].position.x + 50) / 50;
-		playerPositionY = (player[0].position.y + 50) / 50;
+		playerPositionY = player[0].position.y / 50;
 		
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionRight = true;
-			//player[0].position.x -= SQUARE_SIZE;
 		}
 		else
 		{
 			collisionRight = false;
 		}
 	}
-	else if (playerDirection.x == -1)
+	if (playerDirection.x == -1)
 	{
 		playerPositionX = (player[0].position.x - 50) / 50;
-		playerPositionY = (player[0].position.y - 50) / 50;
+		playerPositionY = player[0].position.y / 50;
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionLeft = true;
-			//player[0].position.x -= SQUARE_SIZE;
 		}
 		else
 		{
 			collisionLeft = false;
 		}
 	}
-	else if (playerDirection.y == -1)
+	if (playerDirection.y == -1)
 	{
-		playerPositionX = (player[0].position.x - 50) / 50;
+		playerPositionX = player[0].position.x / 50;
 		playerPositionY = (player[0].position.y - 50) / 50;
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionUp = true;
-			//player[0].position.x -= SQUARE_SIZE;
 		}
 		else
 		{
 			collisionUp = false;
 		}
 	}
-	else if (playerDirection.y == -1)
+	if (playerDirection.y == 1)
 	{
-		playerPositionX = (player[0].position.x + 50) / 50;
+		playerPositionX = player[0].position.x / 50;
 		playerPositionY = (player[0].position.y + 50) / 50;
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionDown = true;
-			//player[0].position.x -= SQUARE_SIZE;
 		}
 		else
 		{
 			collisionDown = false;
 		}
 	}
-
 	std::cout << playerPositionX << " , " << playerPositionY << "\n";
-
-
-	//if (map.map[playerPositionY][playerPositionX] == 1)
-	//{
-	//	collision = true; 
-	//	//player[0].position.x -= SQUARE_SIZE;
-	//}
-	//else
-	//{
-	//	collision = false;
-	//}
 }
 
 static void InitGame()
@@ -141,7 +125,7 @@ void UpdateGame()
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && allowMove)
 		{
 			CollisionCheck();
-			if (playerDirection.x == 0 && collisionRight == false)
+			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
 			{
 				player[0].speed = Vector2{ SQUARE_SIZE, 0 };
 				allowMove = false;
@@ -157,7 +141,7 @@ void UpdateGame()
 		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && allowMove)
 		{
 			CollisionCheck();
-			if (playerDirection.x == 0 && collisionLeft == false)
+			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
 			{
 				player[0].speed = Vector2{ -SQUARE_SIZE, 0 };
 				allowMove = false;
@@ -173,7 +157,7 @@ void UpdateGame()
 		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) && allowMove)
 		{
 			CollisionCheck();
-			if (playerDirection.y == 0 && collisionUp == false)
+			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
 			{
 				player[0].speed = Vector2{ 0, -SQUARE_SIZE };
 				allowMove = false;
@@ -189,7 +173,7 @@ void UpdateGame()
 		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S) && allowMove)
 		{
 			CollisionCheck();
-			if (playerDirection.y == 0 && collisionDown == false)
+			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
 			{
 				player[0].speed = Vector2{ 0, SQUARE_SIZE };
 				allowMove = false;
@@ -212,7 +196,14 @@ void UpdateGame()
 			{
 				if (i == 0)
 				{
+					CollisionCheck();
 					if (collisionRight == false && collisionLeft == false && collisionUp == false && collisionDown == false)
+					{
+						player[0].position.x += player[0].speed.x;
+						player[0].position.y += player[0].speed.y;
+						allowMove = true;
+					}
+					else if (playerDirection.x == 1 && collisionRight == false)
 					{
 						player[0].position.x += player[0].speed.x;
 						player[0].position.y += player[0].speed.y;
