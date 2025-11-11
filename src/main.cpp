@@ -19,8 +19,29 @@ static Vector2 playerPosition[PLAYER_LENGHT] = { 0 };
 static bool allowMove = false;
 static Vector2 offset = { 0 };
 static int counterTail = 0;
+Vector2 playerDirection = { 1,0 };
 
 Grid map;
+
+bool CollisionCheck()
+{
+	int playerPositionX = player[0].position.x / 50;
+	int playerPositionY = player[0].position.y / 50;
+	std::cout << playerPositionX << " , " << playerPositionY << "\n";
+
+	bool collision;
+
+	if (map.map[playerPositionY][playerPositionX] == 1)
+	{
+		collision = true;
+	}
+	else
+	{
+		collision = false;
+	}
+
+	return collision;
+}
 
 static void InitGame()
 {
@@ -35,7 +56,7 @@ static void InitGame()
 
 	for (int i = 0; i < PLAYER_LENGHT; i++)
 	{
-		player[i].position = Vector2{ offset.x / 2, offset.y / 2 };
+		player[i].position = Vector2{ 1400 / 2, 700 / 2 };
 		player[i].size = Vector2{ SQUARE_SIZE, SQUARE_SIZE };
 		player[i].speed = Vector2{ SQUARE_SIZE, 0 };
 
@@ -53,38 +74,67 @@ void UpdateGame()
 {
 	if (!gameOver)
 	{
-		int playerPositionX = player[0].position.x;
-		int playerPositionY = player[0].position.y;
-
 		// Player control
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && allowMove)
 		{
-			if (map.map[playerPositionY][playerPositionX] == 1)
-			{
-				allowMove = false;
-			}
-			else
+			if (playerDirection.x == 0 && CollisionCheck() == true)
 			{
 				player[0].speed = Vector2{ SQUARE_SIZE, 0 };
 				allowMove = false;
+				playerDirection = { 1,0 };
 			}
-			//player[0].speed = Vector2{ SQUARE_SIZE, 0 };
-			//allowMove = false;
+			else if (playerDirection.x == 1 && CollisionCheck() == false)
+			{
+				player[0].speed = Vector2{ SQUARE_SIZE, 0 };
+				allowMove = false;
+				playerDirection = { 1,0 };
+			}
 		}
 		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && allowMove)
 		{
-			player[0].speed = Vector2{ -SQUARE_SIZE, 0 };
-			allowMove = false;
+
+			if (playerDirection.x == 0 && CollisionCheck() == true)
+			{
+				player[0].speed = Vector2{ -SQUARE_SIZE, 0 };
+				allowMove = false;
+				playerDirection = { -1,0 };
+			}
+			else if (playerDirection.x == -1 && CollisionCheck() == false)
+			{
+				player[0].speed = Vector2{ -SQUARE_SIZE, 0 };
+				allowMove = false;
+				playerDirection = { -1,0 };
+			}
 		}
 		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) && allowMove)
 		{
-			player[0].speed = Vector2{ 0, -SQUARE_SIZE };
-			allowMove = false;
+			if (playerDirection.y == 0 && CollisionCheck() == true)
+			{
+				player[0].speed = Vector2{ 0, -SQUARE_SIZE };
+				allowMove = false;
+				playerDirection = { 0,-1 };
+			}
+			else if (playerDirection.y == -1 && CollisionCheck() == false)
+			{
+				player[0].speed = Vector2{ 0, -SQUARE_SIZE };
+				allowMove = false;
+				playerDirection = { 0,-1 };
+			}
 		}
 		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S) && allowMove)
 		{
-			player[0].speed = Vector2{ 0, SQUARE_SIZE };
-			allowMove = false;
+			if (playerDirection.y == 0 && CollisionCheck() == true)
+			{
+				player[0].speed = Vector2{ 0, SQUARE_SIZE };
+				allowMove = false;
+				playerDirection = { 0,1 };
+			}
+			else if (playerDirection.y == 1 && CollisionCheck() == false)
+			{
+				player[0].speed = Vector2{ 0, SQUARE_SIZE };
+				allowMove = false;
+				playerDirection = { 0,1 };
+			}
 		}
 
 		// Player movement
@@ -96,32 +146,16 @@ void UpdateGame()
 			{
 				if (i == 0)
 				{
-					/*if (map.map[playerPositionY][playerPositionX] == 1)
-					{
-						allowMove = false;
-					}
-					else
+					if (CollisionCheck() == false)
 					{
 						player[0].position.x += player[0].speed.x;
 						player[0].position.y += player[0].speed.y;
 						allowMove = true;
-					}*/
-
-					player[0].position.x += player[0].speed.x;
-					player[0].position.y += player[0].speed.y;
-					allowMove = true;
+					}
 				}
 				else
 				{
-					if (map.map[playerPositionY][playerPositionX] == 1)
-					{
-						allowMove = false;
-					}
-					else
-					{
-						player[i].position = playerPosition[i - 1];
-					}
-					//player[i].position = playerPosition[i - 1];
+					player[i].position = playerPosition[i - 1];
 				}
 			}
 		}
