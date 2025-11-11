@@ -14,8 +14,8 @@ static int framesCounter = 0;
 static bool gameOver = false;
 
 // Acsessing classes
-static Player player[PLAYER_LENGHT] = { 0 };
-static Vector2 playerPosition[PLAYER_LENGHT] = { 0 };
+static Player player = { 0 };
+static Vector2 playerPosition = { 0 };
 static bool allowMove = false;
 static Vector2 offset = { 0 };
 static int counterTail = 0;
@@ -30,13 +30,13 @@ Grid map;
 
 void CollisionCheck()
 {
-	int playerPositionX = player[0].position.x / 50;
-	int playerPositionY = player[0].position.y / 50;
+	int playerPositionX = player.position.x / 50;
+	int playerPositionY = player.position.y / 50;
 
 	if (playerDirection.x == 1)
 	{
-		playerPositionX = (player[0].position.x + 50) / 50;
-		playerPositionY = player[0].position.y / 50;
+		playerPositionX = (player.position.x + 50) / 50;
+		playerPositionY = player.position.y / 50;
 		
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
@@ -49,8 +49,8 @@ void CollisionCheck()
 	}
 	if (playerDirection.x == -1)
 	{
-		playerPositionX = (player[0].position.x - 50) / 50;
-		playerPositionY = player[0].position.y / 50;
+		playerPositionX = (player.position.x - 50) / 50;
+		playerPositionY = player.position.y / 50;
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionLeft = true;
@@ -62,8 +62,8 @@ void CollisionCheck()
 	}
 	if (playerDirection.y == -1)
 	{
-		playerPositionX = player[0].position.x / 50;
-		playerPositionY = (player[0].position.y - 50) / 50;
+		playerPositionX = player.position.x / 50;
+		playerPositionY = (player.position.y - 50) / 50;
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionUp = true;
@@ -75,8 +75,8 @@ void CollisionCheck()
 	}
 	if (playerDirection.y == 1)
 	{
-		playerPositionX = player[0].position.x / 50;
-		playerPositionY = (player[0].position.y + 50) / 50;
+		playerPositionX = player.position.x / 50;
+		playerPositionY = (player.position.y + 50) / 50;
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionDown = true;
@@ -102,17 +102,17 @@ static void InitGame()
 
 	for (int i = 0; i < PLAYER_LENGHT; i++)
 	{
-		player[i].position = Vector2{ 1400 / 2, 700 / 2 };
-		player[i].size = Vector2{ SQUARE_SIZE, SQUARE_SIZE };
-		player[i].speed = Vector2{ SQUARE_SIZE, 0 };
+		player.position = Vector2{ 1400 / 2, 700 / 2 };
+		player.size = Vector2{ SQUARE_SIZE, SQUARE_SIZE };
+		player.speed = Vector2{ SQUARE_SIZE, 0 };
 
-		if (i == 0) player[i].color = DARKBLUE;
-		else player[i].color = BLUE;
+		if (i == 0) player.color = DARKBLUE;
+		else player.color = BLUE;
 	}
 
 	for (int i = 0; i < PLAYER_LENGHT; i++)
 	{
-		playerPosition[i] = Vector2{ 0.0f, 0.0f };
+		playerPosition = Vector2{ 0.0f, 0.0f };
 	}
 }
 
@@ -127,13 +127,13 @@ void UpdateGame()
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
 			{
-				player[0].speed = Vector2{ SQUARE_SIZE, 0 };
+				player.speed = Vector2{ SQUARE_SIZE, 0 };
 				allowMove = false;
 				playerDirection = { 1,0 };
 			}
 			else if (playerDirection.x == 1 && collisionRight == false)
 			{
-				player[0].speed = Vector2{ SQUARE_SIZE, 0 };
+				player.speed = Vector2{ SQUARE_SIZE, 0 };
 				allowMove = false;
 				playerDirection = { 1,0 };
 			}
@@ -143,13 +143,13 @@ void UpdateGame()
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
 			{
-				player[0].speed = Vector2{ -SQUARE_SIZE, 0 };
+				player.speed = Vector2{ -SQUARE_SIZE, 0 };
 				allowMove = false;
 				playerDirection = { -1,0 };
 			}
 			else if (playerDirection.x == -1 && collisionLeft == false)
 			{
-				player[0].speed = Vector2{ -SQUARE_SIZE, 0 };
+				player.speed = Vector2{ -SQUARE_SIZE, 0 };
 				allowMove = false;
 				playerDirection = { -1,0 };
 			}
@@ -159,13 +159,13 @@ void UpdateGame()
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
 			{
-				player[0].speed = Vector2{ 0, -SQUARE_SIZE };
+				player.speed = Vector2{ 0, -SQUARE_SIZE };
 				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
 			else if (playerDirection.y == -1 && collisionUp == false)
 			{
-				player[0].speed = Vector2{ 0, -SQUARE_SIZE };
+				player.speed = Vector2{ 0, -SQUARE_SIZE };
 				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
@@ -175,20 +175,20 @@ void UpdateGame()
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
 			{
-				player[0].speed = Vector2{ 0, SQUARE_SIZE };
+				player.speed = Vector2{ 0, SQUARE_SIZE };
 				allowMove = false;
 				playerDirection = { 0,1 };
 			}
 			else if (playerDirection.y == 1 && collisionDown == false)
 			{
-				player[0].speed = Vector2{ 0, SQUARE_SIZE };
+				player.speed = Vector2{ 0, SQUARE_SIZE };
 				allowMove = false;
 				playerDirection = { 0,1 };
 			}
 		}
 
 		// Player movement
-		for (int i = 0; i < counterTail; i++) playerPosition[i] = player[i].position;
+		for (int i = 0; i < counterTail; i++) playerPosition = player.position;
 
 		if ((framesCounter % 10) == 0)
 		{
@@ -199,39 +199,39 @@ void UpdateGame()
 					CollisionCheck();
 					if (collisionRight == false && collisionLeft == false && collisionUp == false && collisionDown == false)
 					{
-						player[0].position.x += player[0].speed.x;
-						player[0].position.y += player[0].speed.y;
+						player.position.x += player.speed.x;
+						player.position.y += player.speed.y;
 						allowMove = true;
 					}
 					else if (playerDirection.x == 1 && collisionRight == false)
 					{
-						player[0].position.x += player[0].speed.x;
-						player[0].position.y += player[0].speed.y;
+						player.position.x += player.speed.x;
+						player.position.y += player.speed.y;
 						allowMove = true;
 					}
 					else if (playerDirection.x == -1 && collisionLeft == false)
 					{
-						player[0].position.x += player[0].speed.x;
-						player[0].position.y += player[0].speed.y;
+						player.position.x += player.speed.x;
+						player.position.y += player.speed.y;
 						allowMove = true;
 					}
 					else if (playerDirection.y == -1 && collisionUp == false)
 					{
-						player[0].position.x += player[0].speed.x;
-						player[0].position.y += player[0].speed.y;
+						player.position.x += player.speed.x;
+						player.position.y += player.speed.y;
 						allowMove = true;
 					}
 					else if (playerDirection.y == 1 && collisionDown == false)
 					{
-						player[0].position.x += player[0].speed.x;
-						player[0].position.y += player[0].speed.y;
+						player.position.x += player.speed.x;
+						player.position.y += player.speed.y;
 						allowMove = true;
 					}
 
 				}
 				else
 				{
-					player[i].position = playerPosition[i - 1];
+					player.position = playerPosition;
 				}
 			}
 		}
@@ -261,7 +261,7 @@ void DrawGame()
 		map.DrawMap();
 
 		// Draw Player
-		for (int i = 0; i < counterTail; i++) DrawRectangleV(player[i].position, player[i].size, player[i].color);
+		for (int i = 0; i < counterTail; i++) DrawRectangleV(player.position, player.size, player.color);
 	}
 
 	EndDrawing();
