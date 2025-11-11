@@ -3,7 +3,6 @@
 #include "Grid.h"
 #include "Enemy.h"
 
-float boxSize = 50;
 int playerSize = 1; 
 
 // Screen variables
@@ -12,9 +11,6 @@ static int windowHeight = 700;
 
 // Acsessing classes
 static Player player = { 0 };
-static Vector2 offset = { 0 };
-
-
 Grid map;
 
 
@@ -26,14 +22,14 @@ static void InitGame()
 	player.counterTail = 1;
 	player.allowMove = false;
 
-	offset.x = windowWidth % int(map.boxSize);
-	offset.y = windowHeight % int(map.boxSize);
+	map.offset.x = windowWidth % int(map.boxSize);
+	map.offset.y = windowHeight % int(map.boxSize);
 
 	for (int i = 0; i < playerSize; i++)
 	{
 		player.position = Vector2{ 1400 / 2, 700 / 2 };
-		player.size = Vector2{ boxSize, boxSize };
-		player.speed = Vector2{ boxSize, 0 };
+		player.size = Vector2{ map.boxSize, map.boxSize };
+		player.speed = Vector2{ map.boxSize, 0 };
 
 		if (i == 0) player.color = DARKBLUE;
 		else player.color = BLUE;
@@ -46,38 +42,10 @@ static void InitGame()
 }
 
 
-
-void DrawGame()
-{
-	BeginDrawing();
-
-	ClearBackground(BLACK);
-
-	if (!player.gameOver)
-	{
-		// Draw grid lines
-		for (int i = 0; i < windowWidth / boxSize + 1; i++)
-		{
-			DrawLineV(Vector2{ boxSize * i + offset.x / 2, offset.y / 2 }, Vector2{ boxSize * i + offset.x / 2, windowHeight - offset.y / 2 }, LIGHTGRAY);
-		}
-
-		for (int i = 0; i < windowHeight / boxSize + 1; i++)
-		{
-			DrawLineV(Vector2{ offset.x / 2, boxSize * i + offset.y / 2 }, Vector2{ windowWidth - offset.x / 2, boxSize * i + offset.y / 2 }, LIGHTGRAY);
-		}
-		map.DrawMap();
-
-		// Draw Player
-		for (int i = 0; i < player.counterTail; i++) DrawRectangleV(player.position, player.size, player.color);
-	}
-
-	EndDrawing();
-}
-
 void UpdateDrawFrame()
 {
 	player.UpdateGame();
-	DrawGame();
+	player.DrawGame();
 }
 
 int main()

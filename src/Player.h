@@ -32,6 +32,10 @@ public:
 	void CollisionCheck();
 
 	void UpdateGame();
+
+	void DrawPlayer();
+
+	void DrawGame();
 		
 };
 

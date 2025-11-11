@@ -185,3 +185,36 @@ void Player::UpdateGame()
 		framesCounter++;
 	}
 }
+
+void Player::DrawPlayer()
+{
+	for (int i = 0; i < counterTail; i++) DrawRectangleV(position, size, color);
+}
+
+void Player::DrawGame()
+{
+	BeginDrawing();
+
+	ClearBackground(BLACK);
+
+	if (!gameOver)
+	{
+		// Draw grid lines
+		for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
+		{
+			DrawLineV(Vector2{ map.boxSize * i + map.offset.x / 2, map.offset.y / 2 }, Vector2{ map.boxSize * i + map.offset.x / 2, map.windowHeight - map.offset.y / 2 }, LIGHTGRAY);
+		}
+
+		for (int i = 0; i < map.windowHeight / map.boxSize + 1; i++)
+		{
+			DrawLineV(Vector2{ map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, Vector2{ map.windowWidth - map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, LIGHTGRAY);
+		}
+		map.DrawMap();
+
+		// Draw Player
+		DrawPlayer();
+	}
+
+	EndDrawing();
+}
+
