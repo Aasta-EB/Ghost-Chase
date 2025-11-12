@@ -9,6 +9,8 @@ public:
 	Vector2 size = { 50,50 };
 	Color color = YELLOW;
 
+	void EnemyMovement();
+
 	void DrawEnemy();
 
 };
