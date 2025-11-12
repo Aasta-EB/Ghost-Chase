@@ -1,155 +1,223 @@
 #include "Player.h"
 
+// The players collision check __________________________________________________________________________________________________________________________________
+void Player::CollisionCheck()
+{
+	int playerPositionX = position.x / 50;
+	int playerPositionY = position.y / 50;
 
-//// Finds the players position compared to the boxes position, 
-//void Player::FindPlayerTilePosition(Vector2d inPlayerPosition)
-//{
-//	// Calculates (almost, the players position, it has to be changed as it is dependent on the driection of player movement
-//	int positionX = inPlayerPosition.x - 25;
-//	int positionY = inPlayerPosition.y - 25; 
-//
-//	// Checks the player direction and calculates the box the player is in
-//	if (playerDirection.x == 1 && playerDirection.y == 0)
-//	{
-//		boxPositionX = std::round((positionX) / 50);
-//		boxPositionY = std::round((positionY) / 50) + 1;
-//	}
-//	if (playerDirection.x == -1 && playerDirection.y == 0)
-//	{
-//		boxPositionX = std::round((positionX) / 50);
-//		boxPositionY = std::round((positionY) / 50);
-//	}
-//	if (playerDirection.x == 0 && playerDirection.y == -1)
-//	{
-//		boxPositionX = std::round((positionX) / 50);
-//		boxPositionY = std::round((positionY) / 50);
-//	}
-//	if (playerDirection.x == 0 && playerDirection.y == 1)
-//	{
-//		boxPositionX = std::round((positionX) / 50) + 1;
-//		boxPositionY = std::round((positionY) / 50);
-//	}
-//
-//	/*playerTileXPosition = boxPositionY;
-//	std::cout << "(" << playerTileXPosition << ", ";
-//	playerTileYPosition = boxPositionX;
-//	std::cout << playerTileYPosition << ")" << "\n"; */
-//
-//	// Checks the actual player box position and the boxes position to see if the player hits any
-//	if (mapBoxes.map[boxPositionX][boxPositionY] == 1)
-//	{
-//		//std::cout << "You've hit a wall, stop" << "\n";
-//		playerHitBox = true; 
-//	}
-//	else if (mapBoxes.map[boxPositionX][boxPositionY] == 0)
-//	{
-//		playerHitBox = false; 
-//	}
-//}
-//
-//// Original hitbox ckeck for collision, does not work and is therefore not used, at least as of now
-//void Player::PlayerCheckCollisionWithBox(Vector2d inPlayerPosition)
-//{
-//	for (int i = 0; i < 14; i++ && playerHitBox == false)
-//	{
-//		//std::cout << "\n";
-//		for (int j = 0; j < 28; j++ && playerHitBox == false)
-//		{
-//			/*	std::cout << map[i][j];*/
-//			if (mapBoxes.map[i][j] == 1)
-//			{
-//				//std::cout << map[i][j];
-//				/*std::cout << "1, ";*/
-//				int positionY = i * 50;
-//				int positionX = j * 50;
-//
-//				Rectangle boxPos = { positionY, positionX, mapBoxes.boxSize, mapBoxes.boxSize };
-//				Vector2 playerPos = { (float)inPlayerPosition.x, (float)inPlayerPosition.y };
-//
-//				if (CheckCollisionCircleRec(playerPos, 22.f, boxPos))
-//				{
-//					std::cout << "Oh no, collision with wall!" << "\n";
-//					//playerHitBox = true;
-//				}
-//				else
-//				{
-//					//playerHitBox = false;
-//				}
-//			}
-//		}
-//	}
-//}
-//
-//// Player movement function
-//// This movement needs to be updated as we want continuos movement
-//void Player::PlayerController()
-//{
-//	if (IsKeyDown(KEY_W))
-//	{
-//		FindPlayerTilePosition({ playerYPosition, playerXPosition });
-//
-//		if (playerDirection.y != -1 && playerHitBox == true)
-//		{
-//			playerDirection = { 0, -1 };
-//			playerYPosition -= playerSpeed * GetFrameTime();
-//		}
-//		else if (playerHitBox == false)
-//		{
-//			playerDirection = { 0, -1 };
-//			playerYPosition -= playerSpeed * GetFrameTime();
-//		}
-//	}
-//	else if (IsKeyDown(KEY_S))
-//	{
-//		FindPlayerTilePosition({ playerYPosition, playerXPosition });
-//
-//		if (playerDirection.y != 1 && playerHitBox == true)
-//		{
-//			playerDirection = { 0, 1 };
-//			playerYPosition += playerSpeed * GetFrameTime();
-//		}
-//		else if (playerHitBox == false)
-//		{
-//			playerDirection = { 0, 1 };
-//			playerYPosition += playerSpeed * GetFrameTime();
-//		}
-//	}
-//	else if (IsKeyDown(KEY_A))
-//	{
-//
-//		FindPlayerTilePosition({ playerYPosition, playerXPosition });
-//
-//		if (playerDirection.x != -1 && playerHitBox == true)
-//		{
-//			playerDirection = { -1, 0 };
-//			playerXPosition -= playerSpeed * GetFrameTime();
-//		}
-//		else if (playerHitBox == false)
-//		{
-//			playerDirection = { -1, 0 };
-//			playerXPosition -= playerSpeed * GetFrameTime();
-//		}
-//	}
-//	else if (IsKeyDown(KEY_D))
-//	{
-//		FindPlayerTilePosition({ playerYPosition, playerXPosition });
-//
-//		if (playerDirection.x != 1 && playerHitBox == true)
-//		{
-//			playerDirection = { 1, 0 };
-//			playerXPosition += playerSpeed * GetFrameTime();
-//		}
-//		else if (playerHitBox == false)
-//		{
-//			playerDirection = { 1, 0 };
-//			playerXPosition += playerSpeed * GetFrameTime();
-//		}
-//	}
-//}
-//
-//// Draw player function, could probably be updated to better the code
-//void Player::DrawPlayer()
-//{
-//	// DrawRectangle(playerXPosition - 25, playerYPosition - 25, 50, 50, BLUE);
-//	DrawCircle(playerXPosition, playerYPosition, playerSize, playerColor);
-//}
+	if (playerDirection.x == 1)
+	{
+		playerPositionX = (position.x + 50) / 50;
+		playerPositionY = position.y / 50;
+
+		if (map.map[playerPositionY][playerPositionX] == 1)
+		{
+			collisionRight = true;
+		}
+		else
+		{
+			collisionRight = false;
+		}
+	}
+	if (playerDirection.x == -1)
+	{
+		playerPositionX = (position.x - 50) / 50;
+		playerPositionY = position.y / 50;
+		if (map.map[playerPositionY][playerPositionX] == 1)
+		{
+			collisionLeft = true;
+		}
+		else
+		{
+			collisionLeft = false;
+		}
+	}
+	if (playerDirection.y == -1)
+	{
+		playerPositionX = position.x / 50;
+		playerPositionY = (position.y - 50) / 50;
+		if (map.map[playerPositionY][playerPositionX] == 1)
+		{
+			collisionUp = true;
+		}
+		else
+		{
+			collisionUp = false;
+		}
+	}
+	if (playerDirection.y == 1)
+	{
+		playerPositionX = position.x / 50;
+		playerPositionY = (position.y + 50) / 50;
+		if (map.map[playerPositionY][playerPositionX] == 1)
+		{
+			collisionDown = true;
+		}
+		else
+		{
+			collisionDown = false;
+		}
+	}
+	std::cout << playerPositionX << " , " << playerPositionY << "\n";
+}
+
+// Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
+void Player::UpdateGame()
+{
+	if (!gameOver)
+	{
+		// Player control
+
+		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && allowMove)
+		{
+			CollisionCheck();
+			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
+			{
+				speed = Vector2{ map.boxSize, 0 };
+				allowMove = false;
+				playerDirection = { 1,0 };
+			}
+			else if (playerDirection.x == 1 && collisionRight == false)
+			{
+				speed = Vector2{ map.boxSize, 0 };
+				allowMove = false;
+				playerDirection = { 1,0 };
+			}
+		}
+		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && allowMove)
+		{
+			CollisionCheck();
+			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
+			{
+				speed = Vector2{ -map.boxSize, 0 };
+				allowMove = false;
+				playerDirection = { -1,0 };
+			}
+			else if (playerDirection.x == -1 && collisionLeft == false)
+			{
+				speed = Vector2{ -map.boxSize, 0 };
+				allowMove = false;
+				playerDirection = { -1,0 };
+			}
+		}
+		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) && allowMove)
+		{
+			CollisionCheck();
+			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
+			{
+				speed = Vector2{ 0, -map.boxSize };
+				allowMove = false;
+				playerDirection = { 0,-1 };
+			}
+			else if (playerDirection.y == -1 && collisionUp == false)
+			{
+				speed = Vector2{ 0, -map.boxSize };
+				allowMove = false;
+				playerDirection = { 0,-1 };
+			}
+		}
+		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S) && allowMove)
+		{
+			CollisionCheck();
+			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
+			{
+				speed = Vector2{ 0, map.boxSize };
+				allowMove = false;
+				playerDirection = { 0,1 };
+			}
+			else if (playerDirection.y == 1 && collisionDown == false)
+			{
+				speed = Vector2{ 0, map.boxSize };
+				allowMove = false;
+				playerDirection = { 0,1 };
+			}
+		}
+
+		// Player movement
+		for (int i = 0; i < counterTail; i++) playerPosition = position;
+
+		if ((framesCounter % 10) == 0)
+		{
+			for (int i = 0; i < counterTail; i++)
+			{
+				if (i == 0)
+				{
+					CollisionCheck();
+					if (collisionRight == false && collisionLeft == false && collisionUp == false && collisionDown == false)
+					{
+						position.x += speed.x;
+						position.y += speed.y;
+						allowMove = true;
+					}
+					else if (playerDirection.x == 1 && collisionRight == false)
+					{
+						position.x += speed.x;
+						position.y += speed.y;
+						allowMove = true;
+					}
+					else if (playerDirection.x == -1 && collisionLeft == false)
+					{
+						position.x += speed.x;
+						position.y += speed.y;
+						allowMove = true;
+					}
+					else if (playerDirection.y == -1 && collisionUp == false)
+					{
+						position.x += speed.x;
+						position.y += speed.y;
+						allowMove = true;
+					}
+					else if (playerDirection.y == 1 && collisionDown == false)
+					{
+						position.x += speed.x;
+						position.y += speed.y;
+						allowMove = true;
+					}
+
+				}
+				else
+				{
+					position = playerPosition;
+				}
+			}
+		}
+
+		framesCounter++;
+	}
+}
+
+// Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
+void Player::DrawPlayer()
+{
+	for (int i = 0; i < counterTail; i++) DrawRectangleV(position, size, color);
+}
+
+// Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
+void Player::DrawGame()
+{
+	BeginDrawing();
+
+	ClearBackground(BLACK);
+
+	if (!gameOver)
+	{
+		// Draw grid lines
+		for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
+		{
+			DrawLineV(Vector2{ map.boxSize * i + map.offset.x / 2, map.offset.y / 2 }, Vector2{ map.boxSize * i + map.offset.x / 2, map.windowHeight - map.offset.y / 2 }, LIGHTGRAY);
+		}
+
+		for (int i = 0; i < map.windowHeight / map.boxSize + 1; i++)
+		{
+			DrawLineV(Vector2{ map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, Vector2{ map.windowWidth - map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, LIGHTGRAY);
+		}
+		map.DrawMap();
+
+		// Draw Player
+		DrawPlayer();
+	}
+
+	EndDrawing();
+}
+

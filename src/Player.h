@@ -8,44 +8,36 @@ class Player
 public:
 
 	// Player variables
-	Vector2d playerPosition = { playerYPosition, playerXPosition };
-	float playerXPosition;
-	float playerYPosition;
-
-	float playerSpeed = 100;
-	float playerSize = 20;
-	Color playerColor = PINK;
-
-	int playerTileXPosition;
-	int playerTileYPosition;
-
-	Vector2d playerDirection = { 0, 0 };
-	int boxPositionX = 6;
-	int boxPositionY = 13;
-
-	bool playerHitBox = false;
-
-
-	// New player variables 
 	Vector2 position;
 	Vector2 size;
 	Vector2 speed;
 	Color color; 
+	Vector2 playerDirection = { 1,0 };
+	Vector2 playerPosition = { 0 };
 	
 	// Grid class and variables
-	Grid mapBoxes;
+	Grid map;
 
+	bool collisionLeft = false;
+	bool collisionRight = false;
+	bool collisionUp = false;
+	bool collisionDown = false;
 
-	void FindPlayerTilePosition(Vector2d inPlayerPosition);
+	bool gameOver = false;
+	bool allowMove = false;
 
-	// This code is unimportant and unused as of now
-	void PlayerCheckCollisionWithBox(Vector2d inPlayerPosition);
+	int counterTail = 0;
+	int framesCounter = 0;
 
-	// Player movement function
-	void PlayerController();
+	int playerSize = 1;
 
-	// Drawing player function
+	void CollisionCheck();
+
+	void UpdateGame();
+
 	void DrawPlayer();
 
+	void DrawGame();
+		
 };
 

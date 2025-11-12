@@ -9,7 +9,7 @@ void Grid::DrawMap()
 		for (int j = 0; j < 28; j++)
 		{
 			//std::cout << map[i][j];
-			if (map[i][j] == 0 )
+			if (map[i][j] == 0)
 			{
 				//std::cout << map[i][j];
 				//std::cout << "0, ";
@@ -27,4 +27,4 @@ void Grid::DrawMap()
 			}
 		}
 	}
-}
+};
