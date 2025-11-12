@@ -214,6 +214,8 @@ void Player::DrawGame()
 		}
 		map.DrawMap();
 
+		enemy.DrawEnemy();
+
 		// Draw Player
 		DrawPlayer();
 	}

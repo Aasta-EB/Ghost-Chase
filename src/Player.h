@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include "Vector2d.h"
 #include "Grid.h"
+#include "Enemy.h"
 
 class Player
 {
@@ -17,6 +18,8 @@ public:
 	
 	// Grid class and variables
 	Grid map;
+
+	Enemy enemy;
 
 	bool collisionLeft = false;
 	bool collisionRight = false;
