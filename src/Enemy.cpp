@@ -2,6 +2,7 @@
 
 void Enemy::CollisionCheck()
 {
+	position = enemyPosition; 
 	int enemyPositionX = position.x / 50;
 	int enemyPositionY = position.y / 50;
 
