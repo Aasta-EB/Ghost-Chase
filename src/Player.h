@@ -12,7 +12,7 @@ public:
 	Vector2 position;
 	Vector2 size;
 	Vector2 speed;
-	Color color; 
+	Color color = DARKBLUE; 
 	Vector2 playerDirection = { 1,0 };
 	Vector2 playerPosition = { 0 };
 	
