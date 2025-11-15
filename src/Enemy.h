@@ -1,6 +1,7 @@
 #pragma once
 #include "raylib.h"
 #include "Grid.h"
+#include <random>
 
 class Enemy
 {

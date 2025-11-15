@@ -2,7 +2,7 @@
 
 void Enemy::CollisionCheck()
 {
-	position = enemyPosition; 
+	position = enemyPosition;
 	int enemyPositionX = position.x / 50;
 	int enemyPositionY = position.y / 50;
 
@@ -14,6 +14,22 @@ void Enemy::CollisionCheck()
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionRight = true;
+			srand(time(0));
+			int changeDirectionNumber = std::rand() % 3;
+			std::cout << changeDirectionNumber;
+
+			if (changeDirectionNumber == 0)
+			{
+				enemyDirection = { -1,0 };
+			}
+			else if (changeDirectionNumber == 1)
+			{
+				enemyDirection = { 0,1 };
+			}
+			else if (changeDirectionNumber == 2)
+			{
+				enemyDirection = { 0,-1 };
+			}
 		}
 		else
 		{
@@ -27,6 +43,22 @@ void Enemy::CollisionCheck()
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionLeft = true;
+			srand(time(0));
+			int changeDirectionNumber = std::rand() % 3;
+			std::cout << changeDirectionNumber;
+
+			if (changeDirectionNumber == 0)
+			{
+				enemyDirection = { 1,0 };
+			}
+			else if (changeDirectionNumber == 1)
+			{
+				enemyDirection = { 0,1 };
+			}
+			else if (changeDirectionNumber == 2)
+			{
+				enemyDirection = { 0,-1 };
+			}
 		}
 		else
 		{
@@ -40,6 +72,22 @@ void Enemy::CollisionCheck()
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionUp = true;
+			srand(time(0));
+			int changeDirectionNumber = std::rand() % 3;
+			std::cout << changeDirectionNumber;
+
+			if (changeDirectionNumber == 0)
+			{
+				enemyDirection = { 0,1 };
+			}
+			else if (changeDirectionNumber == 1)
+			{
+				enemyDirection = { 1,0 };
+			}
+			else if (changeDirectionNumber == 2)
+			{
+				enemyDirection = { -1,0 };
+			}
 		}
 		else
 		{
@@ -53,6 +101,22 @@ void Enemy::CollisionCheck()
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionDown = true;
+			srand(time(0));
+			int changeDirectionNumber = std::rand() % 3;
+			std::cout << changeDirectionNumber;
+
+			if (changeDirectionNumber == 0)
+			{
+				enemyDirection = { 0,-1 };
+			}
+			else if (changeDirectionNumber == 1)
+			{
+				enemyDirection = { 1,0 };
+			}
+			else if (changeDirectionNumber == 2)
+			{
+				enemyDirection = { -1,0 };
+			}
 		}
 		else
 		{
@@ -60,7 +124,6 @@ void Enemy::CollisionCheck()
 		}
 	}
 }
-
 
 void Enemy::EnemyMovement()
 {
@@ -80,27 +143,28 @@ void Enemy::EnemyMovement()
 				}
 				else if (enemyDirection.x == 1 && collisionRight == false)
 				{
+					speed = Vector2{ map.boxSize, 0 };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
 				else if (enemyDirection.x == -1 && collisionLeft == false)
 				{
+					speed = Vector2{ -map.boxSize, 0 };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
 				else if (enemyDirection.y == -1 && collisionUp == false)
 				{
+					speed = Vector2{ 0, -map.boxSize };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
 				else if (enemyDirection.y == 1 && collisionDown == false)
 				{
+					speed = Vector2{ 0, map.boxSize };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
-				position.x += speed.x;
-				position.y += speed.y;
-
 			}
 			else
 			{
