@@ -2,6 +2,7 @@
 #include <raylib.h>
 #include "Vector2d.h"
 #include "Grid.h"
+#include "Enemy.h"
 
 class Player
 {
@@ -11,12 +12,14 @@ public:
 	Vector2 position;
 	Vector2 size;
 	Vector2 speed;
-	Color color; 
+	Color color = DARKBLUE; 
 	Vector2 playerDirection = { 1,0 };
 	Vector2 playerPosition = { 0 };
 	
 	// Grid class and variables
 	Grid map;
+
+	Enemy enemy;
 
 	bool collisionLeft = false;
 	bool collisionRight = false;

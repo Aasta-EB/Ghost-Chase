@@ -24,9 +24,6 @@ static void InitGame()
 		player.position = Vector2{ 1400 / 2, 700 / 2 };
 		player.size = Vector2{ map.boxSize, map.boxSize };
 		player.speed = Vector2{ map.boxSize, 0 };
-
-		if (i == 0) player.color = DARKBLUE;
-		else player.color = BLUE;
 	}
 
 	for (int i = 0; i < player.playerSize; i++)
