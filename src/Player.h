@@ -26,7 +26,7 @@ public:
 	bool collisionUp = false;
 	bool collisionDown = false;
 
-	bool gameOver = false;
+	bool gameOver = true;
 	bool allowMove = false;
 
 	int counterTail = 0;

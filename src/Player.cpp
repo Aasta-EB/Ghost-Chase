@@ -185,6 +185,13 @@ void Player::UpdateGame()
 
 		framesCounter++;
 	}
+	else
+	{
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			gameOver = false;
+		}
+	}
 }
 
 // Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
@@ -218,7 +225,13 @@ void Player::DrawGame()
 
 		// Draw Player
 		DrawPlayer();
+
+		if (IsKeyPressed(KEY_P))
+		{
+			gameOver = true;
+		}
 	}
+	else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
 
 	EndDrawing();
 }
