@@ -11,7 +11,7 @@ public:
 	// Grid variables
 	float boxSize = 50;
 	Vector2d rectangleSize = { 50, 50 };
-	Color boxColor = ORANGE;
+	Color boxColor = DARKBLUE;
 
 	int windowWidth = 1400;
 	int windowHeight = 700;
