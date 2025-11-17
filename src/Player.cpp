@@ -199,6 +199,15 @@ void Player::DrawPlayer()
 	Vector2 extraPosition = { position.x, position.y };
 	Vector2 extraSize = { size.x, size.y };
 	for (int i = 0; i < counterTail; i++) DrawRectangleV(extraPosition, extraSize, color);
+
+
+	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
+	//std::cout << centrePlayerPosition.x << " " << centrePlayerPosition.y << "\n";
+
+	float distanceToEnemy = centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
+	std::cout << distanceToEnemy << "\n";
+	DrawLine(centrePlayerPosition.x, centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
+
 }
 
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________

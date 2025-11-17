@@ -9,7 +9,10 @@ public:
 	float y;
 
 	// Calculates lenght of vector (magnitude)
-	float CalculateLenghtOfVector();
+	float CalculateDeltaVector();
 
-	float CalculatePlayerPosition(Vector2d inPlayerPosition);
+	Vector2d CalculateDistanceFromTarget(Vector2d inTargetedVector);
+
+	float CalculateDeltatoTarget(Vector2d inVectorTarget);
+
 };
