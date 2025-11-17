@@ -3,19 +3,22 @@
 #include "Vector2d.h"
 #include "Grid.h"
 #include "Enemy.h"
+#include "Vector2d.h"
 
 class Player
 {
 public:
 
 	// Player variables
-	Vector2 position;
-	Vector2 size;
-	Vector2 speed;
-	Color color = PINK; 
-	Vector2 playerDirection = { 1,0 };
-	Vector2 playerPosition = { 0 };
-	
+	Vector2d position;
+	Vector2d size;
+	Vector2d speed;
+	Color color = PINK;
+	Vector2d playerDirection = { 1,0 };
+	Vector2d playerPosition = { 0 };
+
+	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
+
 	// Grid class and variables
 	Grid map;
 
@@ -27,6 +30,7 @@ public:
 	bool collisionDown = false;
 
 	bool gameOver = true;
+	bool gamePaused = false;
 	bool allowMove = false;
 
 	int counterTail = 0;
@@ -38,9 +42,9 @@ public:
 
 	void UpdateGame();
 
+	void InitGame();
+
 	void DrawPlayer();
 
 	void DrawGame();
-		
 };
-

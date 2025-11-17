@@ -59,7 +59,7 @@ void Player::CollisionCheck()
 			collisionDown = false;
 		}
 	}
-	std::cout << playerPositionX << " , " << playerPositionY << "\n";
+	//std::cout << playerPositionX << " , " << playerPositionY << "\n";
 }
 
 // Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
@@ -74,13 +74,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
 			{
-				speed = Vector2{ map.boxSize, 0 };
+				speed = Vector2d{ map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { 1,0 };
 			}
 			else if (playerDirection.x == 1 && collisionRight == false)
 			{
-				speed = Vector2{ map.boxSize, 0 };
+				speed = Vector2d{ map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { 1,0 };
 			}
@@ -90,13 +90,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
 			{
-				speed = Vector2{ -map.boxSize, 0 };
+				speed = Vector2d{ -map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { -1,0 };
 			}
 			else if (playerDirection.x == -1 && collisionLeft == false)
 			{
-				speed = Vector2{ -map.boxSize, 0 };
+				speed = Vector2d{ -map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { -1,0 };
 			}
@@ -106,13 +106,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
 			{
-				speed = Vector2{ 0, -map.boxSize };
+				speed = Vector2d{ 0, -map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
 			else if (playerDirection.y == -1 && collisionUp == false)
 			{
-				speed = Vector2{ 0, -map.boxSize };
+				speed = Vector2d{ 0, -map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
@@ -122,13 +122,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
 			{
-				speed = Vector2{ 0, map.boxSize };
+				speed = Vector2d{ 0, map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,1 };
 			}
 			else if (playerDirection.y == 1 && collisionDown == false)
 			{
-				speed = Vector2{ 0, map.boxSize };
+				speed = Vector2d{ 0, map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,1 };
 			}
@@ -174,7 +174,6 @@ void Player::UpdateGame()
 						position.y += speed.y;
 						allowMove = true;
 					}
-
 				}
 				else
 				{
@@ -194,10 +193,51 @@ void Player::UpdateGame()
 	}
 }
 
+// Initiates game ____________________________________________________________________________________________________________________________________________________________
+void Player::InitGame()
+{
+	framesCounter = 0;
+	gameOver = true;
+
+	counterTail = 1;
+	allowMove = false;
+
+	map.offset.x = map.windowWidth % int(map.boxSize);
+	map.offset.y = map.windowHeight % int(map.boxSize);
+
+	for (int i = 0; i < playerSize; i++)
+	{
+		position = Vector2d{ 1400 / 2, 700 / 2 };
+		size = Vector2d{ map.boxSize, map.boxSize };
+		speed = Vector2d{ map.boxSize, 0 };
+	}
+
+	for (int i = 0; i < playerSize; i++)
+	{
+		playerPosition = Vector2d{ 0.0f, 0.0f };
+	}
+}
+
 // Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
 void Player::DrawPlayer()
 {
-	for (int i = 0; i < counterTail; i++) DrawRectangleV(position, size, color);
+	Vector2 extraPosition = { position.x, position.y };
+	Vector2 extraSize = { size.x, size.y };
+	for (int i = 0; i < counterTail; i++) DrawRectangleV(extraPosition, extraSize, color);
+
+
+	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
+	//std::cout << centrePlayerPosition.x << " " << centrePlayerPosition.y << "\n";
+
+	float distanceToEnemy = centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
+	//std::cout << distanceToEnemy << "\n";
+	DrawLine(centrePlayerPosition.x, centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
+
+	if (distanceToEnemy <= 25)
+	{
+		gameOver = true;
+	}
+
 }
 
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
@@ -207,7 +247,7 @@ void Player::DrawGame()
 
 	ClearBackground(BLACK);
 
-	if (!gameOver)
+	if (!gameOver && !gamePaused)
 	{
 		// Draw grid lines
 		/*for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
@@ -226,15 +266,25 @@ void Player::DrawGame()
 		// Draw Player
 		DrawPlayer();
 
-		DrawText("PRESS [P] TO PAUSE GAME", 50 , 20, 20, GRAY);
+		DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 
 		if (IsKeyPressed(KEY_P))
 		{
-			gameOver = true;
+			gamePaused = true;
 		}
+
+		
 	}
-	else DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+	else if (gameOver)
+	{
+		InitGame();
+		DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+		DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	}
+	else if (gamePaused)
+	{ 
+		DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY); 
+	}
 
 	EndDrawing();
 }
-

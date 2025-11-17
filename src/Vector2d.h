@@ -3,17 +3,16 @@
 
 class Vector2d
 {
-public: 
+public:
 	// Vector class variables
 	float x;
-	float y; 
+	float y;
 
 	// Calculates lenght of vector (magnitude)
-	float CalculateLenghtOfVector();
+	float CalculateDeltaVector();
 
-	float CalculatePlayerPosition(Vector2d inPlayerPosition);
+	Vector2d CalculateDistanceFromTarget(Vector2d inTargetedVector);
 
-
+	float CalculateDeltatoTarget(Vector2d inVectorTarget);
 
 };
-
