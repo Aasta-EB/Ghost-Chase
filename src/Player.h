@@ -12,7 +12,7 @@ public:
 	Vector2 position;
 	Vector2 size;
 	Vector2 speed;
-	Color color = DARKBLUE; 
+	Color color = PINK; 
 	Vector2 playerDirection = { 1,0 };
 	Vector2 playerPosition = { 0 };
 	
@@ -26,7 +26,7 @@ public:
 	bool collisionUp = false;
 	bool collisionDown = false;
 
-	bool gameOver = false;
+	bool gameOver = true;
 	bool allowMove = false;
 
 	int counterTail = 0;

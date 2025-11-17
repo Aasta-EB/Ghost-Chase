@@ -185,6 +185,13 @@ void Player::UpdateGame()
 
 		framesCounter++;
 	}
+	else
+	{
+		if (IsKeyPressed(KEY_ENTER))
+		{
+			gameOver = false;
+		}
+	}
 }
 
 // Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
@@ -203,22 +210,30 @@ void Player::DrawGame()
 	if (!gameOver)
 	{
 		// Draw grid lines
-		for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
+		/*for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
 		{
 			DrawLineV(Vector2{ map.boxSize * i + map.offset.x / 2, map.offset.y / 2 }, Vector2{ map.boxSize * i + map.offset.x / 2, map.windowHeight - map.offset.y / 2 }, LIGHTGRAY);
-		}
+		}*/
 
-		for (int i = 0; i < map.windowHeight / map.boxSize + 1; i++)
+		/*for (int i = 0; i < map.windowHeight / map.boxSize + 1; i++)
 		{
 			DrawLineV(Vector2{ map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, Vector2{ map.windowWidth - map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, LIGHTGRAY);
-		}
+		}*/
 		map.DrawMap();
 
 		enemy.DrawEnemy();
 
 		// Draw Player
 		DrawPlayer();
+
+		DrawText("PRESS [P] TO PAUSE GAME", 50 , 20, 20, GRAY);
+
+		if (IsKeyPressed(KEY_P))
+		{
+			gameOver = true;
+		}
 	}
+	else DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
 
 	EndDrawing();
 }

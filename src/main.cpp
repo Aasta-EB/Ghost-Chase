@@ -1,4 +1,5 @@
 #include <raylib.h>
+
 #include "Player.h"
 #include "Grid.h"
 #include "Enemy.h" 
@@ -11,7 +12,7 @@ Grid map;
 static void InitGame()
 {
 	player.framesCounter = 0;
-	player.gameOver = false;
+	player.gameOver = true;
 
 	player.counterTail = 1;
 	player.allowMove = false;
