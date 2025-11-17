@@ -69,67 +69,59 @@ void Player::UpdateGame()
 	{
 		// Player control
 
-		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D) && allowMove)
+		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
 		{
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
 			{
 				speed = Vector2d{ map.boxSize, 0 };
-				allowMove = false;
 				playerDirection = { 1,0 };
 			}
 			else if (playerDirection.x == 1 && collisionRight == false)
 			{
 				speed = Vector2d{ map.boxSize, 0 };
-				allowMove = false;
 				playerDirection = { 1,0 };
 			}
 		}
-		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A) && allowMove)
+		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A))
 		{
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
 			{
 				speed = Vector2d{ -map.boxSize, 0 };
-				allowMove = false;
 				playerDirection = { -1,0 };
 			}
 			else if (playerDirection.x == -1 && collisionLeft == false)
 			{
 				speed = Vector2d{ -map.boxSize, 0 };
-				allowMove = false;
 				playerDirection = { -1,0 };
 			}
 		}
-		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) && allowMove)
+		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
 		{
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
 			{
 				speed = Vector2d{ 0, -map.boxSize };
-				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
 			else if (playerDirection.y == -1 && collisionUp == false)
 			{
 				speed = Vector2d{ 0, -map.boxSize };
-				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
 		}
-		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S) && allowMove)
+		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
 		{
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
 			{
 				speed = Vector2d{ 0, map.boxSize };
-				allowMove = false;
 				playerDirection = { 0,1 };
 			}
 			else if (playerDirection.y == 1 && collisionDown == false)
 			{
 				speed = Vector2d{ 0, map.boxSize };
-				allowMove = false;
 				playerDirection = { 0,1 };
 			}
 		}
@@ -148,31 +140,26 @@ void Player::UpdateGame()
 					{
 						position.x += speed.x;
 						position.y += speed.y;
-						allowMove = true;
 					}
 					else if (playerDirection.x == 1 && collisionRight == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
-						allowMove = true;
 					}
 					else if (playerDirection.x == -1 && collisionLeft == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
-						allowMove = true;
 					}
 					else if (playerDirection.y == -1 && collisionUp == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
-						allowMove = true;
 					}
 					else if (playerDirection.y == 1 && collisionDown == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
-						allowMove = true;
 					}
 				}
 				else

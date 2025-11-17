@@ -39,7 +39,7 @@ public:
 
 	void CollisionCheck();
 
-	void UpdateGame();
+	void UpdatePlayer();
 
 	void DrawPlayer();
 };
