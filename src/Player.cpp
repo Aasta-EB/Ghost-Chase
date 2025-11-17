@@ -233,7 +233,7 @@ void Player::DrawGame()
 			gameOver = true;
 		}
 	}
-	else DrawText("PRESS [ENTER] TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+	else DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
 
 	EndDrawing();
 }
