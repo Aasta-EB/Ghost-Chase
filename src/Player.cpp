@@ -193,6 +193,31 @@ void Player::UpdateGame()
 	}
 }
 
+// Initiates game ____________________________________________________________________________________________________________________________________________________________
+void Player::InitGame()
+{
+	framesCounter = 0;
+	gameOver = true;
+
+	counterTail = 1;
+	allowMove = false;
+
+	map.offset.x = map.windowWidth % int(map.boxSize);
+	map.offset.y = map.windowHeight % int(map.boxSize);
+
+	for (int i = 0; i < playerSize; i++)
+	{
+		position = Vector2d{ 1400 / 2, 700 / 2 };
+		size = Vector2d{ map.boxSize, map.boxSize };
+		speed = Vector2d{ map.boxSize, 0 };
+	}
+
+	for (int i = 0; i < playerSize; i++)
+	{
+		playerPosition = Vector2d{ 0.0f, 0.0f };
+	}
+}
+
 // Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
 void Player::DrawPlayer()
 {
@@ -208,6 +233,11 @@ void Player::DrawPlayer()
 	std::cout << distanceToEnemy << "\n";
 	DrawLine(centrePlayerPosition.x, centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
+	if (distanceToEnemy <= 25)
+	{
+		gameOver = true;
+	}
+
 }
 
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
@@ -217,7 +247,7 @@ void Player::DrawGame()
 
 	ClearBackground(BLACK);
 
-	if (!gameOver)
+	if (!gameOver && !gamePaused)
 	{
 		// Draw grid lines
 		/*for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
@@ -240,10 +270,21 @@ void Player::DrawGame()
 
 		if (IsKeyPressed(KEY_P))
 		{
-			gameOver = true;
+			gamePaused = true;
 		}
+
+		
 	}
-	else DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+	else if (gameOver)
+	{
+		InitGame();
+		DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
+		DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	}
+	else if (gamePaused)
+	{ 
+		DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY); 
+	}
 
 	EndDrawing();
 }

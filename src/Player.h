@@ -30,6 +30,7 @@ public:
 	bool collisionDown = false;
 
 	bool gameOver = true;
+	bool gamePaused = false;
 	bool allowMove = false;
 
 	int counterTail = 0;
@@ -40,6 +41,8 @@ public:
 	void CollisionCheck();
 
 	void UpdateGame();
+
+	void InitGame();
 
 	void DrawPlayer();
 
