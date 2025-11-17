@@ -3,17 +3,13 @@
 
 class Vector2d
 {
-public: 
+public:
 	// Vector class variables
 	float x;
-	float y; 
+	float y;
 
 	// Calculates lenght of vector (magnitude)
 	float CalculateLenghtOfVector();
 
 	float CalculatePlayerPosition(Vector2d inPlayerPosition);
-
-
-
 };
-

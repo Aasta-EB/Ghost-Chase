@@ -22,7 +22,7 @@ public:
 	int gridRows = 14;
 	int gridColumns = 28;
 
-	// Just a test map 
+	// Just a test map
 	/*int map[14][28] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 },
@@ -77,5 +77,4 @@ public:
 
 	// The function to draw the map (probably needs some updating to make several levels)
 	void DrawMap();
-
 };

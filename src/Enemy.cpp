@@ -143,25 +143,25 @@ void Enemy::EnemyMovement()
 				}
 				else if (enemyDirection.x == 1 && collisionRight == false)
 				{
-					speed = Vector2{ map.boxSize, 0 };
+					speed = Vector2d{ map.boxSize, 0 };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
 				else if (enemyDirection.x == -1 && collisionLeft == false)
 				{
-					speed = Vector2{ -map.boxSize, 0 };
+					speed = Vector2d{ -map.boxSize, 0 };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
 				else if (enemyDirection.y == -1 && collisionUp == false)
 				{
-					speed = Vector2{ 0, -map.boxSize };
+					speed = Vector2d{ 0, -map.boxSize };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
 				else if (enemyDirection.y == 1 && collisionDown == false)
 				{
-					speed = Vector2{ 0, map.boxSize };
+					speed = Vector2d{ 0, map.boxSize };
 					position.x += speed.x;
 					position.y += speed.y;
 				}
@@ -179,7 +179,8 @@ void Enemy::DrawEnemy()
 {
 	EnemyMovement();
 	Vector2 extraPosition = { position.x, position.y };
-	DrawRectangleV(extraPosition, size, ORANGE);
+	Vector2 extraSize = { size.x, size.y };
+	DrawRectangleV(extraPosition, extraSize, ORANGE);
 
 	visualPosition = { position.x + 25, position.y + 25 };
 	DrawCircle(visualPosition.x, visualPosition.y, 25, color);

@@ -59,7 +59,7 @@ void Player::CollisionCheck()
 			collisionDown = false;
 		}
 	}
-	std::cout << playerPositionX << " , " << playerPositionY << "\n";
+	//std::cout << playerPositionX << " , " << playerPositionY << "\n";
 }
 
 // Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
@@ -74,13 +74,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
 			{
-				speed = Vector2{ map.boxSize, 0 };
+				speed = Vector2d{ map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { 1,0 };
 			}
 			else if (playerDirection.x == 1 && collisionRight == false)
 			{
-				speed = Vector2{ map.boxSize, 0 };
+				speed = Vector2d{ map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { 1,0 };
 			}
@@ -90,13 +90,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
 			{
-				speed = Vector2{ -map.boxSize, 0 };
+				speed = Vector2d{ -map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { -1,0 };
 			}
 			else if (playerDirection.x == -1 && collisionLeft == false)
 			{
-				speed = Vector2{ -map.boxSize, 0 };
+				speed = Vector2d{ -map.boxSize, 0 };
 				allowMove = false;
 				playerDirection = { -1,0 };
 			}
@@ -106,13 +106,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
 			{
-				speed = Vector2{ 0, -map.boxSize };
+				speed = Vector2d{ 0, -map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
 			else if (playerDirection.y == -1 && collisionUp == false)
 			{
-				speed = Vector2{ 0, -map.boxSize };
+				speed = Vector2d{ 0, -map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,-1 };
 			}
@@ -122,13 +122,13 @@ void Player::UpdateGame()
 			CollisionCheck();
 			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
 			{
-				speed = Vector2{ 0, map.boxSize };
+				speed = Vector2d{ 0, map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,1 };
 			}
 			else if (playerDirection.y == 1 && collisionDown == false)
 			{
-				speed = Vector2{ 0, map.boxSize };
+				speed = Vector2d{ 0, map.boxSize };
 				allowMove = false;
 				playerDirection = { 0,1 };
 			}
@@ -174,7 +174,6 @@ void Player::UpdateGame()
 						position.y += speed.y;
 						allowMove = true;
 					}
-
 				}
 				else
 				{
@@ -198,7 +197,8 @@ void Player::UpdateGame()
 void Player::DrawPlayer()
 {
 	Vector2 extraPosition = { position.x, position.y };
-	for (int i = 0; i < counterTail; i++) DrawRectangleV(extraPosition, size, color);
+	Vector2 extraSize = { size.x, size.y };
+	for (int i = 0; i < counterTail; i++) DrawRectangleV(extraPosition, extraSize, color);
 }
 
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
@@ -227,7 +227,7 @@ void Player::DrawGame()
 		// Draw Player
 		DrawPlayer();
 
-		DrawText("PRESS [P] TO PAUSE GAME", 50 , 20, 20, GRAY);
+		DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 
 		if (IsKeyPressed(KEY_P))
 		{
@@ -238,4 +238,3 @@ void Player::DrawGame()
 
 	EndDrawing();
 }
-
