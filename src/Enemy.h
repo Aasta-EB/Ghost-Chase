@@ -9,7 +9,7 @@ public:
 	
 	Grid map;
 
-	Vector2 position = { 1400 / 2,700 / 2 };
+	Vector2 position = { 15*50,10*50 };
 	Vector2 size = { 50,50 };
 	Color color = YELLOW;
 	Vector2 speed = { map.boxSize, 0 };
