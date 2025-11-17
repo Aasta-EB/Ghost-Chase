@@ -42,9 +42,5 @@ public:
 
 	void UpdateGame();
 
-	void InitGame();
-
 	void DrawPlayer();
-
-	void DrawGame();
 };
