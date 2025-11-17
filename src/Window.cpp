@@ -5,7 +5,6 @@ void Window::InitGame()
 	player.framesCounter = 0;
 	player.gameOver = true;
 
-	player.counterTail = 1;
 	player.allowMove = false;
 
 	map.offset.x = map.windowWidth % int(map.boxSize);

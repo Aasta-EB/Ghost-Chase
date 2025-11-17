@@ -135,11 +135,11 @@ void Player::UpdateGame()
 		}
 
 		// Player movement
-		for (int i = 0; i < counterTail; i++) playerPosition = position;
+		for (int i = 0; i < 1; i++) playerPosition = position;
 
 		if ((framesCounter % 10) == 0)
 		{
-			for (int i = 0; i < counterTail; i++)
+			for (int i = 0; i < 1; i++)
 			{
 				if (i == 0)
 				{
@@ -191,17 +191,7 @@ void Player::DrawPlayer()
 {
 	Vector2 extraPosition = { position.x, position.y };
 	Vector2 extraSize = { size.x, size.y };
-	for (int i = 0; i < counterTail; i++) DrawRectangleV(extraPosition, extraSize, color);
+	DrawRectangleV(extraPosition, extraSize, color);
 
 	centrePlayerPosition = { position.x + 25, position.y + 25 };
-	//std::cout << centrePlayerPosition.x << " " << centrePlayerPosition.y << "\n";
-
-	//float distanceToEnemy = centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
-	////std::cout << distanceToEnemy << "\n";
-	//DrawLine(centrePlayerPosition.x, centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
-
-	//if (distanceToEnemy <= 25)
-	//{
-	//	gameOver = true;
-	//}
 }

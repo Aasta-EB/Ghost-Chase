@@ -20,7 +20,6 @@ public:
 
 	Vector2d visualPosition;
 
-	int counterTail = 1;
 	int framesCounter = 0;
 
 	bool collisionLeft = false;

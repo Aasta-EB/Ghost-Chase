@@ -127,11 +127,11 @@ void Enemy::CollisionCheck()
 
 void Enemy::EnemyMovement()
 {
-	for (int i = 0; i < counterTail; i++) enemyPosition = position;
+	for (int i = 0; i < 1; i++) enemyPosition = position;
 
 	if ((framesCounter % 10) == 0)
 	{
-		for (int i = 0; i < counterTail; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			if (i == 0)
 			{
