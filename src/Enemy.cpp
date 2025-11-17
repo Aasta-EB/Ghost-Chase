@@ -178,5 +178,9 @@ void Enemy::EnemyMovement()
 void Enemy::DrawEnemy()
 {
 	EnemyMovement();
-	for (int i = 0; i < 1; i++) DrawRectangleV(position, size, color);
+	Vector2 extraPosition = { position.x, position.y };
+	DrawRectangleV(extraPosition, size, ORANGE);
+
+	visualPosition = { position.x + 25, position.y + 25 };
+	DrawCircle(visualPosition.x, visualPosition.y, 25, color);
 }

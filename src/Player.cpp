@@ -197,7 +197,8 @@ void Player::UpdateGame()
 // Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
 void Player::DrawPlayer()
 {
-	for (int i = 0; i < counterTail; i++) DrawRectangleV(position, size, color);
+	Vector2 extraPosition = { position.x, position.y };
+	for (int i = 0; i < counterTail; i++) DrawRectangleV(extraPosition, size, color);
 }
 
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________

@@ -3,18 +3,19 @@
 #include "Vector2d.h"
 #include "Grid.h"
 #include "Enemy.h"
+#include "Vector2d.h"
 
 class Player
 {
 public:
 
 	// Player variables
-	Vector2 position;
+	Vector2d position;
 	Vector2 size;
 	Vector2 speed;
 	Color color = PINK; 
 	Vector2 playerDirection = { 1,0 };
-	Vector2 playerPosition = { 0 };
+	Vector2d playerPosition = { 0 };
 	
 	// Grid class and variables
 	Grid map;

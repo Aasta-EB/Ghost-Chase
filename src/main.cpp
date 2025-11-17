@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Grid.h"
 #include "Enemy.h" 
+#include "Vector2d.h"
 
 // Acsessing classes _________________________________________________________________________________________________________________________________________________________
 static Player player = { 0 };
@@ -22,14 +23,14 @@ static void InitGame()
 
 	for (int i = 0; i < player.playerSize; i++)
 	{
-		player.position = Vector2{ 1400 / 2, 700 / 2 };
+		player.position = Vector2d{ 1400 / 2, 700 / 2 };
 		player.size = Vector2{ map.boxSize, map.boxSize };
 		player.speed = Vector2{ map.boxSize, 0 };
 	}
 
 	for (int i = 0; i < player.playerSize; i++)
 	{
-		player.playerPosition = Vector2{ 0.0f, 0.0f };
+		player.playerPosition = Vector2d{ 0.0f, 0.0f };
 	}
 }
 
