@@ -230,7 +230,7 @@ void Player::DrawPlayer()
 	//std::cout << centrePlayerPosition.x << " " << centrePlayerPosition.y << "\n";
 
 	float distanceToEnemy = centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
-	std::cout << distanceToEnemy << "\n";
+	//std::cout << distanceToEnemy << "\n";
 	DrawLine(centrePlayerPosition.x, centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
 	if (distanceToEnemy <= 25)
