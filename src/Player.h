@@ -33,18 +33,13 @@ public:
 	bool gamePaused = false;
 	bool allowMove = false;
 
-	int counterTail = 0;
 	int framesCounter = 0;
 
 	int playerSize = 1;
 
 	void CollisionCheck();
 
-	void UpdateGame();
-
-	void InitGame();
+	void UpdatePlayer();
 
 	void DrawPlayer();
-
-	void DrawGame();
 };

@@ -10,7 +10,7 @@ public:
 
 	Grid map;
 
-	Vector2d position = { 15 * 50,10 * 50 };
+	Vector2d position;
 	Vector2d size = { 50,50 };
 	Color color = YELLOW;
 	Vector2d speed = { map.boxSize, 0 };
@@ -20,7 +20,6 @@ public:
 
 	Vector2d visualPosition;
 
-	int counterTail = 1;
 	int framesCounter = 0;
 
 	bool collisionLeft = false;
