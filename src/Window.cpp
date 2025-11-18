@@ -89,6 +89,6 @@ void Window::DrawGame()
 // Updates each frame ________________________________________________________________________________________________________________________________________________________
 void Window::UpdateDrawFrame()
 {
-	player.UpdateGame();
+	player.UpdatePlayer();
 	DrawGame();
 }

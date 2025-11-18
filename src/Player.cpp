@@ -63,11 +63,10 @@ void Player::CollisionCheck()
 }
 
 // Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
-void Player::UpdateGame()
+void Player::UpdatePlayer()
 {
 	if (!gameOver)
 	{
-		// Player control
 
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
 		{
