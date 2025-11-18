@@ -54,6 +54,7 @@ void Window::DrawGame()
 		}
 
 		float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
+		enemy.distanceToPlayer = distanceToEnemy;
 		//std::cout << distanceToEnemy << "\n";
 		DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
