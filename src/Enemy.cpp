@@ -11,7 +11,7 @@ void Enemy::EnemyEscape()
 		run = false;
 	}
 
-	std::cout << distanceToPlayer << "\n";
+	//std::cout << distanceToPlayer << "\n";
 }
 
 
