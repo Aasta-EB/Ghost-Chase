@@ -125,6 +125,7 @@ void Player::UpdatePlayer()
 			}
 		}
 
+
 		// Player movement
 		for (int i = 0; i < 1; i++) playerPosition = position;
 
@@ -140,22 +141,22 @@ void Player::UpdatePlayer()
 						position.x += speed.x;
 						position.y += speed.y;
 					}
-					else if (playerDirection.x == 1 && collisionRight == false)
+					if (playerDirection.x == 1 && collisionRight == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
 					}
-					else if (playerDirection.x == -1 && collisionLeft == false)
+					if (playerDirection.x == -1 && collisionLeft == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
 					}
-					else if (playerDirection.y == -1 && collisionUp == false)
+					if (playerDirection.y == -1 && collisionUp == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
 					}
-					else if (playerDirection.y == 1 && collisionDown == false)
+					if (playerDirection.y == 1 && collisionDown == false)
 					{
 						position.x += speed.x;
 						position.y += speed.y;
