@@ -59,7 +59,7 @@ void Player::CollisionCheck()
 			collisionDown = false;
 		}
 	}
-	//std::cout << playerPositionX << " , " << playerPositionY << "\n";
+	std::cout << playerPositionX << " , " << playerPositionY << "\n";
 }
 
 // Update of the game (happens each frame) also player movement __________________________________________________________________________________________________

@@ -33,7 +33,7 @@ void Enemy::CollisionCheck()
 			collisionRight = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{
@@ -65,7 +65,7 @@ void Enemy::CollisionCheck()
 			collisionLeft = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{
@@ -96,7 +96,7 @@ void Enemy::CollisionCheck()
 			collisionUp = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{
@@ -127,7 +127,7 @@ void Enemy::CollisionCheck()
 			collisionDown = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{
