@@ -54,6 +54,7 @@ void Window::DrawGame()
 		}
 
 		float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
+		enemy.distanceToPlayer = distanceToEnemy;
 		//std::cout << distanceToEnemy << "\n";
 		DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
@@ -75,7 +76,7 @@ void Window::DrawGame()
 	}
 	else if (player.gamePaused = true)
 	{
-		DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+		DrawText("PRESS [ENTER] TO START AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START AGAIN", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
 
 		if (IsKeyPressed(KEY_ENTER))
 		{

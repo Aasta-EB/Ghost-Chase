@@ -1,5 +1,20 @@
 #include "Enemy.h"
 
+void Enemy::EnemyEscape()
+{
+	if (distanceToPlayer <= 300)
+	{
+		run = true;
+	}
+	else
+	{
+		run = false;
+	}
+
+	//std::cout << distanceToPlayer << "\n";
+}
+
+
 void Enemy::CollisionCheck()
 {
 	position = enemyPosition;
@@ -11,12 +26,14 @@ void Enemy::CollisionCheck()
 		enemyPositionX = (position.x + 50) / 50;
 		enemyPositionY = position.y / 50;
 
-		if (map.map[enemyPositionY][enemyPositionX] == 1)
+		EnemyEscape();
+
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
 		{
 			collisionRight = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{
@@ -40,12 +57,15 @@ void Enemy::CollisionCheck()
 	{
 		enemyPositionX = (position.x - 50) / 50;
 		enemyPositionY = position.y / 50;
-		if (map.map[enemyPositionY][enemyPositionX] == 1)
+
+		EnemyEscape();
+
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
 		{
 			collisionLeft = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{
@@ -67,14 +87,16 @@ void Enemy::CollisionCheck()
 	}
 	if (enemyDirection.y == -1)
 	{
+		EnemyEscape();
+
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y - 50) / 50;
-		if (map.map[enemyPositionY][enemyPositionX] == 1)
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
 		{
 			collisionUp = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{
@@ -96,14 +118,16 @@ void Enemy::CollisionCheck()
 	}
 	if (enemyDirection.y == 1)
 	{
+		EnemyEscape();
+
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y + 50) / 50;
-		if (map.map[enemyPositionY][enemyPositionX] == 1)
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
 		{
 			collisionDown = true;
 			srand(time(0));
 			int changeDirectionNumber = std::rand() % 3;
-			std::cout << changeDirectionNumber;
+			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
 			{

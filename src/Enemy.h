@@ -27,6 +27,12 @@ public:
 	bool collisionUp = false;
 	bool collisionDown = false;
 
+	float distanceToPlayer = 100;
+
+	bool run = false;
+
+	void EnemyEscape();
+
 	void CollisionCheck();
 
 	void EnemyMovement();

@@ -33,6 +33,7 @@ public:
 	bool gamePaused = false;
 	bool allowMove = false;
 
+
 	int framesCounter = 0;
 
 	int playerSize = 1;
