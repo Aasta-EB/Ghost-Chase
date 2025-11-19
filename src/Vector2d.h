@@ -15,6 +15,7 @@ public:
 
 	float CalculateDeltatoTarget(Vector2d inVectorTarget);
 
+	Vector2d FindOrtognalVector();
 
 	// Functions from class NEEDS TO BE CHANGED
 	// Normalizes the Vector

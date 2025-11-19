@@ -26,6 +26,13 @@ float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
 	return findDelta;
 }
 
+Vector2d Vector2d::FindOrtognalVector()
+{
+	Vector2d ortognalVector = { -y,x };
+
+	return ortognalVector;
+}
+
 
 // Code from class, NEEDS CHANGING
 // Sets the offset to the vector
