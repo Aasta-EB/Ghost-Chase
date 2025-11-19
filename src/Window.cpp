@@ -39,6 +39,7 @@ void Window::DrawGame()
 		{
 			DrawLineV(Vector2{ map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, Vector2{ map.windowWidth - map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, LIGHTGRAY);
 		}*/
+
 		map.DrawMap();
 
 		enemy.DrawEnemy();
@@ -62,6 +63,7 @@ void Window::DrawGame()
 		{
 			player.gameOver = true;
 		}
+
 	}
 	else if (player.gameOver = true)
 	{
