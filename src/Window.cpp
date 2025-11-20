@@ -7,7 +7,6 @@ void Window::TimeCounter()
 	int actualTime = std::round(timeGame);
 
 	DrawText(TextFormat("Time: %d", actualTime), 1200, 20, 20, GRAY);
-	std::cout << actualTime << "\n";
 }
 
 void Window::InitGame()
