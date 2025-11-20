@@ -9,6 +9,16 @@ void Window::TimeCounter()
 	DrawText(TextFormat("Time: %d", actualTime), 1200, 20, 20, GRAY);
 }
 
+void Window::StartWindow()
+{
+	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, GRAY);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
+	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	// I also wish to add some draing of a cosine movement wave, along the edge
+}
+
 void Window::InitGame()
 {
 	player.framesCounter = 0;
