@@ -7,6 +7,13 @@ float Vector2d::CalculateDeltaVector()
 	return lenghtOfVector;
 }
 
+float Vector2d::CalculateTangent(float inHypotenuseLenght, float inOtherTangentLenght)
+{
+	float calculatedTangent = sqrt((inHypotenuseLenght * inHypotenuseLenght) - (inOtherTangentLenght * inOtherTangentLenght));
+
+	return calculatedTangent;
+}
+
 Vector2d Vector2d::CalculateVectorToTarget(Vector2d inTargetedVector)
 {
 	float subtractVectorsX = inTargetedVector.x - x;
@@ -26,11 +33,42 @@ float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
 	return findDelta;
 }
 
-Vector2d Vector2d::FindOrtognalVector()
+Vector2d Vector2d::SumVectors(Vector2d inOtherVector)
+{
+	Vector2d summedVectors = { x + inOtherVector.x, y + inOtherVector.y }; 
+
+	return summedVectors;
+}
+
+float Vector2d::FindTriangleRatio(float inAngle, float inSideLenght)
+{
+	float triangleRatio = sinf(inAngle) / inSideLenght;
+
+	return triangleRatio;
+}
+
+float Vector2d::findTriangleSideLenght(float inAngle, float inTriangleRatio)
+{
+	float triangleSideLenght = sinf(inAngle) / inTriangleRatio;
+
+	return triangleSideLenght;
+}
+
+float Vector2d::CalculateSideLenght(float inFirstAngle, float inSideLenght, float inSecondAngle)
+{
+	float triangleRatio = FindTriangleRatio(inFirstAngle, inSideLenght);
+	float sideLenght = findTriangleSideLenght(inSecondAngle, triangleRatio);
+
+	return sideLenght;
+}
+
+Vector2d Vector2d::FindNormalizedOrtognalVector()
 {
 	Vector2d ortognalVector = { -y,x };
 
-	return ortognalVector;
+	Vector2d normalizedOrtognalVector = ortognalVector.NormalizeVector();
+
+	return normalizedOrtognalVector;
 }
 
 

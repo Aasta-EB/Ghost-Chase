@@ -1,6 +1,7 @@
 #pragma once 
 #include "Player.h"
 #include "Enemy.h"
+#include "Vector2d.h"
 
 
 class Booster
@@ -9,6 +10,7 @@ public:
 
 	Enemy enemy;
 	Player player;
+	Vector2d vector2d;
 
 	bool boosterExsits = false; 
 

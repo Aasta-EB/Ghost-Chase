@@ -11,13 +11,31 @@ public:
 	// Calculates lenght of vector (magnitude)
 	float CalculateDeltaVector();
 
+	// Calculates the tangent of aa triangle
+	float CalculateTangent(float inHypotenuseLenght, float inOtherTangentLenght);
+
+	// Calculates the vector from point to target point
 	Vector2d CalculateVectorToTarget(Vector2d inTargetedVector);
 
+	// Calculates the distance from point to target point
 	float CalculateDeltatoTarget(Vector2d inVectorTarget);
 
-	Vector2d FindOrtognalVector();
+	// Sums two vectors together
+	Vector2d SumVectors(Vector2d inOtherVector);
 
-	// Functions from class NEEDS TO BE CHANGED
+	// Find triangle ratio 
+	float FindTriangleRatio(float inAngle, float inSideLenght);
+
+	// Finds the side lenght using the triangle ratio
+	float findTriangleSideLenght(float inAngle, float inTriangleRatio);
+
+	// Finds the side lenght using the findtriangleratio and findtrianglesidelenght functions
+	float CalculateSideLenght(float inFirstAngle, float inSideLenght, float inSecondAngle);
+
+	// Finds the normalized ortognal vector of another vector
+	Vector2d FindNormalizedOrtognalVector();
+
+	// Functions from class NEEDS TO BE CHANGED ______________________________________________________________________________________________________________________
 	// Normalizes the Vector
 	// Sets the offset to the vector
 	Vector2d OffsetVector(Vector2d inVectorToAdd);
