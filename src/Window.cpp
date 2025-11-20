@@ -42,7 +42,7 @@ void Window::DrawGame()
 
 		map.DrawMap();
 
-		enemy.DrawEnemy();
+		enemy.DrawEnemy(player.playerPosition);
 
 		// Draw Player
 		player.DrawPlayer();

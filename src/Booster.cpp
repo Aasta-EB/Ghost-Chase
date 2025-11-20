@@ -11,41 +11,127 @@ void Booster::ExpandPlayerVision()
 // A booster that exposes the enemys position and points in the direction
 void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 {
-	// Finding and normalizing the vector between player and enemy
-	Vector2d playerEnemyVector = inPlayerPosition.CalculateDistanceFromTarget(inEnemyPosition);
-	Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
+	if (inEnemyPosition.y <= inPlayerPosition.y && inEnemyPosition.y != inPlayerPosition.y) // On top arrow
+	{
+		Vector2d playerEnemyVector = inPlayerPosition.CalculateDistanceFromTarget({ inPlayerPosition.x , inPlayerPosition.y - 25 });
+		Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
+		Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, RED);
+		DrawLine(inPlayerPosition.x - 1, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x - 1, normalizedPlayerEnemyVectorFullCalculated.y, RED);
+		DrawLine(inPlayerPosition.x + 1, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x + 1, normalizedPlayerEnemyVectorFullCalculated.y, RED);
 
-	float normalizedPlayerEnemyVectorX = normalizedPlayerEnemyVector.x * 25.f;
-	float normalizedPlayerEnemyVectorY = normalizedPlayerEnemyVector.y * 25.f;
+		float forhold = sinf(90) / 10; // Finner forholdet som gjelder for hver side av trekanten
 
-	Vector2d normalizedPlayerEnemyVectorFullCalculated = { normalizedPlayerEnemyVector.x * 25.f ,normalizedPlayerEnemyVector.y * 25.f };
+		float sideDC = sinf(45) / forhold;
 
-	Vector2d tangentVector = normalizedPlayerEnemyVectorFullCalculated.FindOrtognalVector();
+		float sideBD = sqrt((10 * 10) - (sideDC * sideDC));
 
-	float arrowLine = normalizedPlayerEnemyVectorFullCalculated.CalculateDeltaVector();
+		Vector2d vectorBD = { normalizedPlayerEnemyVector.x * (-sideBD), normalizedPlayerEnemyVector.x * (-sideBD) };
 
-	Vector2d arrowPoint = { inPlayerPosition.x + normalizedPlayerEnemyVectorFullCalculated.x, inPlayerPosition.y + normalizedPlayerEnemyVectorFullCalculated.y };
+		Vector2d vectorDC = { -vectorBD.y, vectorBD.x };
 
-	float forhold = sinf(90) / 5; 
+		Vector2d normalizedVectorDC = vectorDC.NormalizeVector();
 
-	float nyttForhold = sinf(45) / forhold; 
+		Vector2d actualVectorDC = { normalizedVectorDC.x * sideDC, normalizedVectorDC.y * sideDC };
 
-	float lastTangent = sqrt(5*5 - nyttForhold * nyttForhold); 
+		Vector2d sumVectorBDDC = { vectorBD.x + actualVectorDC.x, vectorBD.y + actualVectorDC.y };
 
-	float somethingX = normalizedPlayerEnemyVector.x * ( - lastTangent);
-	float somethingY = normalizedPlayerEnemyVector.y * ( - lastTangent);
+		Vector2d pointA = { normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y };
+		Vector2d pointC = { normalizedPlayerEnemyVectorFullCalculated.x - sumVectorBDDC.x, normalizedPlayerEnemyVectorFullCalculated.y - sumVectorBDDC.y };
+		Vector2d pointB = { pointC.x - sideDC*2, pointC.y};
 
-	float laX = somethingX + nyttForhold;
-	float laY = somethingY + nyttForhold;
+		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
+	}
+	else if (inEnemyPosition.y >= inPlayerPosition.y && inEnemyPosition.y != inPlayerPosition.y) // Under arrow
+	{
+		Vector2d playerEnemyVector = inPlayerPosition.CalculateDistanceFromTarget({ inPlayerPosition.x , inPlayerPosition.y + 25 });
+		Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
+		Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, RED);
+		DrawLine(inPlayerPosition.x - 1, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x - 1, normalizedPlayerEnemyVectorFullCalculated.y, RED);
+		DrawLine(inPlayerPosition.x + 1, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x + 1, normalizedPlayerEnemyVectorFullCalculated.y, RED);
 
-	float luX = somethingX - nyttForhold;
-	float luY = somethingY - nyttForhold;
+		float forhold = sinf(90) / 5; // Finner forholdet som gjelder for hver side av trekanten
 
+		float sideDC = sinf(45) / forhold;
 
-	Vector2d normalizedTangentVector = tangentVector.NormalizeVector();
+		float sideBD = sqrt((5 * 5) - (sideDC * sideDC));
 
-	// Draws the line towards the enemy
-	DrawLine(inPlayerPosition.x, inPlayerPosition.y, inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f, inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f, RED);
-	DrawLine(arrowPoint.x, arrowPoint.y, arrowPoint.x - laX, arrowPoint.y - laY, RED);
-	DrawLine(arrowPoint.x, arrowPoint.y, arrowPoint.x + luX, arrowPoint.y + luY, RED);
+		Vector2d vectorBD = { normalizedPlayerEnemyVector.x * (-sideBD), normalizedPlayerEnemyVector.x * (-sideBD) };
+
+		Vector2d vectorDC = { -vectorBD.y, vectorBD.x };
+
+		Vector2d normalizedVectorDC = vectorDC.NormalizeVector();
+
+		Vector2d actualVectorDC = { normalizedVectorDC.x * sideDC, normalizedVectorDC.y * sideDC };
+
+		Vector2d sumVectorBDDC = { vectorBD.x + actualVectorDC.x, vectorBD.y + actualVectorDC.y };
+
+		DrawLine(normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, normalizedPlayerEnemyVectorFullCalculated.x - sumVectorBDDC.x,
+			normalizedPlayerEnemyVectorFullCalculated.y - sumVectorBDDC.y, RED);
+	}
+	else if (inEnemyPosition.x <= inPlayerPosition.x) // Left arrow, enemy is to the left
+	{
+		Vector2d playerEnemyVector = inPlayerPosition.CalculateDistanceFromTarget({ inPlayerPosition.x - 25, inPlayerPosition.y });
+		Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
+		Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y - 1, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y + 1, RED);
+
+		float forhold = sinf(90) / 10; // Finner forholdet som gjelder for hver side av trekanten
+
+		float sideDC = sinf(45) / forhold;
+
+		float sideBD = sqrt((10 * 10) - (sideDC * sideDC));
+
+		Vector2d vectorBD = { normalizedPlayerEnemyVector.x * (-sideBD), normalizedPlayerEnemyVector.x * (-sideBD) };
+
+		Vector2d vectorDC = { -vectorBD.y, vectorBD.x };
+
+		Vector2d normalizedVectorDC = vectorDC.NormalizeVector();
+
+		Vector2d actualVectorDC = { normalizedVectorDC.x * sideDC, normalizedVectorDC.y * sideDC };
+
+		Vector2d sumVectorBDDC = { vectorBD.x + actualVectorDC.x, vectorBD.y + actualVectorDC.y };
+
+		Vector2d pointA = { normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y };
+		Vector2d pointC = { normalizedPlayerEnemyVectorFullCalculated.x - sumVectorBDDC.x, normalizedPlayerEnemyVectorFullCalculated.y - sumVectorBDDC.y };
+		Vector2d pointB = { normalizedPlayerEnemyVectorFullCalculated.x - (vectorBD.x + (-1 * actualVectorDC.x))+15,
+			normalizedPlayerEnemyVectorFullCalculated.y - (vectorBD.y + (-1 * actualVectorDC.y))+5 };
+
+		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
+	}
+	else if (inEnemyPosition.x > inPlayerPosition.x) // Right arrow
+	{
+		Vector2d playerEnemyVector = inPlayerPosition.CalculateDistanceFromTarget({ inPlayerPosition.x + 25 , inPlayerPosition.y });
+		Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
+		Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y - 1, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y + 1, RED);
+
+		float forhold = sinf(90) / 5; // Finner forholdet som gjelder for hver side av trekanten
+
+		float sideDC = sinf(45) / forhold;
+
+		float sideBD = sqrt((5 * 5) - (sideDC * sideDC));
+
+		Vector2d vectorBD = { normalizedPlayerEnemyVector.x * (-sideBD), normalizedPlayerEnemyVector.x * (-sideBD) };
+
+		Vector2d vectorDC = { -vectorBD.y, vectorBD.x };
+
+		Vector2d normalizedVectorDC = vectorDC.NormalizeVector();
+
+		Vector2d actualVectorDC = { normalizedVectorDC.x * sideDC, normalizedVectorDC.y * sideDC };
+
+		Vector2d sumVectorBDDC = { vectorBD.x + actualVectorDC.x, vectorBD.y + actualVectorDC.y };
+
+		Vector2d pointA = { normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y };
+		Vector2d pointB = { normalizedPlayerEnemyVectorFullCalculated.x - sumVectorBDDC.x, normalizedPlayerEnemyVectorFullCalculated.y - sumVectorBDDC.y };
+		Vector2d pointC = { normalizedPlayerEnemyVectorFullCalculated.x - (vectorBD.x + (-1 * actualVectorDC.x)),
+			normalizedPlayerEnemyVectorFullCalculated.y - (vectorBD.y + (-1 * actualVectorDC.y)) };
+
+		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
+	}
 }
