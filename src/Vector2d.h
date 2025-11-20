@@ -11,7 +11,7 @@ public:
 	// Calculates lenght of vector (magnitude)
 	float CalculateDeltaVector();
 
-	Vector2d CalculateDistanceFromTarget(Vector2d inTargetedVector);
+	Vector2d CalculateVectorToTarget(Vector2d inTargetedVector);
 
 	float CalculateDeltatoTarget(Vector2d inVectorTarget);
 
@@ -20,7 +20,7 @@ public:
 	// Functions from class NEEDS TO BE CHANGED
 	// Normalizes the Vector
 	// Sets the offset to the vector
-	Vector2d SetVectorOffset(Vector2d inVectorToAdd);
+	Vector2d OffsetVector(Vector2d inVectorToAdd);
 
 	// Scales the vector
 	Vector2d ScaleVector(float scale);

@@ -7,7 +7,7 @@ float Vector2d::CalculateDeltaVector()
 	return lenghtOfVector;
 }
 
-Vector2d Vector2d::CalculateDistanceFromTarget(Vector2d inTargetedVector)
+Vector2d Vector2d::CalculateVectorToTarget(Vector2d inTargetedVector)
 {
 	float subtractVectorsX = inTargetedVector.x - x;
 	float subtractVectorsY = inTargetedVector.y - y;
@@ -19,7 +19,7 @@ Vector2d Vector2d::CalculateDistanceFromTarget(Vector2d inTargetedVector)
 
 float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
 {
-	Vector2d vectorBetweenTarget = CalculateDistanceFromTarget(inVectorTarget);
+	Vector2d vectorBetweenTarget = CalculateVectorToTarget(inVectorTarget);
 
 	float findDelta = vectorBetweenTarget.CalculateDeltaVector();
 
@@ -36,7 +36,7 @@ Vector2d Vector2d::FindOrtognalVector()
 
 // Code from class, NEEDS CHANGING
 // Sets the offset to the vector
-Vector2d Vector2d::SetVectorOffset(Vector2d inVectorToAdd)
+Vector2d Vector2d::OffsetVector(Vector2d inVectorToAdd)
 {
 	float outVectorX = x + inVectorToAdd.x;
 	float outVectorY = y + inVectorToAdd.y;
