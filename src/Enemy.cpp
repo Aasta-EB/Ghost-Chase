@@ -260,9 +260,7 @@ void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 void Enemy::DrawEnemy(Vector2d inPlayerPosition)
 {
 	EnemyMovement(inPlayerPosition);
-	Vector2 extraPosition = { position.x, position.y };
-	Vector2 extraSize = { size.x, size.y };
-	DrawRectangleV(extraPosition, extraSize, ORANGE);
+	//DrawRectangleV({ position.x, position.y }, { size.x, size.y }, ORANGE);
 
 	visualPosition = { position.x + 25, position.y + 25 };
 	DrawCircle(visualPosition.x, visualPosition.y, 25, color);

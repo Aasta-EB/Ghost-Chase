@@ -12,6 +12,8 @@ public:
 	Player player;
 	Vector2d vector2d;
 
+	int timeGame = 0;
+
 	bool boosterExsits = false; 
 
 	void DrawBooster();

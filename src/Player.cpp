@@ -176,9 +176,7 @@ void Player::UpdatePlayer()
 // Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
 void Player::DrawPlayer()
 {
-	Vector2 extraPosition = { position.x, position.y };
-	Vector2 extraSize = { size.x, size.y };
-	DrawRectangleV(extraPosition, extraSize, color);
+	DrawRectangleV({ position.x, position.y }, { size.x, size.y }, color);
 
 	centrePlayerPosition = { position.x + 25, position.y + 25 };
 }

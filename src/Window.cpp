@@ -1,5 +1,15 @@
 #include "Window.h"
 
+void Window::TimeCounter()
+{
+	if (timeGame > 0.f) timeGame -= GetFrameTime();
+
+	int actualTime = std::round(timeGame);
+
+	DrawText(TextFormat("Time: %d", actualTime), 1200, 20, 20, GRAY);
+	std::cout << actualTime << "\n";
+}
+
 void Window::InitGame()
 {
 	player.framesCounter = 0;
@@ -18,6 +28,8 @@ void Window::InitGame()
 
 	enemy.position = { 15 * 50,10 * 50 };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
+
+	timeGame = 60;
 }
 
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
@@ -56,10 +68,12 @@ void Window::DrawGame()
 
 		float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
 		enemy.distanceToPlayer = distanceToEnemy;
+		TimeCounter();
 		//std::cout << distanceToEnemy << "\n";
 		//DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
-		booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
+		//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
+		booster.DrawBooster();
 
 		if (distanceToEnemy <= 25)
 		{
