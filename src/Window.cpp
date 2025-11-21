@@ -67,6 +67,25 @@ void Window::GameOn()
 
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 
+	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false)
+	{
+		booster.DrawBooster();
+		booster.exsists = true; 
+	}
+	else
+	{
+		booster.exsists = false; 
+	}
+
+	if (booster.exsists == true && player.centrePlayerPosition.x == booster.boosterPosition.x && player.centrePlayerPosition.y == booster.boosterPosition.y)
+	{
+		booster.collisionPlayerBooster = true; 
+	}
+	if (booster.collisionPlayerBooster == true)
+	{
+		booster.ExposeEnemyPosition(player.position, enemy.position);
+	}
+
 	if (IsKeyPressed(KEY_P))
 	{
 		player.gamePaused = true;
@@ -191,6 +210,8 @@ void Window::InitGame()
 
 	enemy.position = { 15 * 50,10 * 50 };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
+
+	booster.FindBoosterPosition();
 
 	timeGame = 60;
 }

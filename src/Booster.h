@@ -11,10 +11,17 @@ public:
 	Enemy enemy;
 	Player player;
 	Vector2d vector2d;
+	Vector2d boosterPosition;
+
+	bool exsists = false; 
+
+	bool collisionPlayerBooster = false; 
 
 	int timeGame = 0;
 
 	bool boosterExsits = false; 
+
+	Vector2d FindBoosterPosition();
 
 	void DrawBooster();
 	

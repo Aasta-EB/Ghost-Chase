@@ -1,6 +1,6 @@
 #include "Booster.h"
 
-void Booster::DrawBooster()
+Vector2d Booster::FindBoosterPosition()
 {
 	srand(time(0));
 
@@ -8,24 +8,30 @@ void Booster::DrawBooster()
 
 	if (boosterPlacementNumber == 0)
 	{
-		DrawCircle(12*50 + 25, 9 * 50 + 25, 5, GREEN);
+		boosterPosition = { 12 * 50 + 25, 9 * 50 + 25 };
 	}
 	else if (boosterPlacementNumber == 1)
 	{
-		DrawCircle(25 * 50 + 25, 11 * 50 + 25, 5, GREEN);
+		boosterPosition = { 25 * 50 + 25, 11 * 50 + 25 };
 	}
 	else if (boosterPlacementNumber == 2)
 	{
-		DrawCircle(7 * 50 + 25, 3 * 50 + 25, 5, GREEN);
+		boosterPosition = { 7 * 50 + 25, 3 * 50 + 25 };
 	}
 	else if (boosterPlacementNumber == 3)
 	{
-		DrawCircle(9 * 50 + 25, 11 * 50 + 25, 5, GREEN);
+		boosterPosition = { 9 * 50 + 25, 11 * 50 + 25 };
 	}
 	else if (boosterPlacementNumber == 4)
 	{
-		DrawCircle(21 * 50 + 25, 3 * 50 + 25, 5, GREEN);
+		boosterPosition = { 21 * 50 + 25, 3 * 50 + 25 };
 	}
+	return boosterPosition;
+}
+
+void Booster::DrawBooster()
+{
+	DrawCircle(boosterPosition.x, boosterPosition.y, 5, GREEN);
 
 }
 
