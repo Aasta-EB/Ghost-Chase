@@ -29,7 +29,10 @@ public:
 	bool collisionUp = false;
 	bool collisionDown = false;
 
-	bool gameOver = true;
+	bool gameOver = false;
+	bool gameWon = false; 
+	bool gameStart = true; 
+
 	bool gamePaused = false;
 	bool allowMove = false;
 

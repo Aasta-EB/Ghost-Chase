@@ -40,7 +40,7 @@ void Window::StartWindow()
 
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		player.gameOver = false; 
+		player.gameStart = false; 
 	}
 
 }
@@ -48,7 +48,10 @@ void Window::StartWindow()
 void Window::InitGame()
 {
 	player.framesCounter = 0;
-	player.gameOver = true;
+	player.gameStart = true;
+
+	player.gameWon = false;
+	player.gameOver = false; 
 
 	player.allowMove = false;
 
@@ -74,9 +77,7 @@ void Window::DrawGame()
 
 	ClearBackground(BLACK);
 
-	//StartWindow();
-
-	if (player.gameOver == false && player.gamePaused == false)
+	if (player.gameOver == false && player.gamePaused == false && player.gameWon == false && player.gameStart == false)
 	{
 		// Draw grid lines
 		/*for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
@@ -114,9 +115,12 @@ void Window::DrawGame()
 
 		if (distanceToEnemy <= 25)
 		{
-			player.gameOver = true;
+			player.gameWon = true;
 		}
-
+		if (timeGame <= 0.f)
+		{
+			player.gameOver = true; 
+		}
 	}
 	else if (player.gameOver = true)
 	{
@@ -131,6 +135,16 @@ void Window::DrawGame()
 		{
 			player.gamePaused = false;
 		}
+	}
+	else if (player.gameWon = true)
+	{
+		InitGame();
+		StartWindow();
+	}
+	else if (player.gameStart = true)
+	{
+		InitGame();
+		StartWindow();
 	}
 
 	EndDrawing();
