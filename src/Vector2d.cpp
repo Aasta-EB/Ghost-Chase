@@ -71,6 +71,15 @@ Vector2d Vector2d::FindNormalizedOrtognalVector()
 	return normalizedOrtognalVector;
 }
 
+Vector2d Vector2d::CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX)
+{
+	float valueY = inAmplitude * cosf(((2 * 3.14159) / inFrequency) * inValueX);
+
+	Vector2d cosineWaveVector = { inValueX, valueY };
+
+	return cosineWaveVector;
+}
+
 
 // Code from class, NEEDS CHANGING
 // Sets the offset to the vector

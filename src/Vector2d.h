@@ -35,6 +35,9 @@ public:
 	// Finds the normalized ortognal vector of another vector
 	Vector2d FindNormalizedOrtognalVector();
 
+	// Calculates a cosine wave 
+	Vector2d CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX);
+
 	// Functions from class NEEDS TO BE CHANGED ______________________________________________________________________________________________________________________
 	// Normalizes the Vector
 	// Sets the offset to the vector

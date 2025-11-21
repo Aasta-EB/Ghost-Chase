@@ -11,12 +11,38 @@ void Window::TimeCounter()
 
 void Window::StartWindow()
 {
-	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, GRAY);
+	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
 
-	// I also wish to add some draing of a cosine movement wave, along the edge
+	for (float x = 0; x < GetScreenHeight(); x++)
+	{
+		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
+		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
+
+
+		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
+	}
+
+	DrawRectangle(250, 0, 50, 200, DARKBLUE);
+	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
+	DrawRectangle(1000, 550, 100, 50, DARKBLUE);
+
+	DrawRectangle(350, 300, 50, 50, PINK);
+	DrawCircle(1025, 150, 25, YELLOW);
+
+	DrawCircle(1075, 525, 5, GREEN);
+
+	if (IsKeyPressed(KEY_ENTER))
+	{
+		player.gameOver = false; 
+	}
+
 }
 
 void Window::InitGame()
@@ -47,6 +73,8 @@ void Window::DrawGame()
 	BeginDrawing();
 
 	ClearBackground(BLACK);
+
+	//StartWindow();
 
 	if (player.gameOver == false && player.gamePaused == false)
 	{
@@ -93,13 +121,7 @@ void Window::DrawGame()
 	else if (player.gameOver = true)
 	{
 		InitGame();
-		DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 20) / 2, GetScreenHeight() / 2 - 50, 20, GRAY);
-		DrawText("PRESS [ENTER] TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
-
-		if (IsKeyPressed(KEY_ENTER))
-		{
-			player.gameOver = false;
-		}
+		StartWindow();
 	}
 	else if (player.gamePaused = true)
 	{

@@ -14,6 +14,7 @@ public:
 	Enemy enemy;
 	Fog fog = { 0 };
 	Booster booster;
+	Vector2d vector2d;
 
 	float timeGame; 
 
