@@ -192,6 +192,10 @@ void Window::GamePausedWindow()
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO START AGAIN", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
 
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
+	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
+	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
+
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
 		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
@@ -208,6 +212,11 @@ void Window::GamePausedWindow()
 	if (IsKeyPressed(KEY_ENTER))
 	{
 		player.gamePaused = false;
+	}
+	if (IsKeyPressed(KEY_M))
+	{
+		player.gamePaused = false;
+		player.gameStart = true;
 	}
 }
 
