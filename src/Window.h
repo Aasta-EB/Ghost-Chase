@@ -22,6 +22,12 @@ public:
 
 	void StartWindow();
 
+	void GameWonWindow();
+
+	void GameOverWindow();
+
+	void GamePausedWindow();
+
 	// Initiates game ____________________________________________________________________________________________________________________________________________________________
 	void InitGame();
 

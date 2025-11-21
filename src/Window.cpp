@@ -45,13 +45,92 @@ void Window::StartWindow()
 
 }
 
+void Window::GameWonWindow()
+{
+	DrawText("GAME WON", GetScreenWidth() / 2 - MeasureText("GAME WON", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
+	DrawText("TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	for (float x = 0; x < GetScreenHeight(); x++)
+	{
+		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
+		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
+
+
+		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
+	}
+
+	if (IsKeyPressed(KEY_ENTER))
+	{
+		InitGame();
+	}
+}
+
+void Window::GameOverWindow()
+{
+	DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
+	DrawText("TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	for (float x = 0; x < GetScreenHeight(); x++)
+	{
+		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
+		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
+
+
+		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
+	}
+
+	if (IsKeyPressed(KEY_ENTER))
+	{
+		InitGame();
+	}
+
+}
+
+void Window::GamePausedWindow()
+{
+	DrawText("GAME IS PAUSED", GetScreenWidth() / 2 - MeasureText("GAME IS PAUSED", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
+	DrawText("TO START AGAIN", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	for (float x = 0; x < GetScreenHeight(); x++)
+	{
+		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
+		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
+
+
+		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
+	}
+
+	if (IsKeyPressed(KEY_ENTER))
+	{
+		player.gamePaused = false;
+	}
+}
+
 void Window::InitGame()
 {
 	player.framesCounter = 0;
-	player.gameStart = true;
 
 	player.gameWon = false;
 	player.gameOver = false; 
+	player.gamePaused = false;
 
 	player.allowMove = false;
 
@@ -122,26 +201,19 @@ void Window::DrawGame()
 			player.gameOver = true; 
 		}
 	}
-	else if (player.gameOver = true)
+	else if (player.gameOver = true && !player.gamePaused && !player.gameStart && !player.gameWon)
 	{
-		InitGame();
-		StartWindow();
+		GameOverWindow();
 	}
-	else if (player.gamePaused = true)
+	else if (player.gamePaused = true && !player.gameStart && !player.gameWon && !player.gameOver)
 	{
-		DrawText("PRESS [ENTER] TO START AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START AGAIN", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
-
-		if (IsKeyPressed(KEY_ENTER))
-		{
-			player.gamePaused = false;
-		}
+		GamePausedWindow();
 	}
-	else if (player.gameWon = true)
+	else if (player.gameWon = true && !player.gamePaused && !player.gameStart && !player.gameOver)
 	{
-		InitGame();
-		StartWindow();
+		GameWonWindow();
 	}
-	else if (player.gameStart = true)
+	else if (player.gameStart = true && !player.gamePaused)
 	{
 		InitGame();
 		StartWindow();
