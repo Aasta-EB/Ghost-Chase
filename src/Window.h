@@ -16,7 +16,7 @@ public:
 	Booster booster;
 	Vector2d vector2d;
 
-	float timeGame; 
+	float timeGame;
 
 	void TimeCounter();
 

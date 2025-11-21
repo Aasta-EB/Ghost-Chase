@@ -1,5 +1,6 @@
 #include "Window.h"
 
+// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::TimeCounter()
 {
 	if (timeGame > 0.f) timeGame -= GetFrameTime();
@@ -9,6 +10,7 @@ void Window::TimeCounter()
 	DrawText(TextFormat("Time: %d", actualTime), 1200, 20, 20, GRAY);
 }
 
+// Draws the start window of the game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::StartWindow()
 {
 	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
@@ -45,6 +47,7 @@ void Window::StartWindow()
 
 }
 
+// Draws the actual game is playing state ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GameOn()
 {
 	// Draw grid lines
@@ -67,7 +70,7 @@ void Window::GameOn()
 
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 
-	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false)
+	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
 	{
 		booster.DrawBooster();
 		booster.exsists = true; 
@@ -83,7 +86,7 @@ void Window::GameOn()
 	}
 	if (booster.collisionPlayerBooster == true)
 	{
-		booster.ExposeEnemyPosition(player.position, enemy.position);
+		booster.BoosterTimer(player.centrePlayerPosition, enemy.visualPosition);
 	}
 
 	if (IsKeyPressed(KEY_P))
@@ -97,8 +100,6 @@ void Window::GameOn()
 	//std::cout << distanceToEnemy << "\n";
 	//DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
-	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
-	//booster.DrawBooster();
 
 	if (distanceToEnemy <= 25)
 	{
@@ -110,6 +111,7 @@ void Window::GameOn()
 	}
 }
 
+// Draws the win screen ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GameWonWindow()
 {
 	DrawText("GAME WON", GetScreenWidth() / 2 - MeasureText("GAME WON", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
@@ -136,6 +138,7 @@ void Window::GameWonWindow()
 	}
 }
 
+// Draws the game over screen ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GameOverWindow()
 {
 	DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
@@ -163,6 +166,7 @@ void Window::GameOverWindow()
 
 }
 
+// Draws the game paused screen ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GamePausedWindow()
 {
 	DrawText("GAME IS PAUSED", GetScreenWidth() / 2 - MeasureText("GAME IS PAUSED", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
@@ -189,6 +193,7 @@ void Window::GamePausedWindow()
 	}
 }
 
+// Initiates (readies) the game for playing ___________________________________________________________________________________________________________________________________________________________________________
 void Window::InitGame()
 {
 	player.framesCounter = 0;
@@ -212,6 +217,8 @@ void Window::InitGame()
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 
 	booster.FindBoosterPosition();
+	booster.boosterTime = 5.f;
+	booster.collisionPlayerBooster = false; 
 
 	timeGame = 60;
 }

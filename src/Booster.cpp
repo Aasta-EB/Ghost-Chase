@@ -217,3 +217,17 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
 	}
 }
+
+void Booster::BoosterTimer(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
+{
+	if (boosterTime > 0.f)
+	{
+		boosterTime -= GetFrameTime();
+		ExposeEnemyPosition(inPlayerPosition, inEnemyPosition);
+	}
+	else
+	{
+		collisionPlayerBooster = false; 
+	}
+
+}
