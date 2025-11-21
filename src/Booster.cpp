@@ -126,8 +126,6 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 		//DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
 
 
-
-
 		Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x - 25, inPlayerPosition.y });
 		Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
 		Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };

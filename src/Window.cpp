@@ -1,5 +1,27 @@
 #include "Window.h"
 
+void Window::ExposeEnemyBooster()
+{
+	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
+	{
+		booster.DrawBooster();
+		booster.exsists = true;
+	}
+	else
+	{
+		booster.exsists = false;
+	}
+
+	if (booster.exsists == true && player.centrePlayerPosition.x == booster.boosterPosition.x && player.centrePlayerPosition.y == booster.boosterPosition.y)
+	{
+		booster.collisionPlayerBooster = true;
+	}
+	if (booster.collisionPlayerBooster == true)
+	{
+		booster.BoosterTimer(player.centrePlayerPosition, enemy.visualPosition);
+	}
+}
+
 // Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::TimeCounter()
 {
@@ -70,24 +92,13 @@ void Window::GameOn()
 
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 
-	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
+	ExposeEnemyBooster();
+
+	if (timeGame == 25.f || timeGame == 20.f || timeGame == 15.f || timeGame == 10.f || timeGame == 5.f && timeGame >= 0.f)
 	{
-		booster.DrawBooster();
-		booster.exsists = true; 
-	}
-	else
-	{
-		booster.exsists = false; 
+		enemy.DrawDropHint();
 	}
 
-	if (booster.exsists == true && player.centrePlayerPosition.x == booster.boosterPosition.x && player.centrePlayerPosition.y == booster.boosterPosition.y)
-	{
-		booster.collisionPlayerBooster = true; 
-	}
-	if (booster.collisionPlayerBooster == true)
-	{
-		booster.BoosterTimer(player.centrePlayerPosition, enemy.visualPosition);
-	}
 
 	if (IsKeyPressed(KEY_P))
 	{

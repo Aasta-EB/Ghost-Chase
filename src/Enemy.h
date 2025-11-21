@@ -20,6 +20,8 @@ public:
 
 	Vector2d visualPosition;
 
+	float dropTimer = 5.f; 
+
 	int framesCounter = 0;
 
 	bool collisionLeft = false;
@@ -33,6 +35,8 @@ public:
 	bool runDown = false;
 	bool runLeft = false;
 	bool runRight = false; 
+
+	void DrawDropHint();
 
 	void EnemyEscape(Vector2d inPlayerPosition);
 

@@ -18,6 +18,8 @@ public:
 
 	float timeGame;
 
+	void ExposeEnemyBooster();
+
 	void TimeCounter();
 
 	void StartWindow();

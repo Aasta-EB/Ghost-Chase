@@ -1,5 +1,10 @@
 #include "Enemy.h"
 
+void Enemy::DrawDropHint()
+{
+	DrawCircle(visualPosition.x, visualPosition.y, 5, ORANGE);
+}
+
 void Enemy::EnemyEscape(Vector2d inPlayerPosition)
 {
 	if (distanceToPlayer <= 300)
