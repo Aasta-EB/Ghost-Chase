@@ -45,6 +45,52 @@ void Window::StartWindow()
 
 }
 
+void Window::GameOn()
+{
+	// Draw grid lines
+		/*for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
+		{
+			DrawLineV(Vector2{ map.boxSize * i + map.offset.x / 2, map.offset.y / 2 }, Vector2{ map.boxSize * i + map.offset.x / 2, map.windowHeight - map.offset.y / 2 }, LIGHTGRAY);
+		}*/
+
+		/*for (int i = 0; i < map.windowHeight / map.boxSize + 1; i++)
+		{
+			DrawLineV(Vector2{ map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, Vector2{ map.windowWidth - map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, LIGHTGRAY);
+		}*/
+
+	map.DrawMap();
+
+	enemy.DrawEnemy(player.playerPosition);
+
+	// Draw Player
+	player.DrawPlayer();
+
+	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
+
+	if (IsKeyPressed(KEY_P))
+	{
+		player.gamePaused = true;
+	}
+
+	float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
+	enemy.distanceToPlayer = distanceToEnemy;
+	TimeCounter();
+	//std::cout << distanceToEnemy << "\n";
+	//DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
+
+	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
+	//booster.DrawBooster();
+
+	if (distanceToEnemy <= 25)
+	{
+		player.gameWon = true;
+	}
+	if (timeGame <= 0.f)
+	{
+		player.gameOver = true;
+	}
+}
+
 void Window::GameWonWindow()
 {
 	DrawText("GAME WON", GetScreenWidth() / 2 - MeasureText("GAME WON", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
@@ -158,48 +204,7 @@ void Window::DrawGame()
 
 	if (player.gameOver == false && player.gamePaused == false && player.gameWon == false && player.gameStart == false)
 	{
-		// Draw grid lines
-		/*for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
-		{
-			DrawLineV(Vector2{ map.boxSize * i + map.offset.x / 2, map.offset.y / 2 }, Vector2{ map.boxSize * i + map.offset.x / 2, map.windowHeight - map.offset.y / 2 }, LIGHTGRAY);
-		}*/
-
-		/*for (int i = 0; i < map.windowHeight / map.boxSize + 1; i++)
-		{
-			DrawLineV(Vector2{ map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, Vector2{ map.windowWidth - map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, LIGHTGRAY);
-		}*/
-
-		map.DrawMap();
-
-		enemy.DrawEnemy(player.playerPosition);
-
-		// Draw Player
-		player.DrawPlayer();
-
-		DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
-
-		if (IsKeyPressed(KEY_P))
-		{
-			player.gamePaused = true;
-		}
-
-		float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
-		enemy.distanceToPlayer = distanceToEnemy;
-		TimeCounter();
-		//std::cout << distanceToEnemy << "\n";
-		//DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
-
-		//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
-		booster.DrawBooster();
-
-		if (distanceToEnemy <= 25)
-		{
-			player.gameWon = true;
-		}
-		if (timeGame <= 0.f)
-		{
-			player.gameOver = true; 
-		}
+		GameOn();
 	}
 	else if (player.gameOver = true && !player.gamePaused && !player.gameStart && !player.gameWon)
 	{

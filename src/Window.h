@@ -22,6 +22,8 @@ public:
 
 	void StartWindow();
 
+	void GameOn();
+
 	void GameWonWindow();
 
 	void GameOverWindow();
