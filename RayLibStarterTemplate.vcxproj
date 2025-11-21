@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="src\Booster.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\Fog.cpp" />
     <ClCompile Include="src\Grid.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
@@ -153,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="src\Booster.h" />
     <ClInclude Include="src\Enemy.h" />
+    <ClInclude Include="src\Fog.h" />
     <ClInclude Include="src\Grid.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Vector2d.h" />

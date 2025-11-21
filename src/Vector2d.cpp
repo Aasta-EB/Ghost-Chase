@@ -7,7 +7,14 @@ float Vector2d::CalculateDeltaVector()
 	return lenghtOfVector;
 }
 
-Vector2d Vector2d::CalculateDistanceFromTarget(Vector2d inTargetedVector)
+float Vector2d::CalculateTangent(float inHypotenuseLenght, float inOtherTangentLenght)
+{
+	float calculatedTangent = sqrt((inHypotenuseLenght * inHypotenuseLenght) - (inOtherTangentLenght * inOtherTangentLenght));
+
+	return calculatedTangent;
+}
+
+Vector2d Vector2d::CalculateVectorToTarget(Vector2d inTargetedVector)
 {
 	float subtractVectorsX = inTargetedVector.x - x;
 	float subtractVectorsY = inTargetedVector.y - y;
@@ -19,17 +26,64 @@ Vector2d Vector2d::CalculateDistanceFromTarget(Vector2d inTargetedVector)
 
 float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
 {
-	Vector2d vectorBetweenTarget = CalculateDistanceFromTarget(inVectorTarget);
+	Vector2d vectorBetweenTarget = CalculateVectorToTarget(inVectorTarget);
 
 	float findDelta = vectorBetweenTarget.CalculateDeltaVector();
 
 	return findDelta;
 }
 
+Vector2d Vector2d::SumVectors(Vector2d inOtherVector)
+{
+	Vector2d summedVectors = { x + inOtherVector.x, y + inOtherVector.y }; 
+
+	return summedVectors;
+}
+
+float Vector2d::FindTriangleRatio(float inAngle, float inSideLenght)
+{
+	float triangleRatio = sinf(inAngle) / inSideLenght;
+
+	return triangleRatio;
+}
+
+float Vector2d::findTriangleSideLenght(float inAngle, float inTriangleRatio)
+{
+	float triangleSideLenght = sinf(inAngle) / inTriangleRatio;
+
+	return triangleSideLenght;
+}
+
+float Vector2d::CalculateSideLenght(float inFirstAngle, float inSideLenght, float inSecondAngle)
+{
+	float triangleRatio = FindTriangleRatio(inFirstAngle, inSideLenght);
+	float sideLenght = findTriangleSideLenght(inSecondAngle, triangleRatio);
+
+	return sideLenght;
+}
+
+Vector2d Vector2d::FindNormalizedOrtognalVector()
+{
+	Vector2d ortognalVector = { -y,x };
+
+	Vector2d normalizedOrtognalVector = ortognalVector.NormalizeVector();
+
+	return normalizedOrtognalVector;
+}
+
+Vector2d Vector2d::CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX)
+{
+	float valueY = inAmplitude * cosf(((2 * 3.14159) / inFrequency) * inValueX);
+
+	Vector2d cosineWaveVector = { inValueX, valueY };
+
+	return cosineWaveVector;
+}
+
 
 // Code from class, NEEDS CHANGING
 // Sets the offset to the vector
-Vector2d Vector2d::SetVectorOffset(Vector2d inVectorToAdd)
+Vector2d Vector2d::OffsetVector(Vector2d inVectorToAdd)
 {
 	float outVectorX = x + inVectorToAdd.x;
 	float outVectorY = y + inVectorToAdd.y;

@@ -65,7 +65,7 @@ void Player::CollisionCheck()
 // Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
 void Player::UpdatePlayer()
 {
-	if (!gameOver)
+	if (!gameOver && !gameWon && !gameStart && !gamePaused)
 	{
 
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
@@ -176,9 +176,7 @@ void Player::UpdatePlayer()
 // Drawing of player _______________________________________________________________________________________________________________________________________________________________________________
 void Player::DrawPlayer()
 {
-	Vector2 extraPosition = { position.x, position.y };
-	Vector2 extraSize = { size.x, size.y };
-	DrawRectangleV(extraPosition, extraSize, color);
+	DrawRectangleV({ position.x, position.y }, { size.x, size.y }, color);
 
 	centrePlayerPosition = { position.x + 25, position.y + 25 };
 }

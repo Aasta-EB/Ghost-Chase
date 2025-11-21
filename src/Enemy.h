@@ -29,13 +29,16 @@ public:
 
 	float distanceToPlayer = 100;
 
-	bool run = false;
+	bool runUp = false;
+	bool runDown = false;
+	bool runLeft = false;
+	bool runRight = false; 
 
-	void EnemyEscape();
+	void EnemyEscape(Vector2d inPlayerPosition);
 
-	void CollisionCheck();
+	void CollisionCheck(Vector2d inPlayerPosition);
 
-	void EnemyMovement();
+	void EnemyMovement(Vector2d inPlayerPosition);
 
-	void DrawEnemy();
+	void DrawEnemy(Vector2d inPlayerPosition);
 };

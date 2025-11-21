@@ -1,21 +1,39 @@
 #include "Enemy.h"
 
-void Enemy::EnemyEscape()
+void Enemy::EnemyEscape(Vector2d inPlayerPosition)
 {
 	if (distanceToPlayer <= 300)
 	{
-		run = true;
+		if (inPlayerPosition.x <= position.x)
+		{
+			runLeft = true;
+		}
+		if (inPlayerPosition.x >= position.x)
+		{
+			runRight = true;
+		}
+		if (inPlayerPosition.y <= position.y)
+		{
+			runDown = true; 
+		}
+		if (inPlayerPosition.y >= position.y)
+		{
+			runUp = true;
+		}
 	}
 	else
 	{
-		run = false;
+		runRight = false;
+		runLeft = false;
+		runDown = false;
+		runUp = false;
 	}
 
 	//std::cout << distanceToPlayer << "\n";
 }
 
 
-void Enemy::CollisionCheck()
+void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 {
 	position = enemyPosition;
 	int enemyPositionX = position.x / 50;
@@ -26,13 +44,21 @@ void Enemy::CollisionCheck()
 		enemyPositionX = (position.x + 50) / 50;
 		enemyPositionY = position.y / 50;
 
-		EnemyEscape();
+		EnemyEscape(inPlayerPosition);
 
-		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || runLeft == true)
 		{
+			int changeDirectionNumber;
 			collisionRight = true;
 			srand(time(0));
-			int changeDirectionNumber = std::rand() % 3;
+			if (runLeft == true && map.map[enemyPositionY][enemyPositionX] != 1)
+			{
+				changeDirectionNumber = 0; 
+			}
+			else
+			{
+				changeDirectionNumber = std::rand() % 3;
+			}
 			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
@@ -47,6 +73,7 @@ void Enemy::CollisionCheck()
 			{
 				enemyDirection = { 0,-1 };
 			}
+			runLeft = false; 
 		}
 		else
 		{
@@ -58,13 +85,23 @@ void Enemy::CollisionCheck()
 		enemyPositionX = (position.x - 50) / 50;
 		enemyPositionY = position.y / 50;
 
-		EnemyEscape();
+		EnemyEscape(inPlayerPosition);
 
-		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || runRight == true)
 		{
-			collisionLeft = true;
+			int changeDirectionNumber;
+
 			srand(time(0));
-			int changeDirectionNumber = std::rand() % 3;
+			if (runRight == true && map.map[enemyPositionY][enemyPositionX] != 1)
+			{
+				changeDirectionNumber = 0;
+			}
+			else
+			{
+				collisionLeft = true;
+				changeDirectionNumber = std::rand() % 3;
+			}
+			
 			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
@@ -79,6 +116,7 @@ void Enemy::CollisionCheck()
 			{
 				enemyDirection = { 0,-1 };
 			}
+			runRight = false;
 		}
 		else
 		{
@@ -87,15 +125,24 @@ void Enemy::CollisionCheck()
 	}
 	if (enemyDirection.y == -1)
 	{
-		EnemyEscape();
+		EnemyEscape(inPlayerPosition);
 
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y - 50) / 50;
-		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || runDown == true)
 		{
-			collisionUp = true;
+			int changeDirectionNumber;
+
 			srand(time(0));
-			int changeDirectionNumber = std::rand() % 3;
+			if (runDown == true && map.map[enemyPositionY][enemyPositionX] != 1)
+			{
+				changeDirectionNumber = 0;
+			}
+			else
+			{
+				collisionUp = true;
+				changeDirectionNumber = std::rand() % 3;
+			}
 			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
@@ -110,6 +157,7 @@ void Enemy::CollisionCheck()
 			{
 				enemyDirection = { -1,0 };
 			}
+			runDown = false; 
 		}
 		else
 		{
@@ -118,15 +166,24 @@ void Enemy::CollisionCheck()
 	}
 	if (enemyDirection.y == 1)
 	{
-		EnemyEscape();
+		EnemyEscape(inPlayerPosition);
 
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y + 50) / 50;
-		if (map.map[enemyPositionY][enemyPositionX] == 1 || run == true)
+		if (map.map[enemyPositionY][enemyPositionX] == 1 || runUp == true)
 		{
-			collisionDown = true;
+			int changeDirectionNumber;
 			srand(time(0));
-			int changeDirectionNumber = std::rand() % 3;
+			
+			if (runUp == true && map.map[enemyPositionY][enemyPositionX] != 1)
+			{
+				changeDirectionNumber = 0;
+			}
+			else
+			{
+				collisionDown = true;
+				changeDirectionNumber = std::rand() % 3;
+			}
 			//std::cout << changeDirectionNumber;
 
 			if (changeDirectionNumber == 0)
@@ -141,6 +198,7 @@ void Enemy::CollisionCheck()
 			{
 				enemyDirection = { -1,0 };
 			}
+			runUp = false; 
 		}
 		else
 		{
@@ -149,7 +207,7 @@ void Enemy::CollisionCheck()
 	}
 }
 
-void Enemy::EnemyMovement()
+void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 {
 	for (int i = 0; i < 1; i++) enemyPosition = position;
 
@@ -159,7 +217,7 @@ void Enemy::EnemyMovement()
 		{
 			if (i == 0)
 			{
-				CollisionCheck();
+				CollisionCheck(inPlayerPosition);
 				if (collisionRight == false && collisionLeft == false && collisionUp == false && collisionDown == false)
 				{
 					position.x += speed.x;
@@ -199,12 +257,10 @@ void Enemy::EnemyMovement()
 	framesCounter++;
 }
 
-void Enemy::DrawEnemy()
+void Enemy::DrawEnemy(Vector2d inPlayerPosition)
 {
-	EnemyMovement();
-	Vector2 extraPosition = { position.x, position.y };
-	Vector2 extraSize = { size.x, size.y };
-	DrawRectangleV(extraPosition, extraSize, ORANGE);
+	EnemyMovement(inPlayerPosition);
+	//DrawRectangleV({ position.x, position.y }, { size.x, size.y }, ORANGE);
 
 	visualPosition = { position.x + 25, position.y + 25 };
 	DrawCircle(visualPosition.x, visualPosition.y, 25, color);
