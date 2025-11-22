@@ -32,7 +32,6 @@ void Window::DropHint()
 		{
 			player.playerScore += 1;
 			enemy.enemyHintExsists_1 = false; 
-			std::cout << player.playerScore << "\n";
 		}
 	}
 	if (enemy.enemyHintExsists_2 == true)
@@ -41,7 +40,6 @@ void Window::DropHint()
 		{
 			player.playerScore += 1;
 			enemy.enemyHintExsists_2 = false;
-			std::cout << player.playerScore << "\n";
 		}
 	}
 	if (enemy.enemyHintExsists_3 == true)
@@ -50,7 +48,6 @@ void Window::DropHint()
 		{
 			player.playerScore += 1;
 			enemy.enemyHintExsists_3 = false;
-			std::cout << player.playerScore << "\n";
 		}
 	}
 	if (enemy.enemyHintExsists_4 == true)
@@ -59,8 +56,6 @@ void Window::DropHint()
 		{
 			player.playerScore += 1;
 			enemy.enemyHintExsists_4 = false;
-
-			std::cout << player.playerScore << "\n";
 		}
 	}
 
@@ -292,6 +287,13 @@ void Window::InitGame()
 	player.gameWon = false;
 	player.gameOver = false; 
 	player.gamePaused = false;
+
+	enemy.collisionUp = false;
+	enemy.collisionDown = false;
+	enemy.collisionLeft = false;
+	enemy.collisionRight = false;
+
+	enemy.enemyDirection = { 0, -1 };
 
 	player.allowMove = false;
 
