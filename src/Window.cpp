@@ -1,14 +1,82 @@
 #include "Window.h"
 
+void Window::ExposeEnemyBooster()
+{
+	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
+	{
+		booster.DrawBooster();
+		booster.exsists = true;
+	}
+	else
+	{
+		booster.exsists = false;
+	}
+
+	if (booster.exsists == true && player.centrePlayerPosition.x == booster.boosterPosition.x && player.centrePlayerPosition.y == booster.boosterPosition.y)
+	{
+		booster.collisionPlayerBooster = true;
+	}
+	if (booster.collisionPlayerBooster == true)
+	{
+		booster.BoosterTimer(player.centrePlayerPosition, enemy.visualPosition);
+	}
+}
+
+void Window::DropHint()
+{
+	enemy.DrawDropHint();
+
+	if (enemy.enemyHintExsists_1 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_1.x && player.centrePlayerPosition.y == enemy.enemyHintPos_1.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_1 = false; 
+			std::cout << player.playerScore << "\n";
+		}
+	}
+	if (enemy.enemyHintExsists_2 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_2.x && player.centrePlayerPosition.y == enemy.enemyHintPos_2.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_2 = false;
+			std::cout << player.playerScore << "\n";
+		}
+	}
+	if (enemy.enemyHintExsists_3 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_3.x && player.centrePlayerPosition.y == enemy.enemyHintPos_3.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_3 = false;
+			std::cout << player.playerScore << "\n";
+		}
+	}
+	if (enemy.enemyHintExsists_4 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_4.x && player.centrePlayerPosition.y == enemy.enemyHintPos_4.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_4 = false;
+
+			std::cout << player.playerScore << "\n";
+		}
+	}
+
+}
+
+// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::TimeCounter()
 {
 	if (timeGame > 0.f) timeGame -= GetFrameTime();
 
 	int actualTime = std::round(timeGame);
 
-	DrawText(TextFormat("Time: %d", actualTime), 1200, 20, 20, GRAY);
+	DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
 }
 
+// Draws the start window of the game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::StartWindow()
 {
 	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
@@ -45,6 +113,7 @@ void Window::StartWindow()
 
 }
 
+// Draws the actual game is playing state ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GameOn()
 {
 	// Draw grid lines
@@ -67,6 +136,13 @@ void Window::GameOn()
 
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 
+	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
+
+	ExposeEnemyBooster();
+
+	DropHint();
+	
+
 	if (IsKeyPressed(KEY_P))
 	{
 		player.gamePaused = true;
@@ -78,8 +154,6 @@ void Window::GameOn()
 	//std::cout << distanceToEnemy << "\n";
 	//DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
-	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
-	//booster.DrawBooster();
 
 	if (distanceToEnemy <= 25)
 	{
@@ -91,6 +165,7 @@ void Window::GameOn()
 	}
 }
 
+// Draws the win screen ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GameWonWindow()
 {
 	DrawText("GAME WON", GetScreenWidth() / 2 - MeasureText("GAME WON", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
@@ -98,6 +173,10 @@ void Window::GameWonWindow()
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
 
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
+	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
+	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
+
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
 		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
@@ -115,8 +194,14 @@ void Window::GameWonWindow()
 	{
 		InitGame();
 	}
+	if (IsKeyPressed(KEY_M))
+	{
+		player.gameWon = false;
+		player.gameStart = true; 
+	}
 }
 
+// Draws the game over screen ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GameOverWindow()
 {
 	DrawText("GAME OVER", GetScreenWidth() / 2 - MeasureText("GAME OVER", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
@@ -124,6 +209,10 @@ void Window::GameOverWindow()
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO PLAY AGAIN", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
 
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
+	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
+	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
+
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
 		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
@@ -141,15 +230,25 @@ void Window::GameOverWindow()
 	{
 		InitGame();
 	}
+	if (IsKeyPressed(KEY_M))
+	{
+		player.gameOver = false;
+		player.gameStart = true;
+	}
 
 }
 
+// Draws the game paused screen ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GamePausedWindow()
 {
 	DrawText("GAME IS PAUSED", GetScreenWidth() / 2 - MeasureText("GAME IS PAUSED", 50) / 2, GetScreenHeight() / 2 - 100, 50, GRAY);
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO START AGAIN", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START AGAIN", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
+	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
+	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
 
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
@@ -168,10 +267,26 @@ void Window::GamePausedWindow()
 	{
 		player.gamePaused = false;
 	}
+	if (IsKeyPressed(KEY_M))
+	{
+		player.gamePaused = false;
+		player.gameStart = true;
+	}
 }
 
+// Initiates (readies) the game for playing ___________________________________________________________________________________________________________________________________________________________________________
 void Window::InitGame()
 {
+	enemy.enemyHintExsists_1 = false; 
+	enemy.enemyHintExsists_2 = false; 
+	enemy.enemyHintExsists_3 = false; 
+	enemy.enemyHintExsists_4 = false; 
+
+	enemy.dropHintTimer = 10.f;
+	enemy.enemyHintNumber = 0.5f; 
+
+	player.playerScore = 0; 
+
 	player.framesCounter = 0;
 
 	player.gameWon = false;
@@ -191,6 +306,10 @@ void Window::InitGame()
 
 	enemy.position = { 15 * 50,10 * 50 };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
+
+	booster.FindBoosterPosition();
+	booster.boosterTime = 5.f;
+	booster.collisionPlayerBooster = false; 
 
 	timeGame = 60;
 }

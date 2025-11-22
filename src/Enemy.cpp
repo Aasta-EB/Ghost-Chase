@@ -1,5 +1,62 @@
 #include "Enemy.h"
 
+void Enemy::DrawDropHint()
+{
+	if (dropHintTimer > 0.f)
+	{
+		dropHintTimer -= GetFrameTime();
+	}
+	if (dropHintTimer < 0.f)
+	{
+		enemyHintNumber += 0.5f;
+		std::cout << enemyHintNumber << "\n";
+		dropHintTimer = 10.f;
+	}
+
+	if (enemyHintNumber == 1)
+	{
+		enemyHintExsists_1 = true;
+		enemyHintPos_1 = visualPosition; 
+		enemyHintNumber += 0.5; 
+	}
+	if (enemyHintNumber == 2)
+	{
+		enemyHintExsists_2 = true;
+		enemyHintPos_2 = visualPosition;
+		enemyHintNumber += 0.5;
+	}
+	if (enemyHintNumber == 3)
+	{
+		enemyHintExsists_3 = true;
+		enemyHintPos_3 = visualPosition;
+		enemyHintNumber += 0.5;
+	}
+	if (enemyHintNumber == 4)
+	{
+		enemyHintExsists_4 = true;
+		enemyHintPos_4 = visualPosition;
+		enemyHintNumber += 0.5;
+	}
+
+	if (enemyHintExsists_1 == true)
+	{
+		DrawCircle(enemyHintPos_1.x, enemyHintPos_1.y, 5, ORANGE);
+	}
+	if (enemyHintExsists_2 == true)
+	{
+		DrawCircle(enemyHintPos_2.x, enemyHintPos_2.y, 5, ORANGE);
+	}
+	if (enemyHintExsists_3 == true)
+	{
+		DrawCircle(enemyHintPos_3.x, enemyHintPos_3.y, 5, ORANGE);
+	}
+	if (enemyHintExsists_4 == true)
+	{
+		DrawCircle(enemyHintPos_4.x, enemyHintPos_4.y, 5, ORANGE);
+	}
+
+}
+
 void Enemy::EnemyEscape(Vector2d inPlayerPosition)
 {
 	if (distanceToPlayer <= 300)
