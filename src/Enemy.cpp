@@ -94,17 +94,19 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 	int enemyPositionX = position.x / 50;
 	int enemyPositionY = position.y / 50;
 
-	if (enemyDirection.x == 1)
+	//std::cout << position.x << " , " << position.y << "\n";
+
+	if (enemyDirection.x == 1 && enemyDirection.y == 0)
 	{
 		enemyPositionX = (position.x + 50) / 50;
-		enemyPositionX = position.y / 50;
+		enemyPositionY = position.y / 50;
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionRight = true;
-			if (map.map[enemyPositionY - 1][enemyPositionX] == 1)
+			if (map.map[enemyPositionY - 1][enemyPositionX - 1] == 1)
 			{
 				collisionUp = true;
 			}
@@ -112,7 +114,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			{
 				collisionUp = false;
 			}
-			if (map.map[enemyPositionY + 1][enemyPositionX] == 1)
+			if (map.map[enemyPositionY + 1][enemyPositionX - 1] == 1)
 			{
 				collisionDown = true;
 			}
@@ -198,20 +200,20 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		{
 			collisionRight = false;
 		}
-		std::cout << enemyPositionY << " , " << enemyPositionX << "\n";
+		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
 	}
-	if (enemyDirection.x == -1)
+	if (enemyDirection.x == -1 && enemyDirection.y == 0)
 	{
-		enemyPositionX = (position.x - 50) / 50;
-		enemyPositionX = position.y / 50;
+		enemyPositionX = (position.x - 50)/ 50;
+		enemyPositionY = position.y / 50;
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionLeft = true;
-			if (map.map[enemyPositionY - 1][enemyPositionX] == 1)
+			if (map.map[enemyPositionY - 1][enemyPositionX + 1] == 1)
 			{
 				collisionUp = true;
 			}
@@ -219,7 +221,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			{
 				collisionUp = false;
 			}
-			if (map.map[enemyPositionY + 1][enemyPositionX] == 1)
+			if (map.map[enemyPositionY + 1][enemyPositionX + 1] == 1)
 			{
 				collisionDown = true;
 			}
@@ -305,20 +307,21 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		{
 			collisionLeft = false;
 		}
-		std::cout << enemyPositionY << " , " << enemyPositionX << "\n";
+		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
 	}
-	if (enemyDirection.y == 1)
+	if (enemyDirection.y == 1 && enemyDirection.x == 0)
 	{
 		enemyPositionX = position.x / 50;
-		enemyPositionX = (position.y + 50) / 50;
+		enemyPositionY = (position.y + 50) / 50;
+
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionDown = true;
-			if (map.map[enemyPositionY - 1][enemyPositionX] == 1)
+			if (map.map[enemyPositionY - 1][enemyPositionX - 1] == 1)
 			{
 				collisionUp = true;
 			}
@@ -326,7 +329,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			{
 				collisionUp = false;
 			}
-			if (map.map[enemyPositionY][enemyPositionX - 1] == 1)
+			if (map.map[enemyPositionY - 1][enemyPositionX - 1] == 1)
 			{
 				collisionLeft = true;
 			}
@@ -334,7 +337,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			{
 				collisionLeft = false;
 			}
-			if (map.map[enemyPositionY][enemyPositionX + 1] == 1)
+			if (map.map[enemyPositionY - 1][enemyPositionX + 1] == 1)
 			{
 				collisionRight = true;
 			}
@@ -412,20 +415,20 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		{
 			collisionDown = false;
 		}
-		std::cout << enemyPositionY << " , " << enemyPositionX << "\n";
+		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
 	}
-	if (enemyDirection.y == -1)
+	if (enemyDirection.y == -1 && enemyDirection.x == 0)
 	{
 		enemyPositionX = position.x / 50;
-		enemyPositionX = (position.y - 50) / 50;
+		enemyPositionY = (position.y - 50) / 50;
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
 		if (map.map[enemyPositionY][enemyPositionX] == 1)
 		{
 			collisionUp = true;
-			if (map.map[enemyPositionY + 1][enemyPositionX] == 1)
+			if (map.map[enemyPositionY + 1][enemyPositionX + 1] == 1)
 			{
 				collisionDown = true;
 			}
@@ -433,7 +436,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			{
 				collisionDown = false;
 			}
-			if (map.map[enemyPositionY][enemyPositionX - 1] == 1)
+			if (map.map[enemyPositionY + 1][enemyPositionX - 1] == 1)
 			{
 				collisionLeft = true;
 			}
@@ -441,7 +444,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			{
 				collisionLeft = false;
 			}
-			if (map.map[enemyPositionY][enemyPositionX + 1] == 1)
+			if (map.map[enemyPositionY + 1][enemyPositionX + 1] == 1)
 			{
 				collisionRight = true;
 			}
@@ -519,7 +522,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		{
 			collisionUp = false;
 		}
-		std::cout << enemyPositionY << " , " << enemyPositionX << "\n";
+	/*	std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
 	}
 }
