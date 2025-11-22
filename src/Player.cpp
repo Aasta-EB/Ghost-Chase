@@ -59,7 +59,7 @@ void Player::CollisionCheck()
 			collisionDown = false;
 		}
 	}
-	std::cout << playerPositionX << " , " << playerPositionY << "\n";
+	//std::cout << playerPositionX << " , " << playerPositionY << "\n";
 }
 
 // Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
@@ -136,11 +136,6 @@ void Player::UpdatePlayer()
 				if (i == 0)
 				{
 					CollisionCheck();
-					if (collisionRight == false && collisionLeft == false && collisionUp == false && collisionDown == false)
-					{
-						position.x += speed.x;
-						position.y += speed.y;
-					}
 					if (playerDirection.x == 1 && collisionRight == false)
 					{
 						position.x += speed.x;
