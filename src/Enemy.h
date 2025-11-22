@@ -50,6 +50,10 @@ public:
 
 	void DrawDropHint();
 
+	Vector2d RandomEnemyDirection();
+
+	Vector2d RandomEnemyPosition();
+
 	void EnemyEscape(Vector2d inPlayerPosition);
 
 	void CollisionCheck(Vector2d inPlayerPosition);

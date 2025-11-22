@@ -56,6 +56,65 @@ void Enemy::DrawDropHint()
 	}
 }
 
+Vector2d Enemy::RandomEnemyDirection()
+{
+	srand(time(0));
+
+	int chooseDirection = std::rand() % 3;
+
+	Vector2d randomEnemyDirection;
+
+	if (chooseDirection == 0)
+	{
+		randomEnemyDirection = { 1 , 0 };
+	}
+	else if (chooseDirection == 1)
+	{
+		randomEnemyDirection = { -1 , 0 };
+	}
+	else if (chooseDirection == 2)
+	{
+		randomEnemyDirection = { 0 , 1 };
+	}
+	else if (chooseDirection == 3)
+	{
+		randomEnemyDirection = { 0 , -1 };
+	}
+
+	return randomEnemyDirection;
+}
+
+Vector2d Enemy::RandomEnemyPosition()
+{
+	srand(time(0));
+
+	int choosePosition = std::rand() % 5;
+	Vector2d randomEnemyPosition;
+
+	if (choosePosition == 0)
+	{
+		randomEnemyPosition = { 15 * map.boxSize, 10 * map.boxSize };
+	}
+	else if (choosePosition == 1)
+	{
+		randomEnemyPosition = { 20 * map.boxSize, 3 * map.boxSize };
+	}
+	else if (choosePosition == 2)
+	{
+		randomEnemyPosition = { 9 * map.boxSize, 3 * map.boxSize };
+	}
+	else if (choosePosition == 3)
+	{
+		randomEnemyPosition = { 12 * map.boxSize, 9 * map.boxSize };
+	}
+	else if (choosePosition == 4)
+	{
+		randomEnemyPosition = { 4 * map.boxSize, 11 * map.boxSize };
+	}
+
+	return randomEnemyPosition;
+}
+
 void Enemy::EnemyEscape(Vector2d inPlayerPosition)
 {
 	/*if (distanceToPlayer <= 300)
