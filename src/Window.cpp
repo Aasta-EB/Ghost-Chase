@@ -94,11 +94,8 @@ void Window::GameOn()
 
 	ExposeEnemyBooster();
 
-	if (timeGame == 25.f || timeGame == 20.f || timeGame == 15.f || timeGame == 10.f || timeGame == 5.f && timeGame >= 0.f)
-	{
-		enemy.DrawDropHint();
-	}
-
+	enemy.DrawDropHint();
+	
 
 	if (IsKeyPressed(KEY_P))
 	{
@@ -234,6 +231,14 @@ void Window::GamePausedWindow()
 // Initiates (readies) the game for playing ___________________________________________________________________________________________________________________________________________________________________________
 void Window::InitGame()
 {
+	enemy.enemyHintExsists_1 = false; 
+	enemy.enemyHintExsists_2 = false; 
+	enemy.enemyHintExsists_3 = false; 
+	enemy.enemyHintExsists_4 = false; 
+
+	enemy.dropHintTimer = 10.f;
+	enemy.enemyHintNumber = .5f; 
+
 	player.framesCounter = 0;
 
 	player.gameWon = false;
