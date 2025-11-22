@@ -8,37 +8,35 @@ void Enemy::DrawDropHint()
 	}
 	if (dropHintTimer < 0.f)
 	{
-		enemyHintNumber += 0.5;
+		enemyHintNumber += 0.5f;
 		std::cout << enemyHintNumber << "\n";
 		dropHintTimer = 10.f;
-		enemyHintExsists_1 = true;
-		enemyHintPos_1 = visualPosition;
 	}
 
-	//if (enemyHintNumber = 1)
-	//{
-	//	enemyHintExsists_1 = true;
-	//	enemyHintPos_1 = visualPosition; 
-	//	enemyHintNumber += 0.5; 
-	//}
-	//if (enemyHintNumber = 2)
-	//{
-	//	enemyHintExsists_2 = true;
-	//	enemyHintPos_2 = visualPosition;
-	//	enemyHintNumber += 0.5;
-	//}
-	//if (enemyHintNumber = 3)
-	//{
-	//	enemyHintExsists_3 = true;
-	//	enemyHintPos_3 = visualPosition;
-	//	enemyHintNumber += 0.5;
-	//}
-	//if (enemyHintNumber = 4)
-	//{
-	//	enemyHintExsists_4 = true;
-	//	enemyHintPos_4 = visualPosition;
-	//	enemyHintNumber += 0.5;
-	//}
+	if (enemyHintNumber == 1)
+	{
+		enemyHintExsists_1 = true;
+		enemyHintPos_1 = visualPosition; 
+		enemyHintNumber += 0.5; 
+	}
+	if (enemyHintNumber == 2)
+	{
+		enemyHintExsists_2 = true;
+		enemyHintPos_2 = visualPosition;
+		enemyHintNumber += 0.5;
+	}
+	if (enemyHintNumber == 3)
+	{
+		enemyHintExsists_3 = true;
+		enemyHintPos_3 = visualPosition;
+		enemyHintNumber += 0.5;
+	}
+	if (enemyHintNumber == 4)
+	{
+		enemyHintExsists_4 = true;
+		enemyHintPos_4 = visualPosition;
+		enemyHintNumber += 0.5;
+	}
 
 	if (enemyHintExsists_1 == true)
 	{

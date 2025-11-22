@@ -20,6 +20,8 @@ public:
 
 	void ExposeEnemyBooster();
 
+	void DropHint();
+
 	void TimeCounter();
 
 	void StartWindow();

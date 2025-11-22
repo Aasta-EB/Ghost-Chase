@@ -38,6 +38,8 @@ public:
 
 	int framesCounter = 0;
 
+	int playerScore = 0; 
+
 	int playerSize = 1;
 
 	void CollisionCheck();

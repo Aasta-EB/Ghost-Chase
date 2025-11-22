@@ -22,6 +22,50 @@ void Window::ExposeEnemyBooster()
 	}
 }
 
+void Window::DropHint()
+{
+	enemy.DrawDropHint();
+
+	if (enemy.enemyHintExsists_1 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_1.x && player.centrePlayerPosition.y == enemy.enemyHintPos_1.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_1 = false; 
+			std::cout << player.playerScore << "\n";
+		}
+	}
+	if (enemy.enemyHintExsists_2 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_2.x && player.centrePlayerPosition.y == enemy.enemyHintPos_2.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_2 = false;
+			std::cout << player.playerScore << "\n";
+		}
+	}
+	if (enemy.enemyHintExsists_3 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_3.x && player.centrePlayerPosition.y == enemy.enemyHintPos_3.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_3 = false;
+			std::cout << player.playerScore << "\n";
+		}
+	}
+	if (enemy.enemyHintExsists_4 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_4.x && player.centrePlayerPosition.y == enemy.enemyHintPos_4.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_4 = false;
+
+			std::cout << player.playerScore << "\n";
+		}
+	}
+
+}
+
 // Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::TimeCounter()
 {
@@ -29,7 +73,7 @@ void Window::TimeCounter()
 
 	int actualTime = std::round(timeGame);
 
-	DrawText(TextFormat("Time: %d", actualTime), 1200, 20, 20, GRAY);
+	DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
 }
 
 // Draws the start window of the game ___________________________________________________________________________________________________________________________________________________________________________
@@ -92,9 +136,11 @@ void Window::GameOn()
 
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 
+	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
+
 	ExposeEnemyBooster();
 
-	enemy.DrawDropHint();
+	DropHint();
 	
 
 	if (IsKeyPressed(KEY_P))
@@ -237,7 +283,9 @@ void Window::InitGame()
 	enemy.enemyHintExsists_4 = false; 
 
 	enemy.dropHintTimer = 10.f;
-	enemy.enemyHintNumber = .5f; 
+	enemy.enemyHintNumber = 0.5f; 
+
+	player.playerScore = 0; 
 
 	player.framesCounter = 0;
 
