@@ -12,7 +12,7 @@ public:
 	Player player;
 	Grid map;
 	Enemy enemy;
-	Fog fog = { 0 };
+	Fog fog;
 	Booster booster;
 	Vector2d vector2d;
 
