@@ -258,6 +258,59 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		else if (map.map[enemyPositionY][enemyPositionX] == 0)
 		{
 			collisionRight = false;
+			enemyPositionX = position.x / 50;
+			enemyPositionY = position.y / 50;
+			int changeDirectionNumber = 0;
+			srand(time(0));
+
+			if (map.map[enemyPositionY + 1][enemyPositionX] == 0 && map.map[enemyPositionY - 1][enemyPositionX] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 1,0 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 0,1 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 1,0 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 0,-1 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 0)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 1,0 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 0,1 };
+					std::cout << "I am changing my direction \n";
+				}
+				else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
+				{
+					enemyDirection = { 0,-1 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
@@ -365,6 +418,58 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		else if (map.map[enemyPositionY][enemyPositionX] == 0)
 		{
 			collisionLeft = false;
+			enemyPositionX = position.x / 50;
+			enemyPositionY = position.y / 50;
+			int changeDirectionNumber = 0;
+			srand(time(0));
+
+			if (map.map[enemyPositionY + 1][enemyPositionX] == 0 && map.map[enemyPositionY - 1][enemyPositionX] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { -1,0 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 0,1 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { -1,0 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 0,-1 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 0)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { -1,0 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 0,1 };
+					std::cout << "I am changing my direction \n";
+				}
+				else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
+				{
+					enemyDirection = { 0,-1 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
@@ -473,6 +578,58 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		else if (map.map[enemyPositionY][enemyPositionX] == 0)
 		{
 			collisionDown = false;
+			enemyPositionX = position.x / 50;
+			enemyPositionY = position.y / 50;
+			int changeDirectionNumber = 0;
+			srand(time(0));
+
+			if (map.map[enemyPositionY][enemyPositionX + 1] == 0 && map.map[enemyPositionY][enemyPositionX - 1] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 0,1 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 0,1 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { -1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 0)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 0,1 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+				else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
+				{
+					enemyDirection = { -1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
@@ -580,6 +737,58 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		else if (map.map[enemyPositionY][enemyPositionX] == 0)
 		{
 			collisionUp = false;
+			enemyPositionX = position.x / 50;
+			enemyPositionY = position.y / 50;
+			int changeDirectionNumber = 0;
+			srand(time(0));
+
+			if (map.map[enemyPositionY][enemyPositionX + 1] == 0 && map.map[enemyPositionY][enemyPositionX - 1] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 0,-1 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 1)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 0,-1 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { -1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
+			if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 0)
+			{
+				changeDirectionNumber = std::rand() % 100;
+				if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
+				{
+					enemyDirection = { 0,-1 };
+					std::cout << "I continue this way \n";
+				}
+				else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
+				{
+					enemyDirection = { 1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+				else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
+				{
+					enemyDirection = { -1,0 };
+					std::cout << "I am changing my direction \n";
+				}
+			}
 		}
 	/*	std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 
