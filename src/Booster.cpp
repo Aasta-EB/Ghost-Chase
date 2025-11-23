@@ -152,42 +152,6 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 		Vector2d pointB = { pointC.x, pointC.y - (distanceToArrowEdgePoint * 2) };
 
 		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
-
-		
-
-
-		//Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x + 25 , inPlayerPosition.y });
-		//Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
-		//Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };
-		//DrawLine(inPlayerPosition.x, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, RED);
-		//DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y - 1, RED);
-		//DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y + 1, RED);
-
-		//float forhold = sinf(90) / 10; // Finner forholdet som gjelder for hver side av trekanten
-
-		//float sideDC = sinf(45) / forhold;
-
-		//float sideBD = sqrt((10 * 10) - (sideDC * sideDC));
-
-		//Vector2d vectorBD = { normalizedPlayerEnemyVector.x * (-sideBD), normalizedPlayerEnemyVector.x * (-sideBD) };
-
-		//Vector2d vectorDC = { -vectorBD.y, vectorBD.x };
-
-		//Vector2d normalizedVectorDC = vectorDC.NormalizeVector();
-
-		//Vector2d actualVectorDC = { normalizedVectorDC.x * sideDC, normalizedVectorDC.y * sideDC };
-
-		//Vector2d sumVectorBDDC = { vectorBD.x + actualVectorDC.x, vectorBD.y + actualVectorDC.y };
-
-		//Vector2d pointA = { normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y };
-		//Vector2d pointC = { normalizedPlayerEnemyVectorFullCalculated.x - sumVectorBDDC.x, normalizedPlayerEnemyVectorFullCalculated.y - sumVectorBDDC.y };
-		//Vector2d pointB = { pointC.x, pointC.y -( sideDC*2)};
-
-		DrawCircle(pointA.x, pointA.y, 2, RED);
-		DrawCircle(pointB.x, pointB.y, 2, YELLOW);
-		DrawCircle(pointC.x, pointC.y, 2, GREEN);
-
-		/*DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);*/
 	}
 }
 
