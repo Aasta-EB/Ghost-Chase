@@ -137,8 +137,6 @@ void Window::GameOn()
 
 	DropHint();
 
-	booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
-
 	if (IsKeyPressed(KEY_P))
 	{
 		player.gamePaused = true;
