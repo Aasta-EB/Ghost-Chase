@@ -129,10 +129,6 @@ void Window::GameOn()
 	// Draw Player
 	player.DrawPlayer();
 
-	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
-
-	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
-
 	ExposeEnemyBooster();
 
 	DropHint();
@@ -144,7 +140,6 @@ void Window::GameOn()
 
 	float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
 	enemy.distanceToPlayer = distanceToEnemy;
-	TimeCounter();
 	//std::cout << distanceToEnemy << "\n";
 	//DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
@@ -158,7 +153,13 @@ void Window::GameOn()
 		player.gameOver = true;
 	}
 
-	//fog.DrawFog({player.playerPosition.x, player.playerPosition.y});
+	fog.DrawFog({player.playerPosition.x, player.playerPosition.y});
+	
+	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
+
+	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
+	
+	TimeCounter();
 }
 
 // Draws the win screen ___________________________________________________________________________________________________________________________________________________________________________
