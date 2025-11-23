@@ -99,118 +99,57 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 	}
 	else if (inEnemyPosition.x <= inPlayerPosition.x) // Left arrow, enemy is to the left
 	{
-		//Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x -25 , inPlayerPosition.y }); // Vector pointing "towards" the enemy
-		//Vector2d nmPlayerEnemyVector = playerEnemyVector.NormalizeVector(); // Normalizing the vector
-		//Vector2d scaledNmPlayerEnemyVector = nmPlayerEnemyVector.ScaleVector(25.f); // Scaling the vector by 25 as its the lenght i want the vector
-		//Vector2d playerEnemyVectorEnd = scaledNmPlayerEnemyVector.SumVectors(inPlayerPosition); // Finding the exact end position of the line we want to draw, is also the tip of the arrow
-
-		//// Drawing the line, 3 times for more visibility
-		//DrawLine(inPlayerPosition.x, inPlayerPosition.y, playerEnemyVectorEnd.x, playerEnemyVectorEnd.y, RED);
-		//DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, playerEnemyVectorEnd.x, playerEnemyVectorEnd.y -1, RED);
-		//DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, playerEnemyVectorEnd.x, playerEnemyVectorEnd.y + 1, RED);
-
-		//// Calculating the points to the triangle
-		//float distanceToArrowEdgePoint = vector2d.CalculateSideLenght(90.f, 10.f, 45.f); // Finds the distance from the arrow line to the point we want to draw as the corner of the triangle
-		//float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint); // Finds how far down on the arrow line we need to have the arrow edge be
-		//Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(-triangleHeight); // Finds the vector of that lengt
-		//Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector(); // Finds the vector out to the arrow edge
-		//Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.ScaleVector(distanceToArrowEdgePoint);
-		//Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(actualVectorToArrowEdgePoint); // Adds the two vectors together to find the exact point we want to draw the arrow edge
-
-		//// Defining the points of the triangle
-		//Vector2d pointA = { playerEnemyVectorEnd.x, playerEnemyVectorEnd.y };
-		//Vector2d pointC = { playerEnemyVectorEnd.x - arrowEdgePoint.x, playerEnemyVectorEnd.y - arrowEdgePoint.y };
-		//Vector2d pointB = { pointC.x, pointC.y + (distanceToArrowEdgePoint * 2) };
-
-		//// Drawing the triangle
-		//DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
-
-
 		Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x - 25, inPlayerPosition.y });
-		Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
-		Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };
-		DrawLine(inPlayerPosition.x, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, RED);
-		DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y - 1, RED);
-		DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y + 1, RED);
+		Vector2d nmPlayerEnemyVector = playerEnemyVector.NormalizeVector();
+		Vector2d scaledNmPlayerEnemyVector = { inPlayerPosition.x + nmPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + nmPlayerEnemyVector.y * 25.f };
+		
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y - 1, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y + 1, RED);
 
-		float forhold = sinf(90) / 10; // Finner forholdet som gjelder for hver side av trekanten
+		float distanceToArrowEdgePoint = vector2d.CalculateSideLenght(90.f, 10.f, 45.f);
 
-		float sideDC = sinf(45) / forhold;
+		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint);
 
-		float sideBD = sqrt((10 * 10) - (sideDC * sideDC));
+		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(triangleHeight);
 
-		Vector2d vectorBD = { normalizedPlayerEnemyVector.x * (-sideBD), normalizedPlayerEnemyVector.x * (-sideBD) };
+		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector();
 
-		Vector2d vectorDC = { -vectorBD.y, vectorBD.x };
+		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.ScaleVector(distanceToArrowEdgePoint);
 
-		Vector2d normalizedVectorDC = vectorDC.NormalizeVector();
+		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(actualVectorToArrowEdgePoint);
 
-		Vector2d actualVectorDC = { normalizedVectorDC.x * sideDC, normalizedVectorDC.y * sideDC };
-
-		Vector2d sumVectorBDDC = { vectorBD.x + actualVectorDC.x, vectorBD.y + actualVectorDC.y };
-
-		Vector2d pointA = { normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y };
-		Vector2d pointC = { normalizedPlayerEnemyVectorFullCalculated.x - sumVectorBDDC.x, normalizedPlayerEnemyVectorFullCalculated.y - sumVectorBDDC.y };
-		Vector2d pointB = { pointC.x, pointC.y + (sideDC*2) };
+		Vector2d pointA = { scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y };
+		Vector2d pointB = { (scaledNmPlayerEnemyVector.x - arrowEdgePoint.x) + 5, scaledNmPlayerEnemyVector.y - arrowEdgePoint.y };
+		Vector2d pointC = { pointB.x, pointB.y - (distanceToArrowEdgePoint * 2) };
 
 		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
 	}
 	else if (inEnemyPosition.x > inPlayerPosition.x) // Right arrow
 	{
-		//Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x + 25 , inPlayerPosition.y }); // Vector pointing "towards" the enemy
-		//Vector2d nmPlayerEnemyVector = playerEnemyVector.NormalizeVector(); // Normalizing the vector
-		//Vector2d scaledNmPlayerEnemyVector = nmPlayerEnemyVector.ScaleVector(25.f); // Scaling the vector by 25 as its the lenght i want the vector
-		//Vector2d playerEnemyVectorEnd = scaledNmPlayerEnemyVector.SumVectors(inPlayerPosition); // Finding the exact end position of the line we want to draw, is also the tip of the arrow
+		Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x + 25, inPlayerPosition.y });
+		Vector2d nmPlayerEnemyVector = playerEnemyVector.NormalizeVector();
+		Vector2d scaledNmPlayerEnemyVector = { inPlayerPosition.x + nmPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + nmPlayerEnemyVector.y * 25.f };
 
-		//// Drawing the line, 3 times for more visibility
-		//DrawLine(inPlayerPosition.x, inPlayerPosition.y, playerEnemyVectorEnd.x, playerEnemyVectorEnd.y, RED);
-		//DrawLine(inPlayerPosition.x , inPlayerPosition.y-1, playerEnemyVectorEnd.x, playerEnemyVectorEnd.y-1, RED);
-		//DrawLine(inPlayerPosition.x , inPlayerPosition.y + 1, playerEnemyVectorEnd.x , playerEnemyVectorEnd.y +1, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y - 1, RED);
+		DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y + 1, RED);
 
-		//// Calculating the points to the triangle
-		//float distanceToArrowEdgePoint = vector2d.CalculateSideLenght(90.f, 10.f, 45.f); // Finds the distance from the arrow line to the point we want to draw as the corner of the triangle
-		//float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint); // Finds how far down on the arrow line we need to have the arrow edge be
-		//Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(-triangleHeight); // Finds the vector of that lengt
-		//Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector(); // Finds the vector out to the arrow edge
-		//Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(vectorToArrowEdgePoint); // Adds the two vectors together to find the exact point we want to draw the arrow edge
+		float distanceToArrowEdgePoint = vector2d.CalculateSideLenght(90.f, 10.f, 45.f);
 
-		//// Defining the points of the triangle
-		//Vector2d pointA = { playerEnemyVectorEnd.x, playerEnemyVectorEnd.y };
-		//Vector2d pointC = { playerEnemyVectorEnd.x - arrowEdgePoint.x , playerEnemyVectorEnd.y - arrowEdgePoint.y };
-		//Vector2d pointB = { pointC.x, pointC.y - (distanceToArrowEdgePoint * 2)};
+		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint);
 
-		//// Drawing the triangle
-		//DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
+		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(-triangleHeight);
 
-		
+		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector();
 
+		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.ScaleVector(distanceToArrowEdgePoint);
 
-		Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x + 25 , inPlayerPosition.y });
-		Vector2d normalizedPlayerEnemyVector = playerEnemyVector.NormalizeVector();
-		Vector2d normalizedPlayerEnemyVectorFullCalculated = { inPlayerPosition.x + normalizedPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + normalizedPlayerEnemyVector.y * 25.f };
-		DrawLine(inPlayerPosition.x, inPlayerPosition.y, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y, RED);
-		DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y - 1, RED);
-		DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y + 1, RED);
+		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(actualVectorToArrowEdgePoint);
 
-		float forhold = sinf(90) / 10; // Finner forholdet som gjelder for hver side av trekanten
-
-		float sideDC = sinf(45) / forhold;
-
-		float sideBD = sqrt((10 * 10) - (sideDC * sideDC));
-
-		Vector2d vectorBD = { normalizedPlayerEnemyVector.x * (-sideBD), normalizedPlayerEnemyVector.x * (-sideBD) };
-
-		Vector2d vectorDC = { -vectorBD.y, vectorBD.x };
-
-		Vector2d normalizedVectorDC = vectorDC.NormalizeVector();
-
-		Vector2d actualVectorDC = { normalizedVectorDC.x * sideDC, normalizedVectorDC.y * sideDC };
-
-		Vector2d sumVectorBDDC = { vectorBD.x + actualVectorDC.x, vectorBD.y + actualVectorDC.y };
-
-		Vector2d pointA = { normalizedPlayerEnemyVectorFullCalculated.x, normalizedPlayerEnemyVectorFullCalculated.y };
-		Vector2d pointC = { normalizedPlayerEnemyVectorFullCalculated.x - sumVectorBDDC.x, normalizedPlayerEnemyVectorFullCalculated.y - sumVectorBDDC.y };
-		Vector2d pointB = { pointC.x, pointC.y -( sideDC*2)};
+		Vector2d pointA = { scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y };
+		Vector2d pointC = { (scaledNmPlayerEnemyVector.x - arrowEdgePoint.x) - 10, scaledNmPlayerEnemyVector.y - arrowEdgePoint.y };
+		Vector2d pointB = { pointC.x, pointC.y - (distanceToArrowEdgePoint * 2) };
 
 		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
 	}

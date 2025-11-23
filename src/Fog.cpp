@@ -1,61 +1,62 @@
 #include "Fog.h"
 
-void Fog::InitFog()
+
+void Fog::ReadyFog(Vector2d inPlayerPosition)
 {
-	//  -------------------------------------------------
-	tilesX = 140;
-	tilesY = 70;
+//	int playerPositionX = inPlayerPosition.x;
+//	int playerPositionY = inPlayerPosition.y;
+// 
+//
+//	std::cout << inPlayerPosition.x << " , " << inPlayerPosition.y << "\n";
+//
+//	for (int i = 0; i < 14; i++)
+//	{
+//		for (int j = 0; j < 28; j++)
+//		{
+//			//std::cout << fog[i][j];
+//			if (fog[i][j] == 1)
+//			{
+//				//std::cout << "1, ";
+//				fog[i][j] = 0;
+//			}
+//		}
+//	}
+//  playerVision = 2; 
+//	fog[playerPositionY][playerPositionX] = 1;
+	//std::cout << fog[playerPositionY][playerPositionX] << "\n";
+	/*for (int i = 1; i <= playerVision; i++)
+	{
+		fog[playerPositionY + i][playerPositionX] = 1;
+		fog[playerPositionY - i][playerPositionX] = 1;
+		fog[playerPositionY][playerPositionX + i] = 1;
+		fog[playerPositionY][playerPositionX - i] = 1;
 
-	// NOTE: We can have up to 256 values for tile ids and for tile fog state,
-	// probably we don't need that many values for fog state, it can be optimized
-	// to use only 2 bits per fog state (reducing size by 4) but logic will be a bit more complex
-	tileIds = (char*)calloc(tilesX * tilesY, sizeof(char));
-	tileFog = (char*)calloc(tilesX * tilesY, sizeof(char));
-
-	// Player position on the screen (pixel coordinates, not tile coordinates
-	playerTileX = 0;
-	playerTileY = 0;
-
-	// Render texture to render fog of war
-	// NOTE: To get an automatic smooth-fog effect we use a render texture to render fog
-	// at a smaller size (one pixel per tile) and scale it on drawing with bilinear filtering
-	RenderTexture2D fogOfWar = LoadRenderTexture(tilesX, tilesY);
-	SetTextureFilter(fogOfWar.texture, TEXTURE_FILTER_BILINEAR);
+		fog[playerPositionY + i][playerPositionX + i] = 1;
+		fog[playerPositionY - i][playerPositionX - i] = 1;
+		fog[playerPositionY + i][playerPositionX - i] = 1;
+		fog[playerPositionY - i][playerPositionX + i] = 1;
+	}*/
 }
 
-void Fog::ReadyFog()
+void Fog::DrawFog(Vector2d inPlayerPosition)
 {
-	// Previous visited tiles are set to partial fog
-	for (unsigned int i = 0; i < tilesX * tilesY; i++) if (tileFog[i] == 1) tileFog[i] = 0;
+	//ReadyFog(inPlayerPosition);
 
-	// Get current tile position from player pixel position
-	playerTileX = (int)((player.position.x + mapTileSize / 2) / mapTileSize);
-	playerTileY = (int)((player.position.y + mapTileSize / 2) / mapTileSize);
-
-	// Check visibility and update fog
-	// NOTE: We check tilemap limits to avoid processing tiles out-of-array-bounds (it could crash program)
-	for (int y = (playerTileY - playerTileViasbility); y < (playerTileY + playerTileViasbility); y++)
-		for (int x = (playerTileX - playerTileViasbility); x < (playerTileX + playerTileViasbility); x++)
-			if ((x >= 0) && (x < (int)tilesX) && (y >= 0) && (y < (int)tilesY)) tileFog[y * tilesX + x] = 1;
-
-	// Draw
-	// Draw fog of war to a small render texture for automatic smoothing on scaling
-	BeginTextureMode(fogOfWar);
-	ClearBackground(BLANK);
-	for (unsigned int y = 0; y < tilesY; y++)
-		for (unsigned int x = 0; x < tilesX; x++)
-			if (tileFog[y * tilesX + x] == 0) DrawRectangle(x, y, 1, 1, BLACK);
-	EndTextureMode();
-}
-
-void Fog::DrawFog()
-{
-	// Draw fog of war (scaled to full map, bilinear filtering)
-	DrawTexturePro(fogOfWar.texture, Rectangle{ 0, 0, (float)fogOfWar.texture.width, (float)-fogOfWar.texture.height },
-		Rectangle{
-		0, 0, (float)tilesX * mapTileSize, (float)tilesY * mapTileSize
-		},
-		Vector2{
-		0, 0
-		}, 0.0f, WHITE);
+	//for (int i = 0; i < 14; i++)
+	//{
+	//	for (int j = 0; j < 28; j++)
+	//	{
+	//		if (fog[i][j] == 1)
+	//		{
+	//			std::cout << i << " , " << j << "\n";
+	//			//std::cout << fog[i][j] << "\n";
+	//		}
+	//		if (fog[i][j] == 0)
+	//		{
+	//			int positionY = i * 50;
+	//			int positionX = j * 50;
+	//			DrawRectangle(positionX, positionY, 50, 50, BLACK);
+	//		}
+	//	}
+	//}
 }

@@ -37,11 +37,9 @@ public:
 
 	// Calculates a cosine wave 
 	Vector2d CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX);
-
-	// Functions from class NEEDS TO BE CHANGED ______________________________________________________________________________________________________________________
-	// Normalizes the Vector
+	
 	// Sets the offset to the vector
-	Vector2d OffsetVector(Vector2d inVectorToAdd);
+	/*Vector2d OffsetVector(Vector2d inVectorToAdd);*/
 
 	// Scales the vector
 	Vector2d ScaleVector(float scale);
@@ -50,17 +48,17 @@ public:
 	Vector2d NormalizeVector();;
 
 	// Uses cosine to get movement
-	Vector2d CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle);;
+	//Vector2d CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle);;
 
-	// Creates a circular motion
-	Vector2d CircularMotion(Vector2d inCenter, float inRadius, float inAngle);
+	//// Creates a circular motion
+	//Vector2d CircularMotion(Vector2d inCenter, float inRadius, float inAngle);
 
 	// Finding the dot product
-	float DotProduct(Vector2d inOtherVector);
+	/*float DotProduct(Vector2d inOtherVector);*/
 
 	// Finding the angle between two vectors
-	float AngleBetweenVectors(Vector2d inOtherVector);
+	/*float AngleBetweenVectors(Vector2d inOtherVector);*/
 
 	// finds the cross product between two vectors (finds left or right)
-	float CrossProduct(Vector2d inOtherVector);
+	/*float CrossProduct(Vector2d inOtherVector);*/
 };

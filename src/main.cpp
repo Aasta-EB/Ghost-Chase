@@ -21,7 +21,6 @@ int main()
 	InitWindow(map.windowWidth, map.windowHeight, "Ghost-Chase");
 
 	window.InitGame();
-	fog.InitFog();
 
 	SetTargetFPS(60);
 
@@ -34,11 +33,6 @@ int main()
 
 		window.UpdateDrawFrame();
 	}
-
-	free(fog.tileIds);      // Free allocated map tile ids
-	free(fog.tileFog);      // Free allocated map tile fog state
-
-	UnloadRenderTexture(fog.fogOfWar);  // Unload render texture
 
 
 	CloseWindow();

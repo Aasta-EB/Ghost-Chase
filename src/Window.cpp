@@ -136,7 +136,6 @@ void Window::GameOn()
 	ExposeEnemyBooster();
 
 	DropHint();
-	
 
 	if (IsKeyPressed(KEY_P))
 	{
@@ -158,6 +157,8 @@ void Window::GameOn()
 	{
 		player.gameOver = true;
 	}
+
+	//fog.DrawFog({player.playerPosition.x, player.playerPosition.y});
 }
 
 // Draws the win screen ___________________________________________________________________________________________________________________________________________________________________________
@@ -306,8 +307,9 @@ void Window::InitGame()
 
 	player.playerPosition = Vector2d{ 0.0f, 0.0f };
 
-	enemy.position = { 15 * 50,10 * 50 };
+	enemy.position = { enemy.RandomEnemyPosition().x, enemy.RandomEnemyPosition().y };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
+	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
 
 	booster.FindBoosterPosition();
 	booster.boosterTime = 5.f;
