@@ -23,7 +23,7 @@ public:
 	// Sums two vectors together
 	Vector2d SumVectors(Vector2d inOtherVector);
 
-	// Find triangle ratio 
+	// Find triangle ratio
 	float FindTriangleRatio(float inAngle, float inSideLenght);
 
 	// Finds the side lenght using the triangle ratio
@@ -35,9 +35,9 @@ public:
 	// Finds the normalized ortognal vector of another vector
 	Vector2d FindNormalizedOrtognalVector();
 
-	// Calculates a cosine wave 
+	// Calculates a cosine wave
 	Vector2d CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX);
-	
+
 	// Sets the offset to the vector
 	/*Vector2d OffsetVector(Vector2d inVectorToAdd);*/
 

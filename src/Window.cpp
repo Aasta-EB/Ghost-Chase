@@ -1,5 +1,6 @@
 #include "Window.h"
 
+// Booster to expose the enemie's position ___________________________________________________________________________________________________________________________________________________
 void Window::ExposeEnemyBooster()
 {
 	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
@@ -22,6 +23,7 @@ void Window::ExposeEnemyBooster()
 	}
 }
 
+// Enemy drops hint at its current position, player gets points if collected ________________________________________________________________________________________________________________
 void Window::DropHint()
 {
 	enemy.DrawDropHint();
@@ -31,7 +33,7 @@ void Window::DropHint()
 		if (player.centrePlayerPosition.x == enemy.enemyHintPos_1.x && player.centrePlayerPosition.y == enemy.enemyHintPos_1.y)
 		{
 			player.playerScore += 1;
-			enemy.enemyHintExsists_1 = false; 
+			enemy.enemyHintExsists_1 = false;
 		}
 	}
 	if (enemy.enemyHintExsists_2 == true)
@@ -58,7 +60,6 @@ void Window::DropHint()
 			enemy.enemyHintExsists_4 = false;
 		}
 	}
-
 }
 
 // Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
@@ -86,7 +87,6 @@ void Window::StartWindow()
 		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
 
-
 		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
@@ -103,48 +103,31 @@ void Window::StartWindow()
 
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		player.gameStart = false; 
+		player.gameStart = false;
 	}
-
 }
 
 // Draws the actual game is playing state ___________________________________________________________________________________________________________________________________________________________________________
 void Window::GameOn()
 {
-	// Draw grid lines
-		/*for (int i = 0; i < map.windowWidth / map.boxSize + 1; i++)
-		{
-			DrawLineV(Vector2{ map.boxSize * i + map.offset.x / 2, map.offset.y / 2 }, Vector2{ map.boxSize * i + map.offset.x / 2, map.windowHeight - map.offset.y / 2 }, LIGHTGRAY);
-		}*/
-
-		/*for (int i = 0; i < map.windowHeight / map.boxSize + 1; i++)
-		{
-			DrawLineV(Vector2{ map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, Vector2{ map.windowWidth - map.offset.x / 2, map.boxSize * i + map.offset.y / 2 }, LIGHTGRAY);
-		}*/
-
 	map.DrawMap();
 
+	DropHint();
 	enemy.DrawEnemy(player.playerPosition);
 
-	// Draw Player
+	ExposeEnemyBooster();
 	player.DrawPlayer();
 
-	ExposeEnemyBooster();
+	fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
 
-	DropHint();
-
-	if (IsKeyPressed(KEY_P))
-	{
-		player.gamePaused = true;
-	}
+	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
+	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
+	TimeCounter();
 
 	float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
 	enemy.distanceToPlayer = distanceToEnemy;
-	//std::cout << distanceToEnemy << "\n";
-	//DrawLine(player.centrePlayerPosition.x, player.centrePlayerPosition.y, enemy.visualPosition.x, enemy.visualPosition.y, RED);
 
-
-	if (distanceToEnemy <= 25)
+	if (distanceToEnemy <= 50)
 	{
 		player.gameWon = true;
 	}
@@ -153,13 +136,10 @@ void Window::GameOn()
 		player.gameOver = true;
 	}
 
-	fog.DrawFog({player.playerPosition.x, player.playerPosition.y});
-	
-	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
-
-	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
-	
-	TimeCounter();
+	if (IsKeyPressed(KEY_P))
+	{
+		player.gamePaused = true;
+	}
 }
 
 // Draws the win screen ___________________________________________________________________________________________________________________________________________________________________________
@@ -181,7 +161,6 @@ void Window::GameWonWindow()
 		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
 
-
 		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
@@ -194,7 +173,7 @@ void Window::GameWonWindow()
 	if (IsKeyPressed(KEY_M))
 	{
 		player.gameWon = false;
-		player.gameStart = true; 
+		player.gameStart = true;
 	}
 }
 
@@ -217,7 +196,6 @@ void Window::GameOverWindow()
 		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
 
-
 		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
@@ -232,7 +210,6 @@ void Window::GameOverWindow()
 		player.gameOver = false;
 		player.gameStart = true;
 	}
-
 }
 
 // Draws the game paused screen ___________________________________________________________________________________________________________________________________________________________________________
@@ -254,7 +231,6 @@ void Window::GamePausedWindow()
 		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
 
-
 		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
@@ -274,47 +250,35 @@ void Window::GamePausedWindow()
 // Initiates (readies) the game for playing ___________________________________________________________________________________________________________________________________________________________________________
 void Window::InitGame()
 {
-	enemy.enemyHintExsists_1 = false; 
-	enemy.enemyHintExsists_2 = false; 
-	enemy.enemyHintExsists_3 = false; 
-	enemy.enemyHintExsists_4 = false; 
-
+	enemy.enemyDirection = { 0, -1 };
+	enemy.enemyHintExsists_1 = false;
+	enemy.enemyHintExsists_2 = false;
+	enemy.enemyHintExsists_3 = false;
+	enemy.enemyHintExsists_4 = false;
 	enemy.dropHintTimer = 10.f;
-	enemy.enemyHintNumber = 0.5f; 
-
-	player.playerScore = 0;
-	player.framesCounter = 0;
-
-	player.gameWon = false;
-	player.gameOver = false; 
-	player.gamePaused = false;
-
+	enemy.enemyHintNumber = 0.5f;
 	enemy.collisionUp = false;
 	enemy.collisionDown = false;
 	enemy.collisionLeft = false;
 	enemy.collisionRight = false;
-
-	enemy.enemyDirection = { 0, -1 };
-
-	player.allowMove = false;
-
-	map.offset.x = map.windowWidth % int(map.boxSize);
-	map.offset.y = map.windowHeight % int(map.boxSize);
-
-	player.position = Vector2d{ 13 * map.boxSize, 7 * map.boxSize };
-	player.size = Vector2d{ map.boxSize, map.boxSize };
-	player.speed = Vector2d{ map.boxSize, 0 };
-	player.playerDirection = { 1 , 0 };
-
-	player.playerPosition = Vector2d{ 0.0f, 0.0f };
-
 	enemy.position = { enemy.RandomEnemyPosition().x, enemy.RandomEnemyPosition().y };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
 
+	player.playerScore = 0;
+	player.framesCounter = 0;
+	player.gameWon = false;
+	player.gameOver = false;
+	player.gamePaused = false;
+	player.position = { 13 * map.boxSize, 7 * map.boxSize };
+	player.size = { map.boxSize, map.boxSize };
+	player.speed = { map.boxSize, 0 };
+	player.playerDirection = { 1 , 0 };
+	player.playerPosition = { 0.0f, 0.0f }; // Do i really need this???
+
 	booster.FindBoosterPosition();
 	booster.boosterTime = 5.f;
-	booster.collisionPlayerBooster = false; 
+	booster.collisionPlayerBooster = false;
 
 	timeGame = 60;
 }

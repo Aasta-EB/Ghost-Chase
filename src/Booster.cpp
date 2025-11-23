@@ -1,5 +1,6 @@
 #include "Booster.h"
 
+// Selects a "random" position for the booster _________________________________________________________________________________________________________________________________________
 Vector2d Booster::FindBoosterPosition()
 {
 	srand(time(0));
@@ -29,17 +30,17 @@ Vector2d Booster::FindBoosterPosition()
 	return boosterPosition;
 }
 
+// Draws the booster in it's chosen position ___________________________________________________________________________________________________________________________________________________________
 void Booster::DrawBooster()
 {
 	DrawCircle(boosterPosition.x, boosterPosition.y, 5, GREEN);
-
 }
 
 void Booster::ExpandPlayerVision()
 {
 }
 
-// A booster that exposes the enemys position and points in the direction
+// Booster that exposes the enemys position and points in the direction ___________________________________________________________________________________________________________________________
 void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 {
 	if (inEnemyPosition.y <= inPlayerPosition.y && inEnemyPosition.y != inPlayerPosition.y) // On top arrow
@@ -63,8 +64,8 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 
 		// Defining the points of the triangle
 		Vector2d pointA = { playerEnemyVectorEnd.x, playerEnemyVectorEnd.y };
-		Vector2d pointB = { pointA.x - distanceToArrowEdgePoint, pointA.y + triangleHeight *2 };
-		Vector2d pointC = { pointB.x + distanceToArrowEdgePoint *2, pointB.y};
+		Vector2d pointB = { pointA.x - distanceToArrowEdgePoint, pointA.y + triangleHeight * 2 };
+		Vector2d pointC = { pointB.x + distanceToArrowEdgePoint * 2, pointB.y };
 
 		// Drawing the triangle
 		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
@@ -95,14 +96,13 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 
 		// Drawing the triangle
 		DrawTriangle({ pointA.x, pointA.y }, { pointB.x, pointB.y }, { pointC.x,pointC.y }, RED);
-
 	}
 	else if (inEnemyPosition.x <= inPlayerPosition.x) // Left arrow, enemy is to the left
 	{
 		Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x - 25, inPlayerPosition.y });
 		Vector2d nmPlayerEnemyVector = playerEnemyVector.NormalizeVector();
 		Vector2d scaledNmPlayerEnemyVector = { inPlayerPosition.x + nmPlayerEnemyVector.x * 25.f ,inPlayerPosition.y + nmPlayerEnemyVector.y * 25.f };
-		
+
 		DrawLine(inPlayerPosition.x, inPlayerPosition.y, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y, RED);
 		DrawLine(inPlayerPosition.x, inPlayerPosition.y - 1, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y - 1, RED);
 		DrawLine(inPlayerPosition.x, inPlayerPosition.y + 1, scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y + 1, RED);
@@ -112,11 +112,8 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint);
 
 		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(triangleHeight);
-
 		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector();
-
 		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.ScaleVector(distanceToArrowEdgePoint);
-
 		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(actualVectorToArrowEdgePoint);
 
 		Vector2d pointA = { scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y };
@@ -140,11 +137,8 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint);
 
 		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(-triangleHeight);
-
 		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector();
-
 		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.ScaleVector(distanceToArrowEdgePoint);
-
 		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(actualVectorToArrowEdgePoint);
 
 		Vector2d pointA = { scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y };
@@ -155,6 +149,7 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 	}
 }
 
+// Countdown timer for the duration of the booster _____________________________________________________________________________________________________________________________
 void Booster::BoosterTimer(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 {
 	if (boosterTime > 0.f)
@@ -164,7 +159,6 @@ void Booster::BoosterTimer(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 	}
 	else
 	{
-		collisionPlayerBooster = false; 
+		collisionPlayerBooster = false;
 	}
-
 }

@@ -1,11 +1,12 @@
 #include "Player.h"
 
-// The players collision check __________________________________________________________________________________________________________________________________
+// The players collision check ______________________________________________________________________________________________________________________________________________________________________________________
 void Player::CollisionCheck()
 {
 	int playerPositionX = position.x / 50;
 	int playerPositionY = position.y / 50;
 
+	// Player moving right ____________________________________________________________________
 	if (playerDirection.x == 1)
 	{
 		playerPositionX = (position.x + 50) / 50;
@@ -60,6 +61,8 @@ void Player::CollisionCheck()
 			}
 		}
 	}
+
+	// Player moving left ________________________________________________________________________
 	if (playerDirection.x == -1)
 	{
 		playerPositionX = (position.x - 50) / 50;
@@ -113,6 +116,8 @@ void Player::CollisionCheck()
 			}
 		}
 	}
+
+	// Player moving up ______________________________________________________________________
 	if (playerDirection.y == -1)
 	{
 		playerPositionX = position.x / 50;
@@ -166,6 +171,8 @@ void Player::CollisionCheck()
 			}
 		}
 	}
+
+	// Player moving down ____________________________________________________________________
 	if (playerDirection.y == 1)
 	{
 		playerPositionX = position.x / 50;
@@ -222,12 +229,12 @@ void Player::CollisionCheck()
 	//std::cout << playerPositionX << " , " << playerPositionY << "\n";
 }
 
-// Update of the game (happens each frame) also player movement __________________________________________________________________________________________________
+// Updates player each frame ____________________________________________________________________________________________________________________________________________________________________________
 void Player::UpdatePlayer()
 {
 	if (!gameOver && !gameWon && !gameStart && !gamePaused)
 	{
-
+		// Player input _______________________________________________________________________________________
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
 		{
 			CollisionCheck();
@@ -289,8 +296,7 @@ void Player::UpdatePlayer()
 			}
 		}
 
-
-		// Player movement
+		// Continuos player movement _____________________________________________________________________
 		for (int i = 0; i < 1; i++) playerPosition = position;
 
 		if ((framesCounter % 10) == 0)
@@ -321,13 +327,8 @@ void Player::UpdatePlayer()
 						position.y += speed.y;
 					}
 				}
-				else
-				{
-					position = playerPosition;
-				}
 			}
 		}
-
 		framesCounter++;
 	}
 }

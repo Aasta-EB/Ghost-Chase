@@ -1,19 +1,12 @@
 #include <raylib.h>
 #include <stdlib.h>                 // Required for: calloc(), free()
 
-#include "Player.h"
 #include "Grid.h"
-#include "Enemy.h"
-#include "Vector2d.h"
 #include "Window.h"
 
-
 // Acsessing classes _________________________________________________________________________________________________________________________________________________________
-static Player player = { 0 };
 Grid map;
 Window window;
-Fog fog;
-
 
 int main()
 {
@@ -30,10 +23,8 @@ int main()
 	// Game while loop
 	while (!WindowShouldClose())
 	{
-
 		window.UpdateDrawFrame();
 	}
-
 
 	CloseWindow();
 

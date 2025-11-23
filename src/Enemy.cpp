@@ -1,5 +1,6 @@
 #include "Enemy.h"
 
+// Drop hint function _________________________________________________________________________________________________________________________________________________________________
 void Enemy::DrawDropHint()
 {
 	if (dropHintTimer > 0.f)
@@ -56,6 +57,7 @@ void Enemy::DrawDropHint()
 	}
 }
 
+// Finds a random enemy direction _______________________________________________________________________________________________________________________________________________________
 Vector2d Enemy::RandomEnemyDirection()
 {
 	srand(time(0));
@@ -84,6 +86,7 @@ Vector2d Enemy::RandomEnemyDirection()
 	return randomEnemyDirection;
 }
 
+// Finds a "random" enemy spawn point ___________________________________________________________________________________________________________________________________________________
 Vector2d Enemy::RandomEnemyPosition()
 {
 	srand(time(0));
@@ -115,38 +118,7 @@ Vector2d Enemy::RandomEnemyPosition()
 	return randomEnemyPosition;
 }
 
-void Enemy::EnemyEscape(Vector2d inPlayerPosition)
-{
-	/*if (distanceToPlayer <= 300)
-	{
-		if (inPlayerPosition.x <= position.x)
-		{
-			runLeft = true;
-		}
-		if (inPlayerPosition.x >= position.x)
-		{
-			runRight = true;
-		}
-		if (inPlayerPosition.y <= position.y)
-		{
-			runDown = true;
-		}
-		if (inPlayerPosition.y >= position.y)
-		{
-			runUp = true;
-		}
-	}
-	else
-	{
-		runRight = false;
-		runLeft = false;
-		runDown = false;
-		runUp = false;
-	}*/
-
-	//std::cout << distanceToPlayer << "\n";
-}
-
+// Enemy collision check __________________________________________________________________________________________________________________________________________
 void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 {
 	//position = enemyPosition;
@@ -164,7 +136,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 		if (inPlayerPosition.x == position.x + 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.x *= -1; 
+			enemyDirection.x *= -1;
 		}
 		else if (inPlayerPosition.x == position.x + 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
@@ -323,24 +295,22 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						std::cout << "I am changing my direction \n";
 					}
 				}
-
 			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
-
 	}
 	if (enemyDirection.x == -1 && enemyDirection.y == 0)
 	{
-		enemyPositionX = (position.x - 50)/ 50;
+		enemyPositionX = (position.x - 50) / 50;
 		enemyPositionY = position.y / 50;
 		int changeDirectionNumber = 0;
 		srand(time(0));
-		
+
 		if (inPlayerPosition.x == position.x - 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
 			enemyDirection.x *= -1;
 		}
-		else if (inPlayerPosition.x == position.x - 100 && map.map[enemyPositionY][enemyPositionX] != 1)
+		else if (inPlayerPosition.x == position.x - 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
 			enemyDirection.x *= -1;
 		}
@@ -501,7 +471,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
-
 	}
 	if (enemyDirection.y == 1 && enemyDirection.x == 0)
 	{
@@ -677,7 +646,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 		std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
-
 	}
 	if (enemyDirection.y == -1 && enemyDirection.x == 0)
 	{
@@ -850,11 +818,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-	/*	std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
-
+		/*	std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
 }
 
+// Continuos enemy movement ______________________________________________________________________________________________________________________________________________
 void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 {
 	for (int i = 0; i < 1; i++) enemyPosition = position;
@@ -900,10 +868,10 @@ void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 	framesCounter++;
 }
 
+// Draw enemy function _________________________________________________________________________________________________________________________________________________________________
 void Enemy::DrawEnemy(Vector2d inPlayerPosition)
 {
 	EnemyMovement(inPlayerPosition);
-	DrawRectangleV({ position.x, position.y }, { size.x, size.y }, ORANGE);
 
 	visualPosition = { position.x + 25, position.y + 25 };
 	DrawCircle(visualPosition.x, visualPosition.y, 25, color);

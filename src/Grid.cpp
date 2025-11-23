@@ -1,5 +1,6 @@
 #include "Grid.h"
 
+// Draw map (grid/the labyrinth) function
 void Grid::DrawMap()
 {
 	// A for loop to find the boxes position
@@ -20,7 +21,6 @@ void Grid::DrawMap()
 				//std::cout << "1, ";
 				int positionY = i * 50;
 				int positionX = j * 50;
-				// ^ This calculation needs to be put into a math class
 
 				// Draws the rectangle at the correct position
 				DrawRectangle(positionX, positionY, boxSize, boxSize, boxColor);
