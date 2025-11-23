@@ -192,35 +192,38 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 			if (collisionUp == false && collisionDown == false && collisionLeft == false && collisionRight == true)
 			{
-				changeDirectionNumber = std::rand() % 3;
+				changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
-				{
-					enemyDirection = { -1,0 };
-				}
-				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,1 };
 				}
-				else if (changeDirectionNumber == 2)
+				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,-1 };
 				}
+				/*else if (changeDirectionNumber == 2)
+				{
+					enemyDirection = { -1,0 };
+				}*/
 			}
 			if (collisionUp == true && collisionDown == false && collisionLeft == false && collisionRight == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
-				if (changeDirectionNumber == 0)
+				enemyDirection = { 0,1 };
+				//changeDirectionNumber = std::rand() % 2;
+				/*if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { -1,0 };
 				}
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,1 };
-				}
+				}*/
 			}
 			if (collisionUp == false && collisionDown == true && collisionLeft == false && collisionRight == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
+				enemyDirection = { 0,-1 };
+
+			/*	changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { -1,0 };
@@ -228,7 +231,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,-1 };
-				}
+				}*/
 			}
 			if (collisionUp == false && collisionDown == false && collisionLeft == true && collisionRight == true)
 			{
@@ -352,23 +355,25 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 			if (collisionUp == false && collisionDown == false && collisionRight == false && collisionLeft == true)
 			{
-				changeDirectionNumber = std::rand() % 3;
+				changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
-				{
-					enemyDirection = { 1,0 };
-				}
-				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,1 };
 				}
-				else if (changeDirectionNumber == 2)
+				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,-1 };
 				}
+				/*else if (changeDirectionNumber == 2)
+				{
+					enemyDirection = { 1,0 };
+				}*/
 			}
 			if (collisionUp == true && collisionDown == false && collisionRight == false && collisionLeft == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
+				enemyDirection = { 0,1 };
+
+				/*changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { 1,0 };
@@ -376,11 +381,13 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,1 };
-				}
+				}*/
 			}
 			if (collisionUp == false && collisionDown == true && collisionRight == false && collisionLeft == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
+				enemyDirection = { 0,-1 };
+
+				/*changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { 1,0 };
@@ -388,7 +395,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,-1 };
-				}
+				}*/
 			}
 			if (collisionUp == false && collisionDown == false && collisionRight == true && collisionLeft == true)
 			{
@@ -512,7 +519,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 			if (collisionUp == false && collisionLeft == false && collisionRight == false && collisionDown == true)
 			{
-				changeDirectionNumber = std::rand() % 3;
+				changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { 1,0 };
@@ -521,10 +528,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				{
 					enemyDirection = { -1,0 };
 				}
-				else if (changeDirectionNumber == 2)
+				/*else if (changeDirectionNumber == 2)
 				{
 					enemyDirection = { 0,-1 };
-				}
+				}*/
 			}
 			if (collisionUp == true && collisionLeft == false && collisionRight == false && collisionDown == true)
 			{
@@ -540,7 +547,9 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			}
 			if (collisionUp == false && collisionLeft == true && collisionRight == false && collisionDown == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
+				enemyDirection = { 1,0 };
+
+				/*changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { 1,0 };
@@ -548,11 +557,13 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,-1 };
-				}
+				}*/
 			}
 			if (collisionUp == false && collisionLeft == false && collisionRight == true && collisionDown == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
+				enemyDirection = { -1,0 };
+
+				/*changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { -1,0 };
@@ -560,7 +571,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0,-1 };
-				}
+				}*/
 			}
 			if (collisionUp == false && collisionLeft == true && collisionRight == true && collisionDown == true)
 			{
@@ -632,6 +643,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
+		std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
 
 	}
 	if (enemyDirection.y == -1 && enemyDirection.x == 0)
@@ -671,7 +683,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 			if (collisionDown == false && collisionLeft == false && collisionRight == false && collisionUp == true)
 			{
-				changeDirectionNumber = std::rand() % 3;
+				changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { 1,0 };
@@ -680,10 +692,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				{
 					enemyDirection = { -1,0 };
 				}
-				else if (changeDirectionNumber == 2)
+				/*else if (changeDirectionNumber == 2)
 				{
 					enemyDirection = { 0, 1 };
-				}
+				}*/
 			}
 			if (collisionDown == true && collisionLeft == false && collisionRight == false && collisionUp == true)
 			{
@@ -699,7 +711,9 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			}
 			if (collisionDown == false && collisionLeft == true && collisionRight == false && collisionUp == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
+				enemyDirection = { 1,0 };
+
+				/*changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { 1,0 };
@@ -707,11 +721,13 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0, 1 };
-				}
+				}*/
 			}
 			if (collisionDown == false && collisionLeft == false && collisionRight == true && collisionUp == true)
 			{
-				changeDirectionNumber = std::rand() % 2;
+				enemyDirection = { -1,0 };
+
+				/*changeDirectionNumber = std::rand() % 2;
 				if (changeDirectionNumber == 0)
 				{
 					enemyDirection = { -1,0 };
@@ -719,7 +735,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				else if (changeDirectionNumber == 1)
 				{
 					enemyDirection = { 0, 1 };
-				}
+				}*/
 			}
 			if (collisionDown == false && collisionLeft == true && collisionRight == true && collisionUp == true)
 			{
