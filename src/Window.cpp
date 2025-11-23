@@ -92,6 +92,9 @@ void Window::StartWindow()
 		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
 	}
 
+	
+	//DrawCircle(50, 1350, 25, YELLOW);
+
 	DrawRectangle(250, 0, 50, 200, DARKBLUE);
 	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
 	DrawRectangle(1000, 550, 100, 50, DARKBLUE);

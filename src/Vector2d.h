@@ -48,7 +48,7 @@ public:
 	Vector2d NormalizeVector();;
 
 	// Uses cosine to get movement
-	//Vector2d CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle);;
+	Vector2d CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle);;
 
 	//// Creates a circular motion
 	//Vector2d CircularMotion(Vector2d inCenter, float inRadius, float inAngle);
