@@ -281,8 +281,7 @@ void Window::InitGame()
 	enemy.dropHintTimer = 10.f;
 	enemy.enemyHintNumber = 0.5f; 
 
-	player.playerScore = 0; 
-
+	player.playerScore = 0;
 	player.framesCounter = 0;
 
 	player.gameWon = false;
@@ -301,9 +300,10 @@ void Window::InitGame()
 	map.offset.x = map.windowWidth % int(map.boxSize);
 	map.offset.y = map.windowHeight % int(map.boxSize);
 
-	player.position = Vector2d{ 1400 / 2, 700 / 2 };
+	player.position = Vector2d{ 13 * map.boxSize, 7 * map.boxSize };
 	player.size = Vector2d{ map.boxSize, map.boxSize };
 	player.speed = Vector2d{ map.boxSize, 0 };
+	player.playerDirection = { 1 , 0 };
 
 	player.playerPosition = Vector2d{ 0.0f, 0.0f };
 

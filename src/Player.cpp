@@ -14,10 +14,50 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionRight = true;
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			{
+				collisionUp = true;
+			}
+			else
+			{
+				collisionUp = false;
+			}
+			if (map.map[playerPositionY][playerPositionX - 2] == 1)
+			{
+				collisionLeft = true;
+			}
+			else
+			{
+				collisionLeft = false;
+			}
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			{
+				collisionDown = true;
+			}
+			else
+			{
+				collisionDown = false;
+			}
 		}
-		else
+		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionRight = false;
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			{
+				collisionUp = true;
+			}
+			else
+			{
+				collisionUp = false;
+			}
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			{
+				collisionDown = true;
+			}
+			else
+			{
+				collisionDown = false;
+			}
 		}
 	}
 	if (playerDirection.x == -1)
@@ -27,10 +67,50 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionLeft = true;
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			{
+				collisionUp = true;
+			}
+			else
+			{
+				collisionUp = false;
+			}
+			if (map.map[playerPositionY][playerPositionX + 2] == 1)
+			{
+				collisionRight = true;
+			}
+			else
+			{
+				collisionRight = false;
+			}
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			{
+				collisionDown = true;
+			}
+			else
+			{
+				collisionDown = false;
+			}
 		}
-		else
+		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionLeft = false;
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			{
+				collisionUp = true;
+			}
+			else
+			{
+				collisionUp = false;
+			}
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			{
+				collisionDown = true;
+			}
+			else
+			{
+				collisionDown = false;
+			}
 		}
 	}
 	if (playerDirection.y == -1)
@@ -40,10 +120,50 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionUp = true;
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			{
+				collisionLeft = true;
+			}
+			else
+			{
+				collisionLeft = false;
+			}
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			{
+				collisionRight = true;
+			}
+			else
+			{
+				collisionRight = false;
+			}
+			if (map.map[playerPositionY + 2][playerPositionX] == 1)
+			{
+				collisionDown = true;
+			}
+			else
+			{
+				collisionDown = false;
+			}
 		}
-		else
+		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionUp = false;
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			{
+				collisionLeft = true;
+			}
+			else
+			{
+				collisionLeft = false;
+			}
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			{
+				collisionRight = true;
+			}
+			else
+			{
+				collisionRight = false;
+			}
 		}
 	}
 	if (playerDirection.y == 1)
@@ -53,10 +173,50 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionDown = true;
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			{
+				collisionLeft = true;
+			}
+			else
+			{
+				collisionLeft = false;
+			}
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			{
+				collisionRight = true;
+			}
+			else
+			{
+				collisionRight = false;
+			}
+			if (map.map[playerPositionY - 2][playerPositionX] == 1)
+			{
+				collisionUp = true;
+			}
+			else
+			{
+				collisionUp = false;
+			}
 		}
-		else
+		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionDown = false;
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			{
+				collisionLeft = true;
+			}
+			else
+			{
+				collisionLeft = false;
+			}
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			{
+				collisionRight = true;
+			}
+			else
+			{
+				collisionRight = false;
+			}
 		}
 	}
 	//std::cout << playerPositionX << " , " << playerPositionY << "\n";
@@ -71,6 +231,7 @@ void Player::UpdatePlayer()
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
 		{
 			CollisionCheck();
+			playerDirection = { 1,0 };
 			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
 			{
 				speed = Vector2d{ map.boxSize, 0 };
@@ -85,6 +246,7 @@ void Player::UpdatePlayer()
 		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A))
 		{
 			CollisionCheck();
+			playerDirection = { -1,0 };
 			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
 			{
 				speed = Vector2d{ -map.boxSize, 0 };
@@ -99,6 +261,7 @@ void Player::UpdatePlayer()
 		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
 		{
 			CollisionCheck();
+			playerDirection = { 0,-1 };
 			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
 			{
 				speed = Vector2d{ 0, -map.boxSize };
@@ -113,6 +276,7 @@ void Player::UpdatePlayer()
 		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
 		{
 			CollisionCheck();
+			playerDirection = { 0,1 };
 			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
 			{
 				speed = Vector2d{ 0, map.boxSize };
