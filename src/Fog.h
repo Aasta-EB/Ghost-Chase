@@ -1,12 +1,12 @@
 #pragma once
-#include "Player.h"
 #include "Vector2d.h"
+#include "Raylib.h"
+#include <iostream>
 
 class Fog
 {
 public: 
 
-	Player player;
 
 	int playerTileX;
 	int PlayerTileY; 
@@ -14,7 +14,7 @@ public:
 	int mapTilesX = 28;
 	int mapTilesY = 14; 
 
-	int playervision = 2; 
+	int playerVision = 2;
 
 	int fog[14][28] = {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -34,10 +34,8 @@ public:
 	};
 
 
-	void InitFog();
+	void ReadyFog(Vector2d inPlayerPosition);
 
-	void ReadyFog();
-
-	void DrawFog();
+	void DrawFog(Vector2d inPlayerPosition);
 };
 

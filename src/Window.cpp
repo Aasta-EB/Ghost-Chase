@@ -136,7 +136,7 @@ void Window::GameOn()
 	ExposeEnemyBooster();
 
 	DropHint();
-	
+
 
 	if (IsKeyPressed(KEY_P))
 	{
@@ -158,6 +158,8 @@ void Window::GameOn()
 	{
 		player.gameOver = true;
 	}
+
+	fog.DrawFog({player.playerPosition.x, player.playerPosition.y});
 }
 
 // Draws the win screen ___________________________________________________________________________________________________________________________________________________________________________
