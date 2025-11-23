@@ -297,7 +297,7 @@ void Player::UpdatePlayer()
 		}
 
 		// Continuos player movement _____________________________________________________________________
-		for (int i = 0; i < 1; i++) playerPosition = position;
+		for (int i = 0; i < 1; i++) playerPosition = position; // DO I NEED THIS??????
 
 		if ((framesCounter % 10) == 0)
 		{

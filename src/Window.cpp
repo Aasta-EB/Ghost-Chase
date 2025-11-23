@@ -91,7 +91,6 @@ void Window::StartWindow()
 		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
 		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
 	}
-
 	
 	//DrawCircle(50, 1350, 25, YELLOW);
 
