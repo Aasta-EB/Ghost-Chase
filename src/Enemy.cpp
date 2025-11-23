@@ -62,7 +62,7 @@ Vector2d Enemy::RandomEnemyDirection()
 
 	int chooseDirection = std::rand() % 3;
 
-	Vector2d randomEnemyDirection;
+	Vector2d randomEnemyDirection = { 1 , 0 };
 
 	if (chooseDirection == 0)
 	{
@@ -89,7 +89,7 @@ Vector2d Enemy::RandomEnemyPosition()
 	srand(time(0));
 
 	int choosePosition = std::rand() % 5;
-	Vector2d randomEnemyPosition;
+	Vector2d randomEnemyPosition = { 15 * map.boxSize, 10 * map.boxSize };
 
 	if (choosePosition == 0)
 	{
