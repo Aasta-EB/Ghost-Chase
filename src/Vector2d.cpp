@@ -1,10 +1,11 @@
 #include "Vector2d.h"
 
+// Calculation from class
 float Vector2d::CalculateDeltaVector() // THIS NAME NEEDS TO BE CHANGED - CalulateMagnitudeOfDelta
 {
-	float lenghtOfVector = sqrt(x * x + y * y);
+	float magnitudeOfVector = sqrt(x * x + y * y);
 
-	return lenghtOfVector;
+	return magnitudeOfVector;
 }
 
 float Vector2d::CalculateTangent(float inHypotenuseLenght, float inOtherTangentLenght)
@@ -14,6 +15,7 @@ float Vector2d::CalculateTangent(float inHypotenuseLenght, float inOtherTangentL
 	return calculatedTangent;
 }
 
+// Calculation from class
 Vector2d Vector2d::CalculateVectorToTarget(Vector2d inTargetedVector)
 {
 	float subtractVectorsX = inTargetedVector.x - x;
@@ -24,6 +26,8 @@ Vector2d Vector2d::CalculateVectorToTarget(Vector2d inTargetedVector)
 	return vectorBetweenTarget;
 }
 
+
+// Calculation from class
 float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
 {
 	Vector2d vectorBetweenTarget = CalculateVectorToTarget(inVectorTarget);
@@ -33,6 +37,7 @@ float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
 	return findDelta;
 }
 
+// From class 
 Vector2d Vector2d::SumVectors(Vector2d inOtherVector)
 {
 	Vector2d summedVectors = { x + inOtherVector.x, y + inOtherVector.y };
@@ -87,8 +92,8 @@ Vector2d Vector2d::CalculateCosineWave(float inAmplitude, float inFrequency, flo
 //	return { outVectorX, outVectorY };
 //}
 
-// Scales the vector
-Vector2d Vector2d::ScaleVector(float scale)
+// From class 
+Vector2d Vector2d::MultiplyVector(float scale)
 {
 	float scaleVectorX = x * scale;
 	float scaleVectorY = y * scale;
@@ -96,6 +101,7 @@ Vector2d Vector2d::ScaleVector(float scale)
 	return { scaleVectorX, scaleVectorY };
 }
 
+// From class 
 Vector2d Vector2d::NormalizeVector()
 {
 	if (CalculateDeltaVector() == 0)

@@ -47,7 +47,7 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 	{
 		Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x , inPlayerPosition.y - 25 }); // Vector pointing "towards" the enemy
 		Vector2d nmPlayerEnemyVector = playerEnemyVector.NormalizeVector(); // Normalizing the vector
-		Vector2d scaledNmPlayerEnemyVector = nmPlayerEnemyVector.ScaleVector(25.f); // Scaling the vector by 25 as its the lenght i want the vector
+		Vector2d scaledNmPlayerEnemyVector = nmPlayerEnemyVector.MultiplyVector(25.f); // Scaling the vector by 25 as its the lenght i want the vector
 		Vector2d playerEnemyVectorEnd = scaledNmPlayerEnemyVector.SumVectors(inPlayerPosition); // Finding the exact end position of the line we want to draw, is also the tip of the arrow
 
 		// Drawing the line, 3 times for more visibility
@@ -58,7 +58,7 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 		// Calculating the points to the triangle
 		float distanceToArrowEdgePoint = vector2d.CalculateSideLenght(90.f, 10.f, 45.f); // Finds the distance from the arrow line to the point we want to draw as the corner of the triangle
 		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint); // Finds how far down on the arrow line we need to have the arrow edge be
-		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(-triangleHeight); // Finds the vector of that lengt
+		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.MultiplyVector(-triangleHeight); // Finds the vector of that lengt
 		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector(); // Finds the vector out to the arrow edge
 		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(vectorToArrowEdgePoint); // Adds the two vectors together to find the exact point we want to draw the arrow edge
 
@@ -74,7 +74,7 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 	{
 		Vector2d playerEnemyVector = inPlayerPosition.CalculateVectorToTarget({ inPlayerPosition.x , inPlayerPosition.y + 25 }); // Vector pointing "towards" the enemy
 		Vector2d nmPlayerEnemyVector = playerEnemyVector.NormalizeVector(); // Normalizing the vector
-		Vector2d scaledNmPlayerEnemyVector = nmPlayerEnemyVector.ScaleVector(25.f); // Scaling the vector by 25 as its the lenght i want the vector
+		Vector2d scaledNmPlayerEnemyVector = nmPlayerEnemyVector.MultiplyVector(25.f); // Scaling the vector by 25 as its the lenght i want the vector
 		Vector2d playerEnemyVectorEnd = scaledNmPlayerEnemyVector.SumVectors(inPlayerPosition); // Finding the exact end position of the line we want to draw, is also the tip of the arrow
 
 		// Drawing the line, 3 times for more visibility
@@ -85,7 +85,7 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 		// Calculating the points to the triangle
 		float distanceToArrowEdgePoint = vector2d.CalculateSideLenght(90.f, 10.f, 45.f); // Finds the distance from the arrow line to the point we want to draw as the corner of the triangle
 		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint); // Finds how far down on the arrow line we need to have the arrow edge be
-		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(-triangleHeight); // Finds the vector of that lengt
+		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.MultiplyVector(-triangleHeight); // Finds the vector of that lengt
 		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector(); // Finds the vector out to the arrow edge
 		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(vectorToArrowEdgePoint); // Adds the two vectors together to find the exact point we want to draw the arrow edge
 
@@ -111,9 +111,9 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 
 		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint);
 
-		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(triangleHeight);
+		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.MultiplyVector(triangleHeight);
 		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector();
-		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.ScaleVector(distanceToArrowEdgePoint);
+		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.MultiplyVector(distanceToArrowEdgePoint);
 		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(actualVectorToArrowEdgePoint);
 
 		Vector2d pointA = { scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y };
@@ -136,9 +136,9 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 
 		float triangleHeight = vector2d.CalculateTangent(10, distanceToArrowEdgePoint);
 
-		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.ScaleVector(-triangleHeight);
+		Vector2d vectorTriangleHeight = nmPlayerEnemyVector.MultiplyVector(-triangleHeight);
 		Vector2d vectorToArrowEdgePoint = vectorTriangleHeight.FindNormalizedOrtognalVector();
-		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.ScaleVector(distanceToArrowEdgePoint);
+		Vector2d actualVectorToArrowEdgePoint = vectorToArrowEdgePoint.MultiplyVector(distanceToArrowEdgePoint);
 		Vector2d arrowEdgePoint = vectorTriangleHeight.SumVectors(actualVectorToArrowEdgePoint);
 
 		Vector2d pointA = { scaledNmPlayerEnemyVector.x, scaledNmPlayerEnemyVector.y };
