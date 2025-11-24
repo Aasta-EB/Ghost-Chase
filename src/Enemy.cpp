@@ -136,11 +136,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 		if (inPlayerPosition.x == position.x + 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.x *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else if (inPlayerPosition.x == position.x + 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.x *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else
 		{
@@ -308,11 +308,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 		if (inPlayerPosition.x == position.x - 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.x *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else if (inPlayerPosition.x == position.x - 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.x *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else
 		{
@@ -482,11 +482,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 		if (inPlayerPosition.y == position.y + 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.y *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else if (inPlayerPosition.y == position.y + 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.y *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else
 		{
@@ -656,11 +656,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 		if (inPlayerPosition.y == position.y - 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.y *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else if (inPlayerPosition.y == position.y - 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			enemyDirection.y *= -1;
+			enemyDirection.ScaleVector(-1);
 		}
 		else
 		{

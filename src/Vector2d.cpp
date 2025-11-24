@@ -1,6 +1,6 @@
 #include "Vector2d.h"
 
-float Vector2d::CalculateDeltaVector()
+float Vector2d::CalculateDeltaVector() // THIS NAME NEEDS TO BE CHANGED - CalulateMagnitudeOfDelta
 {
 	float lenghtOfVector = sqrt(x * x + y * y);
 
@@ -111,13 +111,13 @@ Vector2d Vector2d::NormalizeVector()
 	return normalizedVector;
 }
 // Uses cosine to get movement
-Vector2d Vector2d::CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle)
-{
-	float x = inCenter.x + inAmplitude * cosf(inAngle);
-	float y = inCenter.y;
-
-	return { x, y };
-}
+//Vector2d Vector2d::CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle)
+//{
+//	float x = inCenter.x + inAmplitude * cosf(inAngle);
+//	float y = inCenter.y;
+//
+//	return { x, y };
+//}
 //
 //// Creates a circular motion
 //Vector2d Vector2d::CircularMotion(Vector2d inCenter, float inRadius, float inAngle)
