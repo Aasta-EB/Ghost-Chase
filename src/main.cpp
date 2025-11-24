@@ -13,8 +13,10 @@ int main()
 	// Starting game window
 	InitWindow(map.windowWidth, map.windowHeight, "Ghost-Chase");
 
+	// Initiates the game the first time
 	window.InitGame();
 
+	// Sets the target FPS
 	SetTargetFPS(60);
 
 	// Draws map
@@ -23,6 +25,7 @@ int main()
 	// Game while loop
 	while (!WindowShouldClose())
 	{
+		// Draws each frame
 		window.UpdateDrawFrame();
 	}
 
