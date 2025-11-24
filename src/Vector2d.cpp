@@ -1,7 +1,7 @@
 #include "Vector2d.h"
 
 // Calculation from class
-float Vector2d::CalculateDeltaVector() // THIS NAME NEEDS TO BE CHANGED - CalulateMagnitudeOfDelta
+float Vector2d::CalulateMagnitudeOfDelta() // THIS NAME NEEDS TO BE CHANGED - CalulateMagnitudeOfDelta
 {
 	float magnitudeOfVector = sqrt(x * x + y * y);
 
@@ -32,7 +32,7 @@ float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
 {
 	Vector2d vectorBetweenTarget = CalculateVectorToTarget(inVectorTarget);
 
-	float findDelta = vectorBetweenTarget.CalculateDeltaVector();
+	float findDelta = vectorBetweenTarget.CalulateMagnitudeOfDelta();
 
 	return findDelta;
 }
@@ -95,26 +95,25 @@ Vector2d Vector2d::CalculateCosineWave(float inAmplitude, float inFrequency, flo
 // From class 
 Vector2d Vector2d::MultiplyVector(float scale)
 {
-	float scaleVectorX = x * scale;
-	float scaleVectorY = y * scale;
+	float scaledVectorX = x * scale;
+	float scaledVectorY = y * scale;
 
-	return { scaleVectorX, scaleVectorY };
+	return { scaledVectorX, scaledVectorY };
 }
 
 // From class 
 Vector2d Vector2d::NormalizeVector()
 {
-	if (CalculateDeltaVector() == 0)
+	if (CalulateMagnitudeOfDelta() == 0)
 	{
 		return { 0, 0 };
 	}
 
 	// normalizing a the vector by taking its value divided by its magnitude(length)
-	float normalizedVectorX = x / CalculateDeltaVector();
-	float normalizedVectorY = y / CalculateDeltaVector();
-	Vector2d normalizedVector{ normalizedVectorX,normalizedVectorY };
+	float normalizedVectorX = x / CalulateMagnitudeOfDelta();
+	float normalizedVectorY = y / CalulateMagnitudeOfDelta();
 
-	return normalizedVector;
+	return { normalizedVectorX,normalizedVectorY };
 }
 // Uses cosine to get movement
 //Vector2d Vector2d::CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle)

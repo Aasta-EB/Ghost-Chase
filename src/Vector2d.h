@@ -9,7 +9,7 @@ public:
 	float y;
 
 	// Calculates lenght of vector (magnitude)
-	float CalculateDeltaVector();
+	float CalulateMagnitudeOfDelta();
 
 	// Calculates the tangent of aa triangle
 	float CalculateTangent(float inHypotenuseLenght, float inOtherTangentLenght);
