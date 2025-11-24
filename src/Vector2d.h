@@ -8,54 +8,45 @@ public:
 	float x;
 	float y;
 
-	// Calculates lenght of vector (magnitude)
-	float CalulateMagnitudeOfDelta();
-
-	// Calculates the tangent of aa triangle
-	float CalculateTangent(float inHypotenuseLenght, float inOtherTangentLenght);
-
-	// Calculates the vector from point to target point
+	// Calculating the vector between two points 
+	// (Coskun, P.K.S, personal communication, October 2025) 
 	Vector2d CalculateVectorToTarget(Vector2d inTargetedVector);
 
-	// Calculates the distance from point to target point
+	// Calculating the lenght(magnitude) of a vector 
+	// (Coskun, P.K.S, personal communication, October 2025)
+	float CalulateMagnitudeOfDelta();
+
+	// Calculates the lenght between two points 
+	// (Coskun, P.K.S, personal communication, October 2025)
 	float CalculateMagnitudeToTarget(Vector2d inVectorTarget);
 
-	// Sums two vectors together
+	// Calculates the sum of two vectors (vector offset) 
+	// (Coskun, P.K.S, personal communication, October 2025) 
 	Vector2d SumVectors(Vector2d inOtherVector);
 
-	// Find triangle ratio
+	// Calculates the tangent of a triangle
+	float CalculateTangent(float inHypotenuseLenght, float inOtherTangentLenght);
+
+	// Calculates the ratio of a triangle
 	float FindTriangleRatio(float inAngle, float inSideLenght);
 
-	// Finds the side lenght using the triangle ratio
-	float findTriangleSideLenght(float inAngle, float inTriangleRatio);
+	// Calculate side of triangle using triangle ratio
+	float FindTriangleSideLenght(float inAngle, float inTriangleRatio);
 
-	// Finds the side lenght using the findtriangleratio and findtrianglesidelenght functions
+	// Calculates side of triangle
 	float CalculateSideLenght(float inFirstAngle, float inSideLenght, float inSecondAngle);
 
-	// Finds the normalized ortognal vector of another vector
-	Vector2d FindNormalizedOrtognalVector();
-
-	// Calculates a cosine wave
-	Vector2d CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX);
-
-	// Scales the vector
-	Vector2d MultiplyVector(float scale);
-
-	// Normalizez the vector
+	// Normalizing vector (finding directional vector) 
+	// (Coskun, P.K.S, personal communication, October 2025)
 	Vector2d NormalizeVector();
 
-	// Uses cosine to get movement
-	//Vector2d CosineMovement(Vector2d inCenter, float inAmplitude, float inAngle);;
+	// Calculates the orthogonal vector and normalizes it
+	Vector2d FindNormalizedOrthogonalVector();
 
-	//// Creates a circular motion
-	//Vector2d CircularMotion(Vector2d inCenter, float inRadius, float inAngle);
+	// Multiplying the vector (scaling vector) 
+	// (Coskun, P.K.S, personal communication, October 2025)
+	Vector2d MultiplyVector(float scale);
 
-	// Finding the dot product
-	/*float DotProduct(Vector2d inOtherVector);*/
-
-	// Finding the angle between two vectors
-	/*float AngleBetweenVectors(Vector2d inOtherVector);*/
-
-	// finds the cross product between two vectors (finds left or right)
-	/*float CrossProduct(Vector2d inOtherVector);*/
+	// Calculates a cosine wave
+	Vector2d CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX);	
 };
