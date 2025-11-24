@@ -1,7 +1,7 @@
 #include "Vector2d.h"
 
 // Calculation from class
-float Vector2d::CalulateMagnitudeOfDelta() // THIS NAME NEEDS TO BE CHANGED - CalulateMagnitudeOfDelta
+float Vector2d::CalulateMagnitudeOfDelta() 
 {
 	float magnitudeOfVector = sqrt(x * x + y * y);
 
@@ -28,7 +28,7 @@ Vector2d Vector2d::CalculateVectorToTarget(Vector2d inTargetedVector)
 
 
 // Calculation from class
-float Vector2d::CalculateDeltatoTarget(Vector2d inVectorTarget)
+float Vector2d::CalculateMagnitudeToTarget(Vector2d inVectorTarget)
 {
 	Vector2d vectorBetweenTarget = CalculateVectorToTarget(inVectorTarget);
 

@@ -126,7 +126,7 @@ void Window::GameOn()
 	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
 	TimeCounter();
 
-	float distanceToEnemy = player.centrePlayerPosition.CalculateDeltatoTarget(enemy.visualPosition);
+	float distanceToEnemy = player.centrePlayerPosition.CalculateMagnitudeToTarget(enemy.visualPosition);
 	enemy.distanceToPlayer = distanceToEnemy;
 
 	if (distanceToEnemy <= 50)
