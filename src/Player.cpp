@@ -9,6 +9,7 @@ void Player::CollisionCheck()
 	// Player moving right ____________________________________________________________________
 	if (playerDirection.x == 1)
 	{
+		// Checks collision with the box infront of the player
 		playerPositionX = (position.x + 50) / 50;
 		playerPositionY = position.y / 50;
 
@@ -65,8 +66,10 @@ void Player::CollisionCheck()
 	// Player moving left ________________________________________________________________________
 	if (playerDirection.x == -1)
 	{
+		// Checks collision with the box infront of the player
 		playerPositionX = (position.x - 50) / 50;
 		playerPositionY = position.y / 50;
+
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionLeft = true;
@@ -120,8 +123,10 @@ void Player::CollisionCheck()
 	// Player moving up ______________________________________________________________________
 	if (playerDirection.y == -1)
 	{
+		// Checks collision with the box infront of the player
 		playerPositionX = position.x / 50;
 		playerPositionY = (position.y - 50) / 50;
+
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionUp = true;
@@ -175,8 +180,10 @@ void Player::CollisionCheck()
 	// Player moving down ____________________________________________________________________
 	if (playerDirection.y == 1)
 	{
+		// Checks collision with the box infront of the player
 		playerPositionX = position.x / 50;
 		playerPositionY = (position.y + 50) / 50;
+
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionDown = true;
@@ -297,7 +304,7 @@ void Player::UpdatePlayer()
 		}
 
 		// Continuos player movement _____________________________________________________________________
-		for (int i = 0; i < 1; i++) playerPosition = position; // DO I NEED THIS??????
+		for (int i = 0; i < 1; i++) playerPosition = position; 
 
 		if ((framesCounter % 10) == 0)
 		{

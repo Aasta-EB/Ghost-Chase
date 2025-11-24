@@ -34,7 +34,7 @@ float Vector2d::CalculateMagnitudeToTarget(Vector2d inVectorTarget)
 
 // Calculates the sum of two vectors (vector offset) ________________________________________________________________________________________________________________
 // (Coskun, P.K.S, personal communication, October 2025) 
-Vector2d Vector2d::SumVectors(Vector2d inOtherVector) // THIS IS ALSO SET VECTOR OFFSET
+Vector2d Vector2d::SumVectors(Vector2d inOtherVector)
 {
 	Vector2d summedVectors = { x + inOtherVector.x, y + inOtherVector.y };
 

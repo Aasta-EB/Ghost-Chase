@@ -21,7 +21,6 @@ public:
 	bool collisionUp = false;
 	bool collisionDown = false;
 	int playerScore = 0;
-
 	int playerSize = 1;
 
 	// Grid class and variables
@@ -40,7 +39,9 @@ public:
 	// Player functions
 	void CollisionCheck();
 
+	// Updates player each frame
 	void UpdatePlayer();
 
+	// Drawing of player
 	void DrawPlayer();
 };
