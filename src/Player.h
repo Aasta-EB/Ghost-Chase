@@ -14,7 +14,7 @@ public:
 	Vector2d speed;
 	Color color = PINK;
 	Vector2d playerDirection = { 1,0 };
-	Vector2d playerPosition = { 0 }; // Do i need this????
+	Vector2d playerPosition = { 0 };
 	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
 	bool collisionLeft = false;
 	bool collisionRight = false;
