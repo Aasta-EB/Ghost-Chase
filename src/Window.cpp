@@ -169,6 +169,9 @@ void Window::GameOn()
 	ExposeEnemyBooster();
 	player.DrawPlayer();
 
+	// Booster Arrow tester
+	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
+
 	// Limited vision related
 	fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
 
@@ -182,7 +185,7 @@ void Window::GameOn()
 	enemy.distanceToPlayer = distanceToEnemy;
 
 	// Changes game state
-	if (distanceToEnemy <= 50)
+	if (distanceToEnemy <= 45)
 	{
 		player.gameWon = true;
 	}

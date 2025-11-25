@@ -645,7 +645,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
-		std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
+		//std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
 	}
 	if (enemyDirection.y == -1 && enemyDirection.x == 0)
 	{
