@@ -36,16 +36,16 @@ public:
 	// Calculates side of triangle
 	float CalculateSideLenght(float inFirstAngle, float inSideLenght, float inSecondAngle);
 
+	// Multiplying the vector (scaling vector) 
+	// (Coskun, P.K.S, personal communication, October 2025)
+	Vector2d MultiplyVector(float scale);
+
 	// Normalizing vector (finding directional vector) 
 	// (Coskun, P.K.S, personal communication, October 2025)
 	Vector2d NormalizeVector();
 
 	// Calculates the orthogonal vector and normalizes it
 	Vector2d FindNormalizedOrthogonalVector();
-
-	// Multiplying the vector (scaling vector) 
-	// (Coskun, P.K.S, personal communication, October 2025)
-	Vector2d MultiplyVector(float scale);
 
 	// Calculates a cosine wave
 	Vector2d CalculateCosineWave(float inAmplitude, float inFrequency, float inValueX);	

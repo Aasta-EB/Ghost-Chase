@@ -74,6 +74,16 @@ float Vector2d::CalculateSideLenght(float inFirstAngle, float inSideLenght, floa
 	return sideLenght;
 }
 
+// Multiplying the vector (scaling vector) _____________________________________________________________________________________________________________________________
+// (Coskun, P.K.S, personal communication, October 2025)
+Vector2d Vector2d::MultiplyVector(float scale)
+{
+	float scaledVectorX = x * scale;
+	float scaledVectorY = y * scale;
+
+	return { scaledVectorX, scaledVectorY };
+}
+
 // Normalizing vector (finding directional vector) ____________________________________________________________________________________________________________________
 // (Coskun, P.K.S, personal communication, October 2025)
 Vector2d Vector2d::NormalizeVector()
@@ -98,16 +108,6 @@ Vector2d Vector2d::FindNormalizedOrthogonalVector()
 	Vector2d normalizedOrtognalVector = ortognalVector.NormalizeVector();
 
 	return normalizedOrtognalVector;
-}
-
-// Multiplying the vector (scaling vector) _____________________________________________________________________________________________________________________________
-// (Coskun, P.K.S, personal communication, October 2025)
-Vector2d Vector2d::MultiplyVector(float scale)
-{
-	float scaledVectorX = x * scale;
-	float scaledVectorY = y * scale;
-
-	return { scaledVectorX, scaledVectorY };
 }
 
 // Calculates a cosine wave _____________________________________________________________________________________________________________________________________________
