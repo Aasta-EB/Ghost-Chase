@@ -13,10 +13,9 @@ public:
 	Vector2d rectangleSize = { 50, 50 };
 	Color boxColor = DARKBLUE;
 
+	// window variables
 	int windowWidth = 1400;
 	int windowHeight = 700;
-
-	Vector2 offset = { 0 };
 
 	// Not really important variables, at least as of now
 	int gridRows = 14;
@@ -75,6 +74,6 @@ public:
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	}; */
 
-	// The function to draw the map (probably needs some updating to make several levels)
+	// The function to draw the map
 	void DrawMap();
 };
