@@ -166,8 +166,8 @@ void Window::GameOn()
 	enemy.DrawEnemy(player.playerPosition);
 
 	// Player related
-	ExposeEnemyBooster();
 	player.DrawPlayer();
+	ExposeEnemyBooster();
 
 	// Booster Arrow tester
 	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
