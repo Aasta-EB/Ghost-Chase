@@ -10,7 +10,6 @@ void Enemy::DrawDropHint()
 	if (dropHintTimer < 0.f)
 	{
 		enemyHintNumber += 0.5f;
-		std::cout << enemyHintNumber << "\n";
 		dropHintTimer = 10.f;
 	}
 
