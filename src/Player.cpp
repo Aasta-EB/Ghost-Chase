@@ -13,10 +13,10 @@ void Player::CollisionCheck()
 		playerPositionX = (position.x + 50) / 50;
 		playerPositionY = position.y / 50;
 
-		if (map.map[playerPositionY][playerPositionX] == 1)
+		if (map.map[playerPositionY][playerPositionX] == "#")
 		{
 			collisionRight = true;
-			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == "#")
 			{
 				collisionUp = true;
 			}
@@ -24,7 +24,7 @@ void Player::CollisionCheck()
 			{
 				collisionUp = false;
 			}
-			if (map.map[playerPositionY][playerPositionX - 2] == 1)
+			if (map.map[playerPositionY][playerPositionX - 2] == "#")
 			{
 				collisionLeft = true;
 			}
@@ -32,7 +32,7 @@ void Player::CollisionCheck()
 			{
 				collisionLeft = false;
 			}
-			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == "#")
 			{
 				collisionDown = true;
 			}
@@ -41,10 +41,10 @@ void Player::CollisionCheck()
 				collisionDown = false;
 			}
 		}
-		else if (map.map[playerPositionY][playerPositionX] == 0)
+		else if (map.map[playerPositionY][playerPositionX] == " ")
 		{
 			collisionRight = false;
-			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == "#")
 			{
 				collisionUp = true;
 			}
@@ -52,7 +52,7 @@ void Player::CollisionCheck()
 			{
 				collisionUp = false;
 			}
-			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == "#")
 			{
 				collisionDown = true;
 			}
@@ -70,10 +70,10 @@ void Player::CollisionCheck()
 		playerPositionX = (position.x - 50) / 50;
 		playerPositionY = position.y / 50;
 
-		if (map.map[playerPositionY][playerPositionX] == 1)
+		if (map.map[playerPositionY][playerPositionX] == "#")
 		{
 			collisionLeft = true;
-			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == "#")
 			{
 				collisionUp = true;
 			}
@@ -81,7 +81,7 @@ void Player::CollisionCheck()
 			{
 				collisionUp = false;
 			}
-			if (map.map[playerPositionY][playerPositionX + 2] == 1)
+			if (map.map[playerPositionY][playerPositionX + 2] == "#")
 			{
 				collisionRight = true;
 			}
@@ -89,7 +89,7 @@ void Player::CollisionCheck()
 			{
 				collisionRight = false;
 			}
-			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == "#")
 			{
 				collisionDown = true;
 			}
@@ -98,10 +98,10 @@ void Player::CollisionCheck()
 				collisionDown = false;
 			}
 		}
-		else if (map.map[playerPositionY][playerPositionX] == 0)
+		else if (map.map[playerPositionY][playerPositionX] == " ")
 		{
 			collisionLeft = false;
-			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == "#")
 			{
 				collisionUp = true;
 			}
@@ -109,7 +109,7 @@ void Player::CollisionCheck()
 			{
 				collisionUp = false;
 			}
-			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == "#")
 			{
 				collisionDown = true;
 			}
@@ -127,10 +127,10 @@ void Player::CollisionCheck()
 		playerPositionX = position.x / 50;
 		playerPositionY = (position.y - 50) / 50;
 
-		if (map.map[playerPositionY][playerPositionX] == 1)
+		if (map.map[playerPositionY][playerPositionX] == "#")
 		{
 			collisionUp = true;
-			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == "#")
 			{
 				collisionLeft = true;
 			}
@@ -138,7 +138,7 @@ void Player::CollisionCheck()
 			{
 				collisionLeft = false;
 			}
-			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == "#")
 			{
 				collisionRight = true;
 			}
@@ -146,7 +146,7 @@ void Player::CollisionCheck()
 			{
 				collisionRight = false;
 			}
-			if (map.map[playerPositionY + 2][playerPositionX] == 1)
+			if (map.map[playerPositionY + 2][playerPositionX] == "#")
 			{
 				collisionDown = true;
 			}
@@ -155,10 +155,10 @@ void Player::CollisionCheck()
 				collisionDown = false;
 			}
 		}
-		else if (map.map[playerPositionY][playerPositionX] == 0)
+		else if (map.map[playerPositionY][playerPositionX] == " ")
 		{
 			collisionUp = false;
-			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX - 1] == "#")
 			{
 				collisionLeft = true;
 			}
@@ -166,7 +166,7 @@ void Player::CollisionCheck()
 			{
 				collisionLeft = false;
 			}
-			if (map.map[playerPositionY + 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY + 1][playerPositionX + 1] == "#")
 			{
 				collisionRight = true;
 			}
@@ -184,10 +184,10 @@ void Player::CollisionCheck()
 		playerPositionX = position.x / 50;
 		playerPositionY = (position.y + 50) / 50;
 
-		if (map.map[playerPositionY][playerPositionX] == 1)
+		if (map.map[playerPositionY][playerPositionX] == "#")
 		{
 			collisionDown = true;
-			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == "#")
 			{
 				collisionLeft = true;
 			}
@@ -195,7 +195,7 @@ void Player::CollisionCheck()
 			{
 				collisionLeft = false;
 			}
-			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == "#")
 			{
 				collisionRight = true;
 			}
@@ -203,7 +203,7 @@ void Player::CollisionCheck()
 			{
 				collisionRight = false;
 			}
-			if (map.map[playerPositionY - 2][playerPositionX] == 1)
+			if (map.map[playerPositionY - 2][playerPositionX] == "#")
 			{
 				collisionUp = true;
 			}
@@ -212,10 +212,10 @@ void Player::CollisionCheck()
 				collisionUp = false;
 			}
 		}
-		else if (map.map[playerPositionY][playerPositionX] == 0)
+		else if (map.map[playerPositionY][playerPositionX] == " ")
 		{
 			collisionDown = false;
-			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX - 1] == "#")
 			{
 				collisionLeft = true;
 			}
@@ -223,7 +223,7 @@ void Player::CollisionCheck()
 			{
 				collisionLeft = false;
 			}
-			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
+			if (map.map[playerPositionY - 1][playerPositionX + 1] == "#")
 			{
 				collisionRight = true;
 			}
