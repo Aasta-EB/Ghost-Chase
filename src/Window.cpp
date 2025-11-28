@@ -173,7 +173,7 @@ void Window::GameOn()
 	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
 
 	// Limited vision related
-	fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
+	//fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
 
 	// Screen text
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);

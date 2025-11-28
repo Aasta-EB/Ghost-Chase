@@ -22,6 +22,7 @@ public:
 	bool collisionRight = true;
 	bool collisionUp = false;
 	bool collisionDown = false;
+	bool justChangedDirection = false;
 	float distanceToPlayer = 100;
 	int framesCounter = 0;
 
