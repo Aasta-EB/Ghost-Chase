@@ -20,9 +20,6 @@ int main()
 	// Sets the target FPS
 	SetTargetFPS(60);
 
-	// Draws map
-	map.DrawMap();
-
 	// Game while loop
 	while (!WindowShouldClose())
 	{
