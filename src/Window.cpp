@@ -15,6 +15,7 @@ void Window::InitGame()
 	enemy.collisionDown = false;
 	enemy.collisionLeft = false;
 	enemy.collisionRight = false;
+	enemy.justChangedDirection = false;
 	enemy.position = { enemy.RandomEnemyPosition().x, enemy.RandomEnemyPosition().y };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
@@ -173,7 +174,7 @@ void Window::GameOn()
 	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
 
 	// Limited vision related
-	//fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
+	fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
 
 	// Screen text
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
