@@ -9,13 +9,18 @@ class Window
 {
 public:
 
+	// Game objects
 	Player player;
 	Grid map;
 	Enemy enemy;
-	Fog fog;
+	Fog fov;
 	Booster booster;
 	Vector2d vector2d;
 
+	// Game difficulty 
+	int gameDifficulty = 1; // 0 = Easy, 1 = Medium, 2 = Hard, 3 = Difficult
+
+	// Game time
 	float timeGame;
 	
 	// Initiates (prepares) the game for playing
@@ -26,6 +31,9 @@ public:
 
 	// Enemy drops hint at its current position, player gets points if collected
 	void DropHint();
+
+	// Makes the player able to set the game difficulty
+	void SetGameDifficulty();
 
 	// Counts the time left in game
 	void TimeCounter();

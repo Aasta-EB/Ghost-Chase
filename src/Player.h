@@ -8,33 +8,31 @@ class Player
 {
 public:
 
-	// Player variables
-	Vector2d position;
-	Vector2d size;
-	Vector2d speed;
-	Color color = PINK;
-	Vector2d playerDirection = { 1,0 };
-	Vector2d playerPosition = { 0 };
-	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
-	bool collisionLeft = false;
-	bool collisionRight = false;
-	bool collisionUp = false;
-	bool collisionDown = false;
-	int playerScore = 0;
-	int playerSize = 1;
-
 	// Grid class and variables
 	Grid map;
 
 	// Enemy class and variables
 	Enemy enemy;
 
-	// Game state variables
-	bool gameOver = false;
-	bool gameWon = false;
-	bool gameStart = true;
-	bool gamePaused = false;
+	// Player variables
+	Vector2d position;
+	Vector2d size;
+	Vector2d speed;
+	Color color = PINK;
+	Vector2d playerDirection = { 1,0 };
+	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
+	int playerScore = 0;
 	int framesCounter = 0;
+
+	// Player collision variables
+	bool collisionLeft = false;
+	bool collisionRight = false;
+	bool collisionUp = false;
+	bool collisionDown = false;
+	
+
+	// Game state variables
+	int gameState = 1; // 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over
 
 	// Player functions
 	void CollisionCheck();

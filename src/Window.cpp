@@ -20,18 +20,19 @@ void Window::InitGame()
 	enemy.position = { enemy.RandomEnemyPosition().x, enemy.RandomEnemyPosition().y };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
+	
+	if (gameDifficulty == 0) enemy.framesCounterDivider = 15;
+	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10;
+	else if (gameDifficulty == 2) enemy.framesCounterDivider = 8;
+
 
 	// Sets player variables
 	player.playerScore = 0;
 	player.framesCounter = 0;
-	player.gameWon = false;
-	player.gameOver = false;
-	player.gamePaused = false;
 	player.position = { 13 * map.boxSize, 7 * map.boxSize };
 	player.size = { map.boxSize, map.boxSize };
 	player.speed = { map.boxSize, 0 };
 	player.playerDirection = { 1 , 0 };
-	player.playerPosition = { 0.0f, 0.0f }; // Do i really need this???
 
 	// Sets booster variables
 	booster.FindBoosterPosition();
@@ -40,6 +41,9 @@ void Window::InitGame()
 
 	// Sets the game time
 	timeGame = 60;
+
+	// Sets the new game state 
+	player.gameState = 2; // Game on
 }
 
 // Booster to expose the enemy's position ___________________________________________________________________________________________________________________________________________________
@@ -107,12 +111,54 @@ void Window::DropHint()
 	}
 	if (enemy.enemyHintExsists_5 == true)
 	{
-		if (player.centrePlayerPosition.x == enemy.enemyHintPos_4.x && player.centrePlayerPosition.y == enemy.enemyHintPos_4.y)
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_5.x && player.centrePlayerPosition.y == enemy.enemyHintPos_5.y)
 		{
 			player.playerScore += 1;
 			enemy.enemyHintExsists_5 = false;
 		}
 	}
+}
+
+// Makes the player able to set the game difficulty _________________________________________________________________________________________________________________________________________________________
+void Window::SetGameDifficulty()
+{
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2, GetScreenHeight() / 2 + 25, 20, GRAY);
+	DrawText("[ARROWS]", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2 + 25, 20, YELLOW);
+	DrawText("TO CHANGE DIFFICULTY", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2 + MeasureText("PRESS [ARROWS] ", 20), GetScreenHeight() / 2 + 25, 20, GRAY);
+
+	if (IsKeyPressed(KEY_UP))
+	{
+		gameDifficulty++;
+		if (gameDifficulty > 2)
+		{
+			gameDifficulty = 0;
+		}
+	}
+	if (IsKeyPressed(KEY_DOWN))
+	{
+		gameDifficulty--;
+		if (gameDifficulty < 0)
+		{
+			gameDifficulty = 2;
+		}
+	}
+
+	switch (gameDifficulty)
+	{
+	case 0:
+		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
+		DrawText("EASY", GetScreenWidth() / 2 + 50, 600, 35, GREEN);
+		break;
+	case 1:
+		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
+		DrawText("MEDIUM", GetScreenWidth() / 2 + 50, 600, 35, YELLOW);
+		break;
+	case 2:
+		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
+		DrawText("HARD", GetScreenWidth() / 2 + 50, 600, 35, RED);
+		break;
+	}
+
 }
 
 // Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
@@ -131,9 +177,12 @@ void Window::StartWindow()
 {
 	// Screen text
 	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
-	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
-	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
-	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
+	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	// Sets game difficulty
+	SetGameDifficulty();
 
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
@@ -161,7 +210,8 @@ void Window::StartWindow()
 	// Starts game after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		player.gameStart = false;
+		InitGame();
+		player.gameState = 2; // Game on
 	}
 }
 
@@ -173,7 +223,7 @@ void Window::GameOn()
 
 	// Enemy related
 	DropHint();
-	enemy.DrawEnemy(player.playerPosition);
+	enemy.DrawEnemy(player.position);
 
 	// Player related
 	player.DrawPlayer();
@@ -185,7 +235,7 @@ void Window::GameOn()
 	// Limited vision related
 	if (player.playerScore < 5)
 	{
-		fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
+		fov.DrawFOV({ player.position.x, player.position.y });
 	}
 
 	// Screen text
@@ -195,22 +245,21 @@ void Window::GameOn()
 
 	// Calculates distance between enemy
 	float distanceToEnemy = player.centrePlayerPosition.CalculateMagnitudeToTarget(enemy.visualPosition);
-	enemy.distanceToPlayer = distanceToEnemy;
 
 	// Changes game state
-	if (distanceToEnemy <= 45)
+	if (distanceToEnemy < 50)
 	{
-		player.gameWon = true;
+		player.gameState = 4; // Game won
 	}
 	if (timeGame <= 0.f)
 	{
-		player.gameOver = true;
+		player.gameState = 5; // Game over
 	}
 
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_P))
 	{
-		player.gamePaused = true;
+		player.gameState = 3; // Pause game
 	}
 }
 
@@ -227,6 +276,9 @@ void Window::GameWonWindow()
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
 
+	// Sets game difficulty
+	SetGameDifficulty();
+
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
@@ -243,12 +295,11 @@ void Window::GameWonWindow()
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		InitGame();
+		InitGame(); // Starts the game again
 	}
 	if (IsKeyPressed(KEY_M))
 	{
-		player.gameWon = false;
-		player.gameStart = true;
+		player.gameState = 1; // Back to main menu
 	}
 }
 
@@ -264,6 +315,9 @@ void Window::GameOverWindow()
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
+	
+	// Sets game difficulty
+	SetGameDifficulty();
 
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
@@ -281,12 +335,12 @@ void Window::GameOverWindow()
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		InitGame();
+		InitGame(); // Starts the game again
 	}
 	if (IsKeyPressed(KEY_M))
 	{
-		player.gameOver = false;
-		player.gameStart = true;
+		player.gameState = 1; // Back to main menu
+
 	}
 }
 
@@ -303,6 +357,10 @@ void Window::GamePausedWindow()
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
 
+	// Sets game difficulty
+	SetGameDifficulty();
+
+
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
@@ -319,12 +377,11 @@ void Window::GamePausedWindow()
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		player.gamePaused = false;
+		player.gameState = 2; // Back to playing the game
 	}
 	if (IsKeyPressed(KEY_M))
 	{
-		player.gamePaused = false;
-		player.gameStart = true;
+		player.gameState = 1; // Back to main menu
 	}
 }
 
@@ -335,33 +392,36 @@ void Window::DrawGame()
 
 	ClearBackground(BLACK);
 
-	// Game states
-	if (player.gameOver == false && player.gamePaused == false && player.gameWon == false && player.gameStart == false)
-	{
-		GameOn();
-	}
-	else if (player.gameOver = true && !player.gamePaused && !player.gameStart && !player.gameWon)
-	{
-		GameOverWindow();
-	}
-	else if (player.gamePaused = true && !player.gameStart && !player.gameWon && !player.gameOver)
-	{
-		GamePausedWindow();
-	}
-	else if (player.gameWon = true && !player.gamePaused && !player.gameStart && !player.gameOver)
-	{
-		GameWonWindow();
-	}
-	else if (player.gameStart = true && !player.gamePaused)
-	{
-		InitGame();
-		StartWindow();
+	switch (player.gameState){
+	
+		// Game states , 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over
+		case 1:
+			//InitGame();
+			StartWindow();
+			break;
+
+		case 2:
+			GameOn();
+			break;
+
+		case 3:
+			GamePausedWindow();
+			break;
+
+		case 4:
+			GameWonWindow();
+			break;
+
+		case 5:
+			GameOverWindow();
+			break;
+
 	}
 
 	EndDrawing();
 }
 
-// Updates each frame ________________________________________________________________________________________________________________________________________________________
+// Updates each frame _________________________________________________________________________________________________________________________________________________________________________________
 void Window::UpdateDrawFrame()
 {
 	player.UpdatePlayer();

@@ -36,11 +36,6 @@ void Booster::DrawBooster()
 	DrawCircle(boosterPosition.x, boosterPosition.y, 5, GREEN);
 }
 
-// Expands player's vision (NOT IN USE) ________________________________________________________________________________________________________________________________________________________________
-void Booster::ExpandPlayerVision()
-{
-}
-
 // Booster that exposes the enemys position and points in the direction ________________________________________________________________________________________________________________________________
 void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 {

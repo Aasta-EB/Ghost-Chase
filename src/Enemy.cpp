@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-// Drop hint function _________________________________________________________________________________________________________________________________________________________________
+// Drop hint function __________________________________________________________________________________________________________________________________________________________________________
 void Enemy::DrawDropHint()
 {
 	if (dropHintTimer > 0.f)
@@ -66,7 +66,7 @@ void Enemy::DrawDropHint()
 	}
 }
 
-// Finds a random enemy direction _______________________________________________________________________________________________________________________________________________________
+// Finds a random enemy direction ______________________________________________________________________________________________________________________________________________________________________
 Vector2d Enemy::RandomEnemyDirection()
 {
 	srand(time(0));
@@ -95,7 +95,7 @@ Vector2d Enemy::RandomEnemyDirection()
 	return randomEnemyDirection;
 }
 
-// Finds a "random" enemy spawn point ___________________________________________________________________________________________________________________________________________________
+// Finds a "random" enemy spawn point ______________________________________________________________________________________________________________________________________________________________________
 Vector2d Enemy::RandomEnemyPosition()
 {
 	srand(time(0));
@@ -127,7 +127,7 @@ Vector2d Enemy::RandomEnemyPosition()
 	return randomEnemyPosition;
 }
 
-// Enemy collision check __________________________________________________________________________________________________________________________________________
+// Enemy collision check ___________________________________________________________________________________________________________________________________________________________________________________
 void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 {
 	//position = enemyPosition;
@@ -136,7 +136,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 	//std::cout << position.x << " , " << position.y << "\n";
 
-	if (enemyDirection.x == 1 && enemyDirection.y == 0)
+	if (enemyDirection.x == 1 && enemyDirection.y == 0) // Moving right _________________________________________________________________________________________
 	{
 		enemyPositionX = (position.x + 50) / 50;
 		enemyPositionY = position.y / 50;
@@ -145,8 +145,8 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 		if (inPlayerPosition.x == position.x + 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-		/*	std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
+			/*	std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
+				enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.x *= -1;
 		}
 		else if (inPlayerPosition.x == position.x + 50 && map.map[enemyPositionY][enemyPositionX] != 1)
@@ -196,17 +196,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						enemyDirection = { 0,-1 };
 					}
-
 				}
 				if (collisionUp == true && collisionDown == false && collisionLeft == false && collisionRight == true)
 				{
 					enemyDirection = { 0,1 };
-
 				}
 				if (collisionUp == false && collisionDown == true && collisionLeft == false && collisionRight == true)
 				{
 					enemyDirection = { 0,-1 };
-
 				}
 				if (collisionUp == false && collisionDown == false && collisionLeft == true && collisionRight == true)
 				{
@@ -260,15 +257,13 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					}
 					else if (justChangedDirection == true)
 					{
-						justChangedDirection = false; 
+						justChangedDirection = false;
 					}
-					
 				}
 				if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 1)
 				{
 					if (justChangedDirection == false)
 					{
-
 						changeDirectionNumber = std::rand() % 100;
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
@@ -286,7 +281,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-				
 				}
 				if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 0)
 				{
@@ -314,13 +308,12 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
-	if (enemyDirection.x == -1 && enemyDirection.y == 0)
+	if (enemyDirection.x == -1 && enemyDirection.y == 0) // Moving left ______________________________________________________________________________________
 	{
 		enemyPositionX = (position.x - 50) / 50;
 		enemyPositionY = position.y / 50;
@@ -384,12 +377,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				if (collisionUp == true && collisionDown == false && collisionRight == false && collisionLeft == true)
 				{
 					enemyDirection = { 0,1 };
-
 				}
 				if (collisionUp == false && collisionDown == true && collisionRight == false && collisionLeft == true)
 				{
 					enemyDirection = { 0,-1 };
-
 				}
 				if (collisionUp == false && collisionDown == false && collisionRight == true && collisionLeft == true)
 				{
@@ -445,7 +436,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 				if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 1)
 				{
@@ -468,7 +458,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 				if (map.map[enemyPositionY - 1][enemyPositionX] == 0 && map.map[enemyPositionY + 1][enemyPositionX] == 0)
 				{
@@ -496,13 +485,12 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
-	if (enemyDirection.y == 1 && enemyDirection.x == 0)
+	if (enemyDirection.y == 1 && enemyDirection.x == 0) // Moving downwards __________________________________________________________________________________
 	{
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y + 50) / 50;
@@ -563,7 +551,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						enemyDirection = { -1,0 };
 					}
-					
 				}
 				if (collisionUp == true && collisionLeft == false && collisionRight == false && collisionDown == true)
 				{
@@ -580,12 +567,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				if (collisionUp == false && collisionLeft == true && collisionRight == false && collisionDown == true)
 				{
 					enemyDirection = { 1,0 };
-
 				}
 				if (collisionUp == false && collisionLeft == false && collisionRight == true && collisionDown == true)
 				{
 					enemyDirection = { -1,0 };
-
 				}
 				if (collisionUp == false && collisionLeft == true && collisionRight == true && collisionDown == true)
 				{
@@ -629,7 +614,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 				if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 1)
 				{
@@ -652,7 +636,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 				if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 0)
 				{
@@ -680,14 +663,13 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 			}
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 		//std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
 	}
-	if (enemyDirection.y == -1 && enemyDirection.x == 0)
+	if (enemyDirection.y == -1 && enemyDirection.x == 0) // Moving upwards __________________________________________________________________
 	{
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y - 50) / 50;
@@ -747,7 +729,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						enemyDirection = { -1,0 };
 					}
-
 				}
 				if (collisionDown == true && collisionLeft == false && collisionRight == false && collisionUp == true)
 				{
@@ -764,12 +745,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				if (collisionDown == false && collisionLeft == true && collisionRight == false && collisionUp == true)
 				{
 					enemyDirection = { 1,0 };
-
 				}
 				if (collisionDown == false && collisionLeft == false && collisionRight == true && collisionUp == true)
 				{
 					enemyDirection = { -1,0 };
-
 				}
 				if (collisionDown == false && collisionLeft == true && collisionRight == true && collisionUp == true)
 				{
@@ -813,7 +792,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 				if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 1)
 				{
@@ -836,7 +814,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 				if (map.map[enemyPositionY][enemyPositionX - 1] == 0 && map.map[enemyPositionY][enemyPositionX + 1] == 0)
 				{
@@ -864,7 +841,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					{
 						justChangedDirection = false;
 					}
-					
 				}
 			}
 		}
@@ -875,44 +851,32 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 // Continuos enemy movement ______________________________________________________________________________________________________________________________________________
 void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 {
-	for (int i = 0; i < 1; i++) enemyPosition = position;
-
-	if ((framesCounter % 10) == 0)
+	if ((framesCounter % framesCounterDivider) == 0)
 	{
-		for (int i = 0; i < 1; i++)
+		CollisionCheck(inPlayerPosition);
+		if (enemyDirection.x == 1 && collisionRight == false)
 		{
-			if (i == 0)
-			{
-				CollisionCheck(inPlayerPosition);
-				if (enemyDirection.x == 1 && collisionRight == false)
-				{
-					speed = Vector2d{ map.boxSize, 0 };
-					position.x += speed.x;
-					position.y += speed.y;
-				}
-				if (enemyDirection.x == -1 && collisionLeft == false)
-				{
-					speed = Vector2d{ -map.boxSize, 0 };
-					position.x += speed.x;
-					position.y += speed.y;
-				}
-				if (enemyDirection.y == -1 && collisionUp == false)
-				{
-					speed = Vector2d{ 0, -map.boxSize };
-					position.x += speed.x;
-					position.y += speed.y;
-				}
-				if (enemyDirection.y == 1 && collisionDown == false)
-				{
-					speed = Vector2d{ 0, map.boxSize };
-					position.x += speed.x;
-					position.y += speed.y;
-				}
-			}
-			else
-			{
-				position = enemyPosition;
-			}
+			speed = Vector2d{ map.boxSize, 0 };
+			position.x += speed.x;
+			position.y += speed.y;
+		}
+		if (enemyDirection.x == -1 && collisionLeft == false)
+		{
+			speed = Vector2d{ -map.boxSize, 0 };
+			position.x += speed.x;
+			position.y += speed.y;
+		}
+		if (enemyDirection.y == -1 && collisionUp == false)
+		{
+			speed = Vector2d{ 0, -map.boxSize };
+			position.x += speed.x;
+			position.y += speed.y;
+		}
+		if (enemyDirection.y == 1 && collisionDown == false)
+		{
+			speed = Vector2d{ 0, map.boxSize };
+			position.x += speed.x;
+			position.y += speed.y;
 		}
 	}
 	framesCounter++;
@@ -926,3 +890,4 @@ void Enemy::DrawEnemy(Vector2d inPlayerPosition)
 	visualPosition = { position.x + 25, position.y + 25 };
 	DrawCircle(visualPosition.x, visualPosition.y, 25, color);
 }
+

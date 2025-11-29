@@ -7,7 +7,7 @@ class Booster
 {
 public:
 
-	// Initializes the classes
+	// Acsessing other classes
 	Enemy enemy;
 	Player player;
 	Vector2d vector2d;
@@ -24,9 +24,6 @@ public:
 
 	// Draws the booster in it's chosen position
 	void DrawBooster();
-
-	// Expands player's vision (NOT IN USE)
-	void ExpandPlayerVision();
 
 	// Booster that exposes the enemys position and points in the direction
 	void ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPosition);

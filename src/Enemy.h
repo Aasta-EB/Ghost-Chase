@@ -12,19 +12,19 @@ public:
 
 	// Enemy variables
 	Vector2d position;
-	Vector2d size = { 50,50 };
 	Color color = YELLOW;
 	Vector2d speed = { map.boxSize, 0 };
-	Vector2d enemyPosition = { 0 }; // Do i realluy need this???
 	Vector2d enemyDirection = { 1,0 };
 	Vector2d visualPosition;
+	int framesCounter = 0;
+	int framesCounterDivider = 10;
+
+	// Enemy collision variables
 	bool collisionLeft = false;
 	bool collisionRight = true;
 	bool collisionUp = false;
 	bool collisionDown = false;
 	bool justChangedDirection = false;
-	float distanceToPlayer = 100;
-	int framesCounter = 0;
 
 	// Enemy hint variables
 	float dropHintTimer = 10.f;
@@ -41,15 +41,21 @@ public:
 	Vector2d enemyHintPos_5 = { 50, 50 };
 
 	// Enemy functions
+	// Drop hint function
 	void DrawDropHint();
 
+	// Finds a random enemy direction
 	Vector2d RandomEnemyDirection();
 
+	// Finds a "random" enemy spawn point
 	Vector2d RandomEnemyPosition();
 
+	// Enemy collision check
 	void CollisionCheck(Vector2d inPlayerPosition);
 
+	// Continuos enemy movement
 	void EnemyMovement(Vector2d inPlayerPosition);
 
+	// Draw enemy function
 	void DrawEnemy(Vector2d inPlayerPosition);
 };
