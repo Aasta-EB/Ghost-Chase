@@ -28,7 +28,7 @@ void Window::InitGame()
 	player.size = { map.boxSize, map.boxSize };
 	player.speed = { map.boxSize, 0 };
 	player.playerDirection = { 1 , 0 };
-	player.playerPosition = { 0.0f, 0.0f }; // Do i really need this???
+	//player.playerPosition = { 0.0f, 0.0f }; // Do i really need this???
 
 	// Sets booster variables
 	booster.FindBoosterPosition();
@@ -174,7 +174,7 @@ void Window::GameOn()
 
 	// Enemy related
 	DropHint();
-	enemy.DrawEnemy(player.playerPosition);
+	enemy.DrawEnemy(player.position);
 
 	// Player related
 	player.DrawPlayer();
@@ -186,7 +186,7 @@ void Window::GameOn()
 	// Limited vision related
 	if (player.playerScore < 5)
 	{
-		fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
+		fog.DrawFog({ player.position.x, player.position.y });
 	}
 
 	// Screen text

@@ -14,7 +14,6 @@ int main()
 	// Starting game window
 	InitWindow(map.windowWidth, map.windowHeight, "Ghost-Chase");
 
-
 	// Sets the target FPS
 	SetTargetFPS(60);
 
