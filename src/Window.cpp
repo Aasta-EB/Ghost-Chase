@@ -185,7 +185,7 @@ void Window::GameOn()
 	// Limited vision related
 	if (player.playerScore < 5)
 	{
-		fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
+		//fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
 	}
 
 	// Screen text

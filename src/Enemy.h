@@ -15,7 +15,6 @@ public:
 	Vector2d size = { 50,50 };
 	Color color = YELLOW;
 	Vector2d speed = { map.boxSize, 0 };
-	Vector2d enemyPosition = { 0 }; // Do i realluy need this???
 	Vector2d enemyDirection = { 1,0 };
 	Vector2d visualPosition;
 	bool collisionLeft = false;
