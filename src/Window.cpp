@@ -196,10 +196,9 @@ void Window::GameOn()
 
 	// Calculates distance between enemy
 	float distanceToEnemy = player.centrePlayerPosition.CalculateMagnitudeToTarget(enemy.visualPosition);
-	enemy.distanceToPlayer = distanceToEnemy;
 
 	// Changes game state
-	if (distanceToEnemy <= 45)
+	if (distanceToEnemy < 50)
 	{
 		player.gameState = 4; // Game won
 	}

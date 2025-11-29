@@ -20,7 +20,6 @@ public:
 	bool collisionUp = false;
 	bool collisionDown = false;
 	int playerScore = 0;
-	int playerSize = 1;
 
 	// Grid class and variables
 	Grid map;
