@@ -37,6 +37,12 @@ void Enemy::DrawDropHint()
 		enemyHintPos_4 = visualPosition;
 		enemyHintNumber += 0.5;
 	}
+	if (enemyHintNumber == 5)
+	{
+		enemyHintExsists_5 = true;
+		enemyHintPos_5 = visualPosition;
+		enemyHintNumber += 0.5;
+	}
 
 	if (enemyHintExsists_1 == true)
 	{
@@ -53,6 +59,10 @@ void Enemy::DrawDropHint()
 	if (enemyHintExsists_4 == true)
 	{
 		DrawCircle(enemyHintPos_4.x, enemyHintPos_4.y, 5, ORANGE);
+	}
+	if (enemyHintExsists_5 == true)
+	{
+		DrawCircle(enemyHintPos_5.x, enemyHintPos_5.y, 5, ORANGE);
 	}
 }
 

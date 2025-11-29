@@ -9,6 +9,7 @@ void Window::InitGame()
 	enemy.enemyHintExsists_2 = false;
 	enemy.enemyHintExsists_3 = false;
 	enemy.enemyHintExsists_4 = false;
+	enemy.enemyHintExsists_5 = false;
 	enemy.dropHintTimer = 10.f;
 	enemy.enemyHintNumber = 0.5f;
 	enemy.collisionUp = false;
@@ -104,6 +105,14 @@ void Window::DropHint()
 			enemy.enemyHintExsists_4 = false;
 		}
 	}
+	if (enemy.enemyHintExsists_5 == true)
+	{
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_4.x && player.centrePlayerPosition.y == enemy.enemyHintPos_4.y)
+		{
+			player.playerScore += 1;
+			enemy.enemyHintExsists_5 = false;
+		}
+	}
 }
 
 // Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
@@ -174,14 +183,14 @@ void Window::GameOn()
 	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
 
 	// Limited vision related
-	if (player.playerScore < 4)
+	if (player.playerScore < 5)
 	{
 		fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
 	}
 
 	// Screen text
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
-	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
+	DrawText(TextFormat("HINTS COLLECTED: %d", player.playerScore), 1000, 20, 20, GRAY);
 	TimeCounter();
 
 	// Calculates distance between enemy
