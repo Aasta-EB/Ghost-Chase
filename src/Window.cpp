@@ -190,7 +190,7 @@ void Window::GameOn()
 
 	// Screen text
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
-	DrawText(TextFormat("PLAYER SCORE: %d", player.playerScore), 1000, 20, 20, GRAY);
+	DrawText(TextFormat("HINTS COLLECTED: %d", player.playerScore), 1000, 20, 20, GRAY);
 	TimeCounter();
 
 	// Calculates distance between enemy
