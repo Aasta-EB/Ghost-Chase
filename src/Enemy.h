@@ -12,17 +12,18 @@ public:
 
 	// Enemy variables
 	Vector2d position;
-	Vector2d size = { 50,50 };
 	Color color = YELLOW;
 	Vector2d speed = { map.boxSize, 0 };
 	Vector2d enemyDirection = { 1,0 };
 	Vector2d visualPosition;
+	int framesCounter = 0;
+
+	// Enemy collision variables
 	bool collisionLeft = false;
 	bool collisionRight = true;
 	bool collisionUp = false;
 	bool collisionDown = false;
 	bool justChangedDirection = false;
-	int framesCounter = 0;
 
 	// Enemy hint variables
 	float dropHintTimer = 10.f;

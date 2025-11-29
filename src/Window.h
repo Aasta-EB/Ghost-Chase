@@ -9,6 +9,7 @@ class Window
 {
 public:
 
+	// Game objects
 	Player player;
 	Grid map;
 	Enemy enemy;
@@ -16,6 +17,7 @@ public:
 	Booster booster;
 	Vector2d vector2d;
 
+	// Game time
 	float timeGame;
 	
 	// Initiates (prepares) the game for playing
