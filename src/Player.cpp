@@ -304,36 +304,30 @@ void Player::UpdatePlayer()
 		}
 
 		// Continuos player movement _____________________________________________________________________
-		for (int i = 0; i < 1; i++) playerPosition = position; 
+		for (int i = 0; i < 1; i++) playerPosition = position;
 
 		if ((framesCounter % 10) == 0)
 		{
-			for (int i = 0; i < 1; i++)
+			CollisionCheck();
+			if (playerDirection.x == 1 && collisionRight == false)
 			{
-				if (i == 0)
-				{
-					CollisionCheck();
-					if (playerDirection.x == 1 && collisionRight == false)
-					{
-						position.x += speed.x;
-						position.y += speed.y;
-					}
-					if (playerDirection.x == -1 && collisionLeft == false)
-					{
-						position.x += speed.x;
-						position.y += speed.y;
-					}
-					if (playerDirection.y == -1 && collisionUp == false)
-					{
-						position.x += speed.x;
-						position.y += speed.y;
-					}
-					if (playerDirection.y == 1 && collisionDown == false)
-					{
-						position.x += speed.x;
-						position.y += speed.y;
-					}
-				}
+				position.x += speed.x;
+				position.y += speed.y;
+			}
+			if (playerDirection.x == -1 && collisionLeft == false)
+			{
+				position.x += speed.x;
+				position.y += speed.y;
+			}
+			if (playerDirection.y == -1 && collisionUp == false)
+			{
+				position.x += speed.x;
+				position.y += speed.y;
+			}
+			if (playerDirection.y == 1 && collisionDown == false)
+			{
+				position.x += speed.x;
+				position.y += speed.y;
 			}
 		}
 		framesCounter++;
@@ -347,3 +341,35 @@ void Player::DrawPlayer()
 
 	centrePlayerPosition = { position.x + 25, position.y + 25 };
 }
+
+//if ((framesCounter % 10) == 0)
+//{
+//	for (int i = 0; i < 1; i++)
+//	{
+//		if (i == 0)
+//		{
+//			CollisionCheck();
+//			if (playerDirection.x == 1 && collisionRight == false)
+//			{
+//				position.x += speed.x;
+//				position.y += speed.y;
+//			}
+//			if (playerDirection.x == -1 && collisionLeft == false)
+//			{
+//				position.x += speed.x;
+//				position.y += speed.y;
+//			}
+//			if (playerDirection.y == -1 && collisionUp == false)
+//			{
+//				position.x += speed.x;
+//				position.y += speed.y;
+//			}
+//			if (playerDirection.y == 1 && collisionDown == false)
+//			{
+//				position.x += speed.x;
+//				position.y += speed.y;
+//			}
+//		}
+//	}
+//}
+//framesCounter++;
