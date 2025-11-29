@@ -8,6 +8,12 @@ class Player
 {
 public:
 
+	// Grid class and variables
+	Grid map;
+
+	// Enemy class and variables
+	Enemy enemy;
+
 	// Player variables
 	Vector2d position;
 	Vector2d size;
@@ -20,15 +26,9 @@ public:
 	bool collisionUp = false;
 	bool collisionDown = false;
 	int playerScore = 0;
-
-	// Grid class and variables
-	Grid map;
-
-	// Enemy class and variables
-	Enemy enemy;
+	int framesCounter = 0;
 
 	// Game state variables
-	int framesCounter = 0;
 	int gameState = 1;
 
 	// Player functions

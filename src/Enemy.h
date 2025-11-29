@@ -39,15 +39,21 @@ public:
 	Vector2d enemyHintPos_5 = { 50, 50 };
 
 	// Enemy functions
+	// Drop hint function
 	void DrawDropHint();
 
+	// Finds a random enemy direction
 	Vector2d RandomEnemyDirection();
 
+	// Finds a "random" enemy spawn point
 	Vector2d RandomEnemyPosition();
 
+	// Enemy collision check
 	void CollisionCheck(Vector2d inPlayerPosition);
 
+	// Continuos enemy movement
 	void EnemyMovement(Vector2d inPlayerPosition);
 
+	// Draw enemy function
 	void DrawEnemy(Vector2d inPlayerPosition);
 };
