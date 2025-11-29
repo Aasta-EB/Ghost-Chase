@@ -7,6 +7,6 @@ class Fog
 {
 public:
 
-	// Fog functions
-	void DrawFog(Vector2d inPlayerPosition);
+	// FOV functions
+	void DrawFOV(Vector2d inPlayerPosition);
 };

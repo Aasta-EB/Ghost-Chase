@@ -3,13 +3,11 @@
 // Draw map (grid/the labyrinth) function
 void Grid::DrawMap()
 {
-	// A for loop to find the boxes position
+	// Loop to find the boxes position
 	for (int i = 0; i < 14; i++)
 	{
-		//std::cout << "\n";
 		for (int j = 0; j < 28; j++)
 		{
-			//std::cout << map[i][j];
 			if (map[i][j] == 0)
 			{
 				//std::cout << map[i][j];

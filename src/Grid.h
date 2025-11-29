@@ -10,16 +10,11 @@ public:
 
 	// Grid variables
 	float boxSize = 50;
-	Vector2d rectangleSize = { 50, 50 };
 	Color boxColor = DARKBLUE;
 
-	// window variables
+	// Window variables
 	int windowWidth = 1400;
 	int windowHeight = 700;
-
-	// Not really important variables, at least as of now
-	int gridRows = 14;
-	int gridColumns = 28;
 
 	// The map/labyrinth
 	int map[14][28] = {

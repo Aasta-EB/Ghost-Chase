@@ -1,7 +1,7 @@
 #include "Fog.h"
 
 // Draw limited view function ___________________________________________________________________________________________________________________________________________________________________
-void Fog::DrawFog(Vector2d inPlayerPosition)
+void Fog::DrawFOV(Vector2d inPlayerPosition)
 {
 	DrawRectangle(inPlayerPosition.x - (50 * 22 + 50 * 2.5), inPlayerPosition.y - (50 * 8 + 50 * 2.5), GetScreenWidth() * 2, 50 * 8, BLACK);
 	DrawRectangle(inPlayerPosition.x - (50 * 22 + 50 * 2.5), inPlayerPosition.y + 50 * 2.5, GetScreenWidth() * 2, 50 * 9, BLACK);
