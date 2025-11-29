@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-// Drop hint function _________________________________________________________________________________________________________________________________________________________________
+// Drop hint function __________________________________________________________________________________________________________________________________________________________________________
 void Enemy::DrawDropHint()
 {
 	if (dropHintTimer > 0.f)
@@ -66,7 +66,7 @@ void Enemy::DrawDropHint()
 	}
 }
 
-// Finds a random enemy direction _______________________________________________________________________________________________________________________________________________________
+// Finds a random enemy direction ______________________________________________________________________________________________________________________________________________________________________
 Vector2d Enemy::RandomEnemyDirection()
 {
 	srand(time(0));
@@ -95,7 +95,7 @@ Vector2d Enemy::RandomEnemyDirection()
 	return randomEnemyDirection;
 }
 
-// Finds a "random" enemy spawn point ___________________________________________________________________________________________________________________________________________________
+// Finds a "random" enemy spawn point ______________________________________________________________________________________________________________________________________________________________________
 Vector2d Enemy::RandomEnemyPosition()
 {
 	srand(time(0));
@@ -127,7 +127,7 @@ Vector2d Enemy::RandomEnemyPosition()
 	return randomEnemyPosition;
 }
 
-// Enemy collision check __________________________________________________________________________________________________________________________________________
+// Enemy collision check ___________________________________________________________________________________________________________________________________________________________________________________
 void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 {
 	//position = enemyPosition;
@@ -136,7 +136,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 	//std::cout << position.x << " , " << position.y << "\n";
 
-	if (enemyDirection.x == 1 && enemyDirection.y == 0)
+	if (enemyDirection.x == 1 && enemyDirection.y == 0) // Moving right _________________________________________________________________________________________
 	{
 		enemyPositionX = (position.x + 50) / 50;
 		enemyPositionY = position.y / 50;
@@ -313,7 +313,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
-	if (enemyDirection.x == -1 && enemyDirection.y == 0)
+	if (enemyDirection.x == -1 && enemyDirection.y == 0) // Moving left ______________________________________________________________________________________
 	{
 		enemyPositionX = (position.x - 50) / 50;
 		enemyPositionY = position.y / 50;
@@ -490,7 +490,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		}
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
-	if (enemyDirection.y == 1 && enemyDirection.x == 0)
+	if (enemyDirection.y == 1 && enemyDirection.x == 0) // Moving downwards __________________________________________________________________________________
 	{
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y + 50) / 50;
@@ -669,7 +669,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 		//std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
 	}
-	if (enemyDirection.y == -1 && enemyDirection.x == 0)
+	if (enemyDirection.y == -1 && enemyDirection.x == 0) // Moving upwards __________________________________________________________________
 	{
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y - 50) / 50;
