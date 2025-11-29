@@ -3,6 +3,10 @@
 // Initiates (prepares) the game for playing ________________________________________________________________________________________________________________________________________________________________________
 void Window::InitGame()
 {
+	//int amountOfHints = 5;
+	//std::vector<Enemy> hintContainer(amountOfHints);
+
+
 	// Sets enemy variables
 	enemy.enemyDirection = { 0, -1 };
 	enemy.enemyHintExsists_1 = false;
@@ -23,7 +27,7 @@ void Window::InitGame()
 	
 	if (gameDifficulty == 0) enemy.framesCounterDivider = 15;
 	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10;
-	else if (gameDifficulty == 2) enemy.framesCounterDivider = 8;
+	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5;
 
 
 	// Sets player variables
@@ -75,6 +79,8 @@ void Window::ExposeEnemyBooster()
 void Window::DropHint()
 {
 	enemy.DrawDropHint();
+
+	//for (Enemy& hhintObject : hintContainer)
 
 	// Collisioncheck between hint and player
 	if (enemy.enemyHintExsists_1 == true)
