@@ -17,6 +17,7 @@ public:
 	Vector2d enemyDirection = { 1,0 };
 	Vector2d visualPosition;
 	int framesCounter = 0;
+	int framesCounterDivider = 10;
 
 	// Enemy collision variables
 	bool collisionLeft = false;

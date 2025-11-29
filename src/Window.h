@@ -17,6 +17,9 @@ public:
 	Booster booster;
 	Vector2d vector2d;
 
+	// Game difficulty 
+	int gameDifficulty = 1; // 0 = Easy, 1 = Medium, 2 = Hard, 3 = Difficult
+
 	// Game time
 	float timeGame;
 	

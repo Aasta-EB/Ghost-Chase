@@ -20,6 +20,11 @@ void Window::InitGame()
 	enemy.position = { enemy.RandomEnemyPosition().x, enemy.RandomEnemyPosition().y };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
+	
+	if (gameDifficulty == 0) enemy.framesCounterDivider = 15;
+	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10;
+	else if (gameDifficulty == 2) enemy.framesCounterDivider = 8;
+
 
 	// Sets player variables
 	player.playerScore = 0;
@@ -28,7 +33,6 @@ void Window::InitGame()
 	player.size = { map.boxSize, map.boxSize };
 	player.speed = { map.boxSize, 0 };
 	player.playerDirection = { 1 , 0 };
-	//player.playerPosition = { 0.0f, 0.0f }; // Do i really need this???
 
 	// Sets booster variables
 	booster.FindBoosterPosition();
@@ -134,6 +138,39 @@ void Window::StartWindow()
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	if (IsKeyPressed(KEY_UP))
+	{
+		gameDifficulty++;
+		if (gameDifficulty > 2)
+		{
+			gameDifficulty = 0;
+		}
+	}
+	if (IsKeyPressed(KEY_DOWN))
+	{
+		gameDifficulty--;
+		if (gameDifficulty < 0)
+		{
+			gameDifficulty = 2;
+		}
+	}
+
+	switch (gameDifficulty)
+	{
+	case 0:
+		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
+		DrawText("EASY", GetScreenWidth() / 2 + 50, 600, 35, GREEN);
+		break;
+	case 1:
+		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
+		DrawText("MEDIUM", GetScreenWidth()/2 + 50, 600, 35, YELLOW);
+		break;
+	case 2:
+		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
+		DrawText("HARD", GetScreenWidth() / 2 + 50 , 600, 35, RED);
+		break;
+	}
 
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)

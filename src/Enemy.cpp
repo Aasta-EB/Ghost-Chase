@@ -851,7 +851,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 // Continuos enemy movement ______________________________________________________________________________________________________________________________________________
 void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 {
-	if ((framesCounter % 10) == 0)
+	if ((framesCounter % framesCounterDivider) == 0)
 	{
 		CollisionCheck(inPlayerPosition);
 		if (enemyDirection.x == 1 && collisionRight == false)
