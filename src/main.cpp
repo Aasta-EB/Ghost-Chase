@@ -14,8 +14,6 @@ int main()
 	// Starting game window
 	InitWindow(map.windowWidth, map.windowHeight, "Ghost-Chase");
 
-	// Initiates the game the first time
-	window.InitGame();
 
 	// Sets the target FPS
 	SetTargetFPS(60);

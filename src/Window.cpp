@@ -24,9 +24,6 @@ void Window::InitGame()
 	// Sets player variables
 	player.playerScore = 0;
 	player.framesCounter = 0;
-	player.gameWon = false;
-	player.gameOver = false;
-	player.gamePaused = false;
 	player.position = { 13 * map.boxSize, 7 * map.boxSize };
 	player.size = { map.boxSize, map.boxSize };
 	player.speed = { map.boxSize, 0 };
@@ -40,6 +37,9 @@ void Window::InitGame()
 
 	// Sets the game time
 	timeGame = 60;
+
+	// Sets the new game state 
+	player.gameState = 2; // Game on
 }
 
 // Booster to expose the enemy's position ___________________________________________________________________________________________________________________________________________________
@@ -161,7 +161,8 @@ void Window::StartWindow()
 	// Starts game after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		player.gameStart = false;
+		InitGame();
+		player.gameState = 2; // Game on
 	}
 }
 
@@ -185,7 +186,7 @@ void Window::GameOn()
 	// Limited vision related
 	if (player.playerScore < 5)
 	{
-		//fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
+		fog.DrawFog({ player.playerPosition.x, player.playerPosition.y });
 	}
 
 	// Screen text
@@ -200,17 +201,17 @@ void Window::GameOn()
 	// Changes game state
 	if (distanceToEnemy <= 45)
 	{
-		player.gameWon = true;
+		player.gameState = 4; // Game won
 	}
 	if (timeGame <= 0.f)
 	{
-		player.gameOver = true;
+		player.gameState = 5; // Game over
 	}
 
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_P))
 	{
-		player.gamePaused = true;
+		player.gameState = 3; // Pause game
 	}
 }
 
@@ -243,12 +244,11 @@ void Window::GameWonWindow()
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		InitGame();
+		InitGame(); // Starts the game again
 	}
 	if (IsKeyPressed(KEY_M))
 	{
-		player.gameWon = false;
-		player.gameStart = true;
+		player.gameState = 1; // Back to main menu
 	}
 }
 
@@ -281,12 +281,12 @@ void Window::GameOverWindow()
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		InitGame();
+		InitGame(); // Starts the game again
 	}
 	if (IsKeyPressed(KEY_M))
 	{
-		player.gameOver = false;
-		player.gameStart = true;
+		player.gameState = 1; // Back to main menu
+
 	}
 }
 
@@ -319,12 +319,11 @@ void Window::GamePausedWindow()
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
-		player.gamePaused = false;
+		player.gameState = 2; // Back to playing the game
 	}
 	if (IsKeyPressed(KEY_M))
 	{
-		player.gamePaused = false;
-		player.gameStart = true;
+		player.gameState = 1; // Back to main menu
 	}
 }
 
@@ -335,27 +334,30 @@ void Window::DrawGame()
 
 	ClearBackground(BLACK);
 
-	// Game states
-	if (player.gameOver == false && player.gamePaused == false && player.gameWon == false && player.gameStart == false)
-	{
-		GameOn();
-	}
-	else if (player.gameOver = true && !player.gamePaused && !player.gameStart && !player.gameWon)
-	{
-		GameOverWindow();
-	}
-	else if (player.gamePaused = true && !player.gameStart && !player.gameWon && !player.gameOver)
-	{
-		GamePausedWindow();
-	}
-	else if (player.gameWon = true && !player.gamePaused && !player.gameStart && !player.gameOver)
-	{
-		GameWonWindow();
-	}
-	else if (player.gameStart = true && !player.gamePaused)
-	{
-		InitGame();
-		StartWindow();
+	switch (player.gameState){
+	
+		// Game states , 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over
+		case 1:
+			//InitGame();
+			StartWindow();
+			break;
+
+		case 2:
+			GameOn();
+			break;
+
+		case 3:
+			GamePausedWindow();
+			break;
+
+		case 4:
+			GameWonWindow();
+			break;
+
+		case 5:
+			GameOverWindow();
+			break;
+
 	}
 
 	EndDrawing();

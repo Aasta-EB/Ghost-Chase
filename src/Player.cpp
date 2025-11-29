@@ -239,7 +239,7 @@ void Player::CollisionCheck()
 // Updates player each frame ____________________________________________________________________________________________________________________________________________________________________________
 void Player::UpdatePlayer()
 {
-	if (!gameOver && !gameWon && !gameStart && !gamePaused)
+	if (gameState == 2)
 	{
 		// Player input _______________________________________________________________________________________
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))

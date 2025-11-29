@@ -30,11 +30,8 @@ public:
 	Enemy enemy;
 
 	// Game state variables
-	bool gameOver = false;
-	bool gameWon = false;
-	bool gameStart = true;
-	bool gamePaused = false;
 	int framesCounter = 0;
+	int gameState = 1;
 
 	// Player functions
 	void CollisionCheck();
