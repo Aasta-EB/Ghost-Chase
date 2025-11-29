@@ -32,6 +32,9 @@ public:
 	// Enemy drops hint at its current position, player gets points if collected
 	void DropHint();
 
+	// Makes the player able to set the game difficulty
+	void SetGameDifficulty();
+
 	// Counts the time left in game
 	void TimeCounter();
 

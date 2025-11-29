@@ -119,25 +119,12 @@ void Window::DropHint()
 	}
 }
 
-// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
-void Window::TimeCounter()
+// Makes the player able to set the game difficulty _________________________________________________________________________________________________________________________________________________________
+void Window::SetGameDifficulty()
 {
-	if (timeGame > 0.f) timeGame -= GetFrameTime();
-
-	// Rounding of number to have a whole number being printed
-	int actualTime = std::round(timeGame);
-
-	DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
-}
-
-// Draws the start window of the game ______________________________________________________________________________________________________________________________________________________________________
-void Window::StartWindow()
-{
-	// Screen text
-	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
-	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
-	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press ", 20) + 5, GetScreenHeight() / 2, 20, RED);
-	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("Press [ENTER] TO START", 20) / 2 + MeasureText("Press [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2, GetScreenHeight() / 2 + 25, 20, GRAY);
+	DrawText("[ARROWS]", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2 + 25, 20, YELLOW);
+	DrawText("TO CHANGE DIFFICULTY", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2 + MeasureText("PRESS [ARROWS] ", 20), GetScreenHeight() / 2 + 25, 20, GRAY);
 
 	if (IsKeyPressed(KEY_UP))
 	{
@@ -164,13 +151,38 @@ void Window::StartWindow()
 		break;
 	case 1:
 		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
-		DrawText("MEDIUM", GetScreenWidth()/2 + 50, 600, 35, YELLOW);
+		DrawText("MEDIUM", GetScreenWidth() / 2 + 50, 600, 35, YELLOW);
 		break;
 	case 2:
 		DrawText("DIFFICULTY: ", GetScreenWidth() / 2 - MeasureText("DIFFICULTY: MEDIUM", 35) / 2, 600, 35, GRAY);
-		DrawText("HARD", GetScreenWidth() / 2 + 50 , 600, 35, RED);
+		DrawText("HARD", GetScreenWidth() / 2 + 50, 600, 35, RED);
 		break;
 	}
+
+}
+
+// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
+void Window::TimeCounter()
+{
+	if (timeGame > 0.f) timeGame -= GetFrameTime();
+
+	// Rounding of number to have a whole number being printed
+	int actualTime = std::round(timeGame);
+
+	DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
+}
+
+// Draws the start window of the game ______________________________________________________________________________________________________________________________________________________________________
+void Window::StartWindow()
+{
+	// Screen text
+	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
+	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	// Sets game difficulty
+	SetGameDifficulty();
 
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
@@ -264,6 +276,9 @@ void Window::GameWonWindow()
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
 
+	// Sets game difficulty
+	SetGameDifficulty();
+
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
@@ -300,6 +315,9 @@ void Window::GameOverWindow()
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
+	
+	// Sets game difficulty
+	SetGameDifficulty();
 
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
@@ -338,6 +356,10 @@ void Window::GamePausedWindow()
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
+
+	// Sets game difficulty
+	SetGameDifficulty();
+
 
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
