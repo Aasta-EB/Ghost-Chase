@@ -111,7 +111,7 @@ void Window::DropHint()
 	}
 	if (enemy.enemyHintExsists_5 == true)
 	{
-		if (player.centrePlayerPosition.x == enemy.enemyHintPos_4.x && player.centrePlayerPosition.y == enemy.enemyHintPos_4.y)
+		if (player.centrePlayerPosition.x == enemy.enemyHintPos_5.x && player.centrePlayerPosition.y == enemy.enemyHintPos_5.y)
 		{
 			player.playerScore += 1;
 			enemy.enemyHintExsists_5 = false;
