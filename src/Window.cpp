@@ -177,7 +177,10 @@ void Window::GameOn()
 	map.DrawMap();
 
 	// Enemy related
-	enemy.DrawDropHint(player.centrePlayerPosition);
+	if (player.hintsCollected < 10)
+	{
+		enemy.DrawDropHint(player.centrePlayerPosition);
+	}
 	enemy.DrawEnemy(player.position);
 
 	// Player related
