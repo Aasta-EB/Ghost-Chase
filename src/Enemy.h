@@ -28,20 +28,13 @@ public:
 
 	// Enemy hint variables
 	float dropHintTimer = 10.f;
-	float enemyHintNumber = 0.5f;
-	bool enemyHintExsists_1 = false;
-	bool enemyHintExsists_2 = false;
-	bool enemyHintExsists_3 = false;
-	bool enemyHintExsists_4 = false;
-	bool enemyHintExsists_5 = false;
-	Vector2d enemyHintPos_1 = { 50, 50 };
-	Vector2d enemyHintPos_2 = { 50, 50 };
-	Vector2d enemyHintPos_3 = { 50, 50 };
-	Vector2d enemyHintPos_4 = { 50, 50 };
-	Vector2d enemyHintPos_5 = { 50, 50 };
+	bool enemyHintExsists = false;
+	Vector2d enemyHintPosition = { 50, 50 };
 
 	// Enemy functions
 	// Drop hint function
+	void GetHintPosition(Vector2d inPosition);
+	
 	void DrawDropHint();
 
 	// Finds a random enemy direction

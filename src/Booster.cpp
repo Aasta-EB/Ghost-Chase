@@ -3,6 +3,8 @@
 // Selects a "random" position for the booster _________________________________________________________________________________________________________________________________________
 Vector2d Booster::FindBoosterPosition()
 {
+	//chooseBoosterType = std::rand() % 2;
+
 	srand(time(0));
 
 	int boosterPlacementNumber = std::rand() % 5;
@@ -158,7 +160,9 @@ void Booster::BoosterTimer(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 	if (boosterTime > 0.f)
 	{
 		boosterTime -= GetFrameTime();
+	
 		ExposeEnemyPosition(inPlayerPosition, inEnemyPosition);
+		
 	}
 	else
 	{

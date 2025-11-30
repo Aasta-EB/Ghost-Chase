@@ -18,6 +18,7 @@ public:
 	bool exsists = false;
 	bool collisionPlayerBooster = false;
 	float boosterTime = 5;
+	int chooseBoosterType = 1; 
 
 	// Selects a "random" position for the booster
 	Vector2d FindBoosterPosition();

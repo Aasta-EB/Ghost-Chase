@@ -23,6 +23,7 @@ public:
 	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
 	int playerScore = 0;
 	int framesCounter = 0;
+	int framesCounterDivider = 10; 
 
 	// Player collision variables
 	bool collisionLeft = false;

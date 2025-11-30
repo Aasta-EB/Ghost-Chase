@@ -5,13 +5,8 @@ void Window::InitGame()
 {
 	// Sets enemy variables
 	enemy.enemyDirection = { 0, -1 };
-	enemy.enemyHintExsists_1 = false;
-	enemy.enemyHintExsists_2 = false;
-	enemy.enemyHintExsists_3 = false;
-	enemy.enemyHintExsists_4 = false;
-	enemy.enemyHintExsists_5 = false;
-	enemy.dropHintTimer = 10.f;
-	enemy.enemyHintNumber = 0.5f;
+	enemy.enemyHintExsists = false;
+	enemy.dropHintTimer = 4.f;
 	enemy.collisionUp = false;
 	enemy.collisionDown = false;
 	enemy.collisionLeft = false;
@@ -29,6 +24,7 @@ void Window::InitGame()
 	// Sets player variables
 	player.playerScore = 0;
 	player.framesCounter = 0;
+	player.framesCounterDivider = 10; 
 	player.position = { 13 * map.boxSize, 7 * map.boxSize };
 	player.size = { map.boxSize, map.boxSize };
 	player.speed = { map.boxSize, 0 };
@@ -47,7 +43,7 @@ void Window::InitGame()
 }
 
 // Booster to expose the enemy's position ___________________________________________________________________________________________________________________________________________________
-void Window::ExposeEnemyBooster()
+void Window::ActivateBooster()
 {
 	// Booster exsists after 30 seconds
 	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
@@ -74,47 +70,27 @@ void Window::ExposeEnemyBooster()
 // Enemy drops hint at its current position, player gets points if collected ________________________________________________________________________________________________________________
 void Window::DropHint()
 {
+	if (enemy.dropHintTimer > 0.f)
+	{
+		enemy.dropHintTimer -= GetFrameTime();
+	}
+	if (enemy.dropHintTimer < 0.f)
+	{
+		enemy.dropHintTimer = 4.f;
+		if (!enemy.enemyHintExsists)
+		{
+			enemy.GetHintPosition(enemy.visualPosition);
+		}
+	}
+	
 	enemy.DrawDropHint();
 
-	// Collisioncheck between hint and player
-	if (enemy.enemyHintExsists_1 == true)
+	if (enemy.enemyHintExsists == true)
 	{
-		if (player.centrePlayerPosition.x == enemy.enemyHintPos_1.x && player.centrePlayerPosition.y == enemy.enemyHintPos_1.y)
+		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
 		{
 			player.playerScore += 1;
-			enemy.enemyHintExsists_1 = false;
-		}
-	}
-	if (enemy.enemyHintExsists_2 == true)
-	{
-		if (player.centrePlayerPosition.x == enemy.enemyHintPos_2.x && player.centrePlayerPosition.y == enemy.enemyHintPos_2.y)
-		{
-			player.playerScore += 1;
-			enemy.enemyHintExsists_2 = false;
-		}
-	}
-	if (enemy.enemyHintExsists_3 == true)
-	{
-		if (player.centrePlayerPosition.x == enemy.enemyHintPos_3.x && player.centrePlayerPosition.y == enemy.enemyHintPos_3.y)
-		{
-			player.playerScore += 1;
-			enemy.enemyHintExsists_3 = false;
-		}
-	}
-	if (enemy.enemyHintExsists_4 == true)
-	{
-		if (player.centrePlayerPosition.x == enemy.enemyHintPos_4.x && player.centrePlayerPosition.y == enemy.enemyHintPos_4.y)
-		{
-			player.playerScore += 1;
-			enemy.enemyHintExsists_4 = false;
-		}
-	}
-	if (enemy.enemyHintExsists_5 == true)
-	{
-		if (player.centrePlayerPosition.x == enemy.enemyHintPos_5.x && player.centrePlayerPosition.y == enemy.enemyHintPos_5.y)
-		{
-			player.playerScore += 1;
-			enemy.enemyHintExsists_5 = false;
+			enemy.enemyHintExsists = false;
 		}
 	}
 }
@@ -227,13 +203,13 @@ void Window::GameOn()
 
 	// Player related
 	player.DrawPlayer();
-	ExposeEnemyBooster();
+	ActivateBooster();
 
 	// Booster Arrow tester
 	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
 
 	// Limited vision related
-	if (player.playerScore < 5)
+	if (player.playerScore < 10)
 	{
 		fov.DrawFOV({ player.position.x, player.position.y });
 	}
