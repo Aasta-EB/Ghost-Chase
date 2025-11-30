@@ -46,7 +46,7 @@ void Window::InitGame()
 void Window::ActivateBooster()
 {
 	// Booster exsists after 30 seconds
-	if (timeGame <= 60.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
+	if (timeGame <= 30.f && timeGame >= 0.f && booster.collisionPlayerBooster == false && booster.boosterTime > 0)
 	{
 		booster.DrawBooster();
 		booster.exsists = true;
@@ -198,14 +198,12 @@ void Window::GameOn()
 	map.DrawMap();
 
 	// Enemy related
-	enemy.DrawEnemy(player.position);
 	DropHint();
+	enemy.DrawEnemy(player.position);
 
 	// Player related
 	player.DrawPlayer();
 	ActivateBooster();
-
-	booster.SpeedUpPlayer();
 
 	// Booster Arrow tester
 	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);

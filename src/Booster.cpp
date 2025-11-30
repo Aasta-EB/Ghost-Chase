@@ -154,34 +154,15 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 	}
 }
 
-void Booster::SpeedUpPlayer()
-{
-	player.framesCounterDivider = 5;
-	/*if (collisionPlayerBooster)
-	{
-		player.framesCounterDivider = 5;
-	}
-	else
-	{
-		player.framesCounterDivider = 10;
-	}*/
-}
-
 // Countdown timer for the duration of the booster ___________________________________________________________________________________________________________________________________________________
 void Booster::BoosterTimer(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 {
 	if (boosterTime > 0.f)
 	{
-		SpeedUpPlayer();
 		boosterTime -= GetFrameTime();
-		//if (chooseBoosterType == 0)
-		//{
-		//	ExposeEnemyPosition(inPlayerPosition, inEnemyPosition);
-		//}
-		//if (chooseBoosterType == 1)
-		//{
-		//	SpeedUpPlayer();
-		//}
+	
+		ExposeEnemyPosition(inPlayerPosition, inEnemyPosition);
+		
 	}
 	else
 	{

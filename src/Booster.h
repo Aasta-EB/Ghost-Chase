@@ -29,8 +29,6 @@ public:
 	// Booster that exposes the enemys position and points in the direction
 	void ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPosition);
 
-	void SpeedUpPlayer();
-
 	// Countdown timer for the duration of the booster
 	void BoosterTimer(Vector2d inPlayerPosition, Vector2d inEnemyPosition);
 };
