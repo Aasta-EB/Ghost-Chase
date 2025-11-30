@@ -16,17 +16,15 @@ void Window::InitGame()
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
 	
-	if (gameDifficulty == 0) enemy.framesCounterDivider = 15;
-	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10;
-	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5;
+	if (gameDifficulty == 0) enemy.framesCounterDivider = 15; // Easy
+	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10; // Medium
+	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5; // Hard
 
 
 	// Sets player variables
 	player.playerScore = 0;
 	player.framesCounter = 0;
-	player.framesCounterDivider = 10; 
 	player.position = { 13 * map.boxSize, 7 * map.boxSize };
-	player.size = { map.boxSize, map.boxSize };
 	player.speed = { map.boxSize, 0 };
 	player.playerDirection = { 1 , 0 };
 
@@ -64,34 +62,6 @@ void Window::ActivateBooster()
 	if (booster.collisionPlayerBooster == true)
 	{
 		booster.BoosterTimer(player.centrePlayerPosition, enemy.visualPosition);
-	}
-}
-
-// Enemy drops hint at its current position, player gets points if collected ________________________________________________________________________________________________________________
-void Window::DropHint()
-{
-	if (enemy.dropHintTimer > 0.f)
-	{
-		enemy.dropHintTimer -= GetFrameTime();
-	}
-	if (enemy.dropHintTimer < 0.f)
-	{
-		enemy.dropHintTimer = 4.f;
-		if (!enemy.enemyHintExsists)
-		{
-			enemy.GetHintPosition(enemy.visualPosition);
-		}
-	}
-	
-	enemy.DrawDropHint();
-
-	if (enemy.enemyHintExsists == true)
-	{
-		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
-		{
-			player.playerScore += 1;
-			enemy.enemyHintExsists = false;
-		}
 	}
 }
 
@@ -145,7 +115,15 @@ void Window::TimeCounter()
 	// Rounding of number to have a whole number being printed
 	int actualTime = std::round(timeGame);
 
-	DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
+	if (actualTime > 10)
+	{
+		DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
+	}
+	else
+	{
+		DrawText("TIME: ", 1250, 20, 20, GRAY);
+		DrawText(TextFormat("%d", actualTime), 1250 + MeasureText("TIME: ", 20), 20, 20, RED);
+	}
 }
 
 // Draws the start window of the game ______________________________________________________________________________________________________________________________________________________________________
@@ -198,7 +176,7 @@ void Window::GameOn()
 	map.DrawMap();
 
 	// Enemy related
-	DropHint();
+	enemy.DrawDropHint(player.centrePlayerPosition);
 	enemy.DrawEnemy(player.position);
 
 	// Player related
@@ -218,6 +196,14 @@ void Window::GameOn()
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 	DrawText(TextFormat("HINTS COLLECTED: %d", player.playerScore), 1000, 20, 20, GRAY);
 	TimeCounter();
+
+	if (enemy.enemyHintExsists == true)
+	{
+		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
+		{
+			player.playerScore += 1;
+		}
+	}
 
 	// Calculates distance between enemy
 	float distanceToEnemy = player.centrePlayerPosition.CalculateMagnitudeToTarget(enemy.visualPosition);

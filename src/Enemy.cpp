@@ -6,12 +6,33 @@ void Enemy::GetHintPosition(Vector2d inPosition)
 	enemyHintExsists = true;
 }
 
-// Drop hint function __________________________________________________________________________________________________________________________________________________________________________
-void Enemy::DrawDropHint()
+// Enemy drops hint at its current position, player gets hint-points if collected _____________________________________________________________________________________________________________________
+void Enemy::DrawDropHint(Vector2d inPlayerPosition)
 {
+	if (dropHintTimer > 0.f)
+	{
+		dropHintTimer -= GetFrameTime();
+	}
+	if (dropHintTimer < 0.f)
+	{
+		dropHintTimer = 4.f;
+		if (!enemyHintExsists)
+		{
+			GetHintPosition(visualPosition);
+		}
+	}
+
 	if (enemyHintExsists)
 	{
 		DrawCircle(enemyHintPosition.x, enemyHintPosition.y, 5, ORANGE);
+	}
+
+	if (enemyHintExsists == true)
+	{
+		if (enemyHintPosition.x == inPlayerPosition.x && enemyHintPosition.y == inPlayerPosition.y)
+		{
+			enemyHintExsists = false;
+		}
 	}
 }
 

@@ -29,9 +29,6 @@ public:
 	// Booster to expose the enemy's position
 	void ActivateBooster();
 
-	// Enemy drops hint at its current position, player gets points if collected
-	void DropHint();
-
 	// Makes the player able to set the game difficulty
 	void SetGameDifficulty();
 
