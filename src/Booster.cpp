@@ -3,6 +3,8 @@
 // Selects a "random" position for the booster _________________________________________________________________________________________________________________________________________
 Vector2d Booster::FindBoosterPosition()
 {
+	//chooseBoosterType = std::rand() % 2;
+
 	srand(time(0));
 
 	int boosterPlacementNumber = std::rand() % 5;
@@ -152,13 +154,34 @@ void Booster::ExposeEnemyPosition(Vector2d inPlayerPosition, Vector2d inEnemyPos
 	}
 }
 
+void Booster::SpeedUpPlayer()
+{
+	player.framesCounterDivider = 5;
+	/*if (collisionPlayerBooster)
+	{
+		player.framesCounterDivider = 5;
+	}
+	else
+	{
+		player.framesCounterDivider = 10;
+	}*/
+}
+
 // Countdown timer for the duration of the booster ___________________________________________________________________________________________________________________________________________________
 void Booster::BoosterTimer(Vector2d inPlayerPosition, Vector2d inEnemyPosition)
 {
 	if (boosterTime > 0.f)
 	{
+		SpeedUpPlayer();
 		boosterTime -= GetFrameTime();
-		ExposeEnemyPosition(inPlayerPosition, inEnemyPosition);
+		//if (chooseBoosterType == 0)
+		//{
+		//	ExposeEnemyPosition(inPlayerPosition, inEnemyPosition);
+		//}
+		//if (chooseBoosterType == 1)
+		//{
+		//	SpeedUpPlayer();
+		//}
 	}
 	else
 	{

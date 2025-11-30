@@ -18,7 +18,7 @@ public:
 	Vector2d vector2d;
 
 	// Game difficulty 
-	int gameDifficulty = 1; // 0 = Easy, 1 = Medium, 2 = Hard, 3 = Difficult
+	int gameDifficulty = 1; // 0 = Easy, 1 = Medium, 2 = Hard
 
 	// Game time
 	float timeGame;
@@ -27,7 +27,7 @@ public:
 	void InitGame();
 
 	// Booster to expose the enemy's position
-	void ExposeEnemyBooster();
+	void ActivateBooster();
 
 	// Enemy drops hint at its current position, player gets points if collected
 	void DropHint();
