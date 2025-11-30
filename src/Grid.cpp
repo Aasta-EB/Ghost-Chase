@@ -8,15 +8,9 @@ void Grid::DrawMap()
 	{
 		for (int j = 0; j < 28; j++)
 		{
-			if (map[i][j] == 0)
-			{
-				//std::cout << map[i][j];
-				//std::cout << "0, ";
-			}
 			if (map[i][j] == 1)
 			{
-				//std::cout << map[i][j];
-				//std::cout << "1, ";
+				// Finding the actual position of the box
 				int positionY = i * 50;
 				int positionX = j * 50;
 
