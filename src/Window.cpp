@@ -23,7 +23,7 @@ void Window::InitGame()
 	
 	if (gameDifficulty == 0) enemy.framesCounterDivider = 15;
 	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10;
-	else if (gameDifficulty == 2) enemy.framesCounterDivider = 8;
+	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5;
 
 
 	// Sets player variables
