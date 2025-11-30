@@ -42,25 +42,24 @@ Vector2d Enemy::RandomEnemyDirection()
 {
 	srand(time(0));
 
-	int chooseDirection = std::rand() % 3;
+	int chooseDirection = std::rand() % 4;
 
 	Vector2d randomEnemyDirection = { 1 , 0 };
 
-	if (chooseDirection == 0)
+	switch (chooseDirection)
 	{
+	case 0:
 		randomEnemyDirection = { 1 , 0 };
-	}
-	else if (chooseDirection == 1)
-	{
+		break;
+	case 1:
 		randomEnemyDirection = { -1 , 0 };
-	}
-	else if (chooseDirection == 2)
-	{
+		break;
+	case 2:
 		randomEnemyDirection = { 0 , 1 };
-	}
-	else if (chooseDirection == 3)
-	{
+		break;
+	case 3:
 		randomEnemyDirection = { 0 , -1 };
+		break;
 	}
 
 	return randomEnemyDirection;
@@ -74,25 +73,23 @@ Vector2d Enemy::RandomEnemyPosition()
 	int choosePosition = std::rand() % 5;
 	Vector2d randomEnemyPosition = { 15 * map.boxSize, 10 * map.boxSize };
 
-	if (choosePosition == 0)
+	switch (choosePosition)
 	{
+	case 0:
 		randomEnemyPosition = { 15 * map.boxSize, 10 * map.boxSize };
-	}
-	else if (choosePosition == 1)
-	{
+		break;
+	case 1:
 		randomEnemyPosition = { 20 * map.boxSize, 3 * map.boxSize };
-	}
-	else if (choosePosition == 2)
-	{
+		break;
+	case 2:
 		randomEnemyPosition = { 9 * map.boxSize, 3 * map.boxSize };
-	}
-	else if (choosePosition == 3)
-	{
+		break;
+	case 3:
 		randomEnemyPosition = { 12 * map.boxSize, 9 * map.boxSize };
-	}
-	else if (choosePosition == 4)
-	{
+		break;
+	case 4:
 		randomEnemyPosition = { 4 * map.boxSize, 11 * map.boxSize };
+		break;
 	}
 
 	return randomEnemyPosition;
