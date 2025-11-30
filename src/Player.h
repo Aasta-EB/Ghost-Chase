@@ -21,7 +21,7 @@ public:
 	Color color = PINK;
 	Vector2d playerDirection = { 1,0 };
 	Vector2d centrePlayerPosition = { position.x + 25, position.y + 25 };
-	int playerScore = 0;
+	int hintsCollected = 0;
 	int framesCounter = 0;
 
 	// Player collision variables

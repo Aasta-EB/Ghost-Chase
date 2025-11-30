@@ -26,14 +26,14 @@ public:
 	// Initiates (prepares) the game for playing
 	void InitGame();
 
+	// Counts the time left in game
+	void TimeCounter();
+
 	// Booster to expose the enemy's position
 	void ActivateBooster();
 
 	// Makes the player able to set the game difficulty
 	void SetGameDifficulty();
-
-	// Counts the time left in game
-	void TimeCounter();
 
 	// Draws the start window of the game
 	void StartWindow();

@@ -1,5 +1,6 @@
 #include "Enemy.h"
 
+// Finds and stores the position of the hint ___________________________________________________________________________________________________________________________________________________________
 void Enemy::GetHintPosition(Vector2d inPosition)
 {
 	enemyHintPosition = inPosition;

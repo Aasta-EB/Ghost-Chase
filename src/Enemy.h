@@ -35,6 +35,7 @@ public:
 	// Drop hint function
 	void GetHintPosition(Vector2d inPosition);
 	
+	// Enemy drops hint at its current position, player gets hint-points if collected
 	void DrawDropHint(Vector2d inPlayerPosition);
 
 	// Finds a random enemy direction

@@ -22,7 +22,7 @@ void Window::InitGame()
 
 
 	// Sets player variables
-	player.playerScore = 0;
+	player.hintsCollected = 0;
 	player.framesCounter = 0;
 	player.position = { 13 * map.boxSize, 7 * map.boxSize };
 	player.speed = { map.boxSize, 0 };
@@ -38,6 +38,26 @@ void Window::InitGame()
 
 	// Sets the new game state 
 	player.gameState = 2; // Game on
+}
+
+// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
+void Window::TimeCounter()
+{
+	if (timeGame > 0.f) timeGame -= GetFrameTime();
+
+	// Rounding of number to have a whole number being printed
+	int actualTime = std::round(timeGame);
+
+	// Draws the time left, changes to red when less than 10 seconds left
+	if (actualTime > 10)
+	{
+		DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
+	}
+	else
+	{
+		DrawText("TIME: ", 1250, 20, 20, GRAY);
+		DrawText(TextFormat("%d", actualTime), 1250 + MeasureText("TIME: ", 20), 20, 20, RED);
+	}
 }
 
 // Booster to expose the enemy's position ___________________________________________________________________________________________________________________________________________________
@@ -107,25 +127,6 @@ void Window::SetGameDifficulty()
 
 }
 
-// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
-void Window::TimeCounter()
-{
-	if (timeGame > 0.f) timeGame -= GetFrameTime();
-
-	// Rounding of number to have a whole number being printed
-	int actualTime = std::round(timeGame);
-
-	if (actualTime > 10)
-	{
-		DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
-	}
-	else
-	{
-		DrawText("TIME: ", 1250, 20, 20, GRAY);
-		DrawText(TextFormat("%d", actualTime), 1250 + MeasureText("TIME: ", 20), 20, 20, RED);
-	}
-}
-
 // Draws the start window of the game ______________________________________________________________________________________________________________________________________________________________________
 void Window::StartWindow()
 {
@@ -187,21 +188,21 @@ void Window::GameOn()
 	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
 
 	// Limited vision related
-	if (player.playerScore < 10)
+	if (player.hintsCollected < 10)
 	{
 		fov.DrawFOV({ player.position.x, player.position.y });
 	}
 
 	// Screen text
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
-	DrawText(TextFormat("HINTS COLLECTED: %d", player.playerScore), 1000, 20, 20, GRAY);
+	DrawText(TextFormat("HINTS COLLECTED: %d", player.hintsCollected), 1000, 20, 20, GRAY);
 	TimeCounter();
 
 	if (enemy.enemyHintExsists == true)
 	{
 		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
 		{
-			player.playerScore += 1;
+			player.hintsCollected += 1;
 		}
 	}
 
