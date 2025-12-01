@@ -93,6 +93,7 @@ void Window::SetGameDifficulty()
 	DrawText("[ARROWS]", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2 + 25, 20, YELLOW);
 	DrawText("TO CHANGE DIFFICULTY", GetScreenWidth() / 2 - MeasureText("PRESS [ARROWS] TO CHANGE DIFFICULTY", 20) / 2 + MeasureText("PRESS [ARROWS] ", 20), GetScreenHeight() / 2 + 25, 20, GRAY);
 
+	// Changes game difficulty based on player input
 	if (IsKeyPressed(KEY_UP))
 	{
 		gameDifficulty++;
@@ -110,6 +111,7 @@ void Window::SetGameDifficulty()
 		}
 	}
 
+	// Draws the current difficulty
 	switch (gameDifficulty)
 	{
 	case 0:
@@ -131,34 +133,32 @@ void Window::SetGameDifficulty()
 // Draws the actual game is playing state __________________________________________________________________________________________________________________________________________________________________
 void Window::GameOn()
 {
-	// Grid/map
+	// Grid/map related functions
 	map.DrawMap();
 
-	// Enemy related
+	// Enemy related functions
 	if (player.hintsCollected < 10)
 	{
 		enemy.DrawDropHint(player.centrePlayerPosition);
 	}
 	enemy.DrawEnemy(player.position);
 
-	// Player related
+	// Player related functions
 	player.DrawPlayer();
 	ActivateBooster();
 
-	// Booster Arrow tester
-	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
-
-	// Limited vision related
+	// Limited vision related to the amount of hints collected
 	if (player.hintsCollected < 10)
 	{
 		fov.DrawFOV({ player.position.x, player.position.y });
 	}
 
-	// Screen text
+	// Screen text drawn above FOV to not dissapear
 	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
 	DrawText(TextFormat("HINTS COLLECTED: %d", player.hintsCollected), 1000, 20, 20, GRAY);
 	TimeCounter();
 
+	// Adds to player hints collected when collision with player and enemy hint
 	if (enemy.enemyHintExsists == true)
 	{
 		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
@@ -170,7 +170,7 @@ void Window::GameOn()
 	// Calculates distance between enemy
 	float distanceToEnemy = player.centrePlayerPosition.CalculateMagnitudeToTarget(enemy.visualPosition);
 
-	// Changes game state
+	// Changes game state when player and enemy collides or time is up
 	if (distanceToEnemy < 50)
 	{
 		player.gameState = 4; // Game won
@@ -334,10 +334,6 @@ void Window::GamePausedWindow()
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
 
-	// Sets game difficulty
-	SetGameDifficulty();
-
-
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
@@ -403,10 +399,9 @@ void Window::HelpWindow()
 		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
 	}
 
-	// Draws visual
+	// Draws visual drawings
 	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
 	DrawRectangle(1000, 550, 100, 50, DARKBLUE);
-
 	DrawCircle(1075, 525, 5, GREEN);
 	
 	// Changes game state after user input
@@ -446,6 +441,7 @@ void Window::DrawGame()
 		case 5:
 			GameOverWindow();
 			break;
+
 		case 6:
 			HelpWindow();
 			break;

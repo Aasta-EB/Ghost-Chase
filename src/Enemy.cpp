@@ -45,6 +45,7 @@ Vector2d Enemy::RandomEnemyDirection()
 {
 	srand(time(0));
 
+	// Finds a "random" number from 0-3
 	int chooseDirection = std::rand() % 4;
 
 	Vector2d randomEnemyDirection = { 1 , 0 };
@@ -52,16 +53,16 @@ Vector2d Enemy::RandomEnemyDirection()
 	switch (chooseDirection)
 	{
 	case 0:
-		randomEnemyDirection = { 1 , 0 };
+		randomEnemyDirection = { 1 , 0 }; // Right direction
 		break;
 	case 1:
-		randomEnemyDirection = { -1 , 0 };
+		randomEnemyDirection = { -1 , 0 }; // Left direction
 		break;
 	case 2:
-		randomEnemyDirection = { 0 , 1 };
+		randomEnemyDirection = { 0 , 1 }; // Downwards direction
 		break;
 	case 3:
-		randomEnemyDirection = { 0 , -1 };
+		randomEnemyDirection = { 0 , -1 }; // Upwards direction
 		break;
 	}
 
@@ -73,9 +74,13 @@ Vector2d Enemy::RandomEnemyPosition()
 {
 	srand(time(0));
 
+	// Finds a "random" number from 0-4
 	int choosePosition = std::rand() % 5;
+
+	// Sets a default position to avoid uninitialized variable warning
 	Vector2d randomEnemyPosition = { 15 * map.boxSize, 10 * map.boxSize };
 
+	// Selects position relative to the result from choose position variable
 	switch (choosePosition)
 	{
 	case 0:
@@ -101,33 +106,32 @@ Vector2d Enemy::RandomEnemyPosition()
 // Enemy collision check ___________________________________________________________________________________________________________________________________________________________________________________
 void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 {
-	//position = enemyPosition;
+	// Calculating the actual enemy position
 	int enemyPositionX = position.x / 50;
 	int enemyPositionY = position.y / 50;
 
-	//std::cout << position.x << " , " << position.y << "\n";
-
 	if (enemyDirection.x == 1 && enemyDirection.y == 0) // Moving right _________________________________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = (position.x + 50) / 50;
 		enemyPositionY = position.y / 50;
+
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
+		// Cecks for player in front of enemy and changes the direction if true
 		if (inPlayerPosition.x == position.x + 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*	std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-				enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.x *= -1;
 		}
 		else if (inPlayerPosition.x == position.x + 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.x *= -1;
 		}
 		else
 		{
+			// Checks for collision
 			if (map.map[enemyPositionY][enemyPositionX] == 1)
 			{
 				collisionRight = true;
@@ -156,6 +160,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					collisionLeft = false;
 				}
 
+				// Changes the direction of the enemy based on collisions
 				if (collisionUp == false && collisionDown == false && collisionLeft == false && collisionRight == true)
 				{
 					changeDirectionNumber = std::rand() % 2;
@@ -201,6 +206,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					enemyDirection = { -1 , 0 };
 				}
 			}
+			// Checks for possible new directions to move in
 			else if (map.map[enemyPositionY][enemyPositionX] == 0)
 			{
 				collisionRight = false;
@@ -209,6 +215,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				int changeDirectionNumber = 0;
 				srand(time(0));
 
+				// Changes direction based on available paths
 				if (map.map[enemyPositionY + 1][enemyPositionX] == 0 && map.map[enemyPositionY - 1][enemyPositionX] == 1)
 				{
 					if (justChangedDirection == false)
@@ -217,12 +224,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -239,12 +244,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -261,17 +264,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -282,29 +282,29 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
 	if (enemyDirection.x == -1 && enemyDirection.y == 0) // Moving left ______________________________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = (position.x - 50) / 50;
 		enemyPositionY = position.y / 50;
+
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
+		// Cecks for player in front of enemy and changes the direction if true
 		if (inPlayerPosition.x == position.x - 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.x *= -1;
 		}
 		else if (inPlayerPosition.x == position.x - 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.x *= -1;
 		}
 		else
 		{
+			// Checks for collision
 			if (map.map[enemyPositionY][enemyPositionX] == 1)
 			{
 				collisionLeft = true;
@@ -333,6 +333,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					collisionRight = false;
 				}
 
+				// Changes the direction of the enemy based on collisions
 				if (collisionUp == false && collisionDown == false && collisionRight == false && collisionLeft == true)
 				{
 					changeDirectionNumber = std::rand() % 2;
@@ -378,6 +379,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					enemyDirection = { 1 , 0 };
 				}
 			}
+			// Checks for possible new directions to move in
 			else if (map.map[enemyPositionY][enemyPositionX] == 0)
 			{
 				collisionLeft = false;
@@ -386,6 +388,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				int changeDirectionNumber = 0;
 				srand(time(0));
 
+				// Changes direction based on available paths
 				if (map.map[enemyPositionY + 1][enemyPositionX] == 0 && map.map[enemyPositionY - 1][enemyPositionX] == 1)
 				{
 					if (justChangedDirection == false)
@@ -394,12 +397,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -416,12 +417,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -438,17 +437,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -459,30 +455,29 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
 	if (enemyDirection.y == 1 && enemyDirection.x == 0) // Moving downwards __________________________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y + 50) / 50;
 
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
+		// Cecks for player in front of enemy and changes the direction if true
 		if (inPlayerPosition.y == position.y + 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.y *= -1;
 		}
 		else if (inPlayerPosition.y == position.y + 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.y *= -1;
 		}
 		else
 		{
+			// Checks for collision
 			if (map.map[enemyPositionY][enemyPositionX] == 1)
 			{
 				collisionDown = true;
@@ -511,6 +506,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					collisionRight = false;
 				}
 
+				// Changes the direction of the enemy based on collisions
 				if (collisionUp == false && collisionLeft == false && collisionRight == false && collisionDown == true)
 				{
 					changeDirectionNumber = std::rand() % 2;
@@ -556,6 +552,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					enemyDirection = { 1 , 0 };
 				}
 			}
+			// Checks for possible new directions to move in
 			else if (map.map[enemyPositionY][enemyPositionX] == 0)
 			{
 				collisionDown = false;
@@ -563,7 +560,8 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				enemyPositionY = position.y / 50;
 				int changeDirectionNumber = 0;
 				srand(time(0));
-
+				
+				// Changes direction based on available paths
 				if (map.map[enemyPositionY][enemyPositionX + 1] == 0 && map.map[enemyPositionY][enemyPositionX - 1] == 1)
 				{
 					if (justChangedDirection == false)
@@ -572,12 +570,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -594,12 +590,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -616,17 +610,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -637,30 +628,29 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
-		//std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
 	}
 	if (enemyDirection.y == -1 && enemyDirection.x == 0) // Moving upwards __________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y - 50) / 50;
+		
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
+		// Cecks for player in front of enemy and changes the direction if true
 		if (inPlayerPosition.y == position.y - 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.y *= -1;
 		}
 		else if (inPlayerPosition.y == position.y - 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.y *= -1;
 		}
 		else
 		{
+			// Checks for collision
 			if (map.map[enemyPositionY][enemyPositionX] == 1)
 			{
 				collisionUp = true;
@@ -689,6 +679,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					collisionRight = false;
 				}
 
+				// Changes the direction of the enemy based on collisions
 				if (collisionDown == false && collisionLeft == false && collisionRight == false && collisionUp == true)
 				{
 					changeDirectionNumber = std::rand() % 2;
@@ -734,6 +725,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 					enemyDirection = { 1 , 0 };
 				}
 			}
+			// Checks for possible new directions to move in
 			else if (map.map[enemyPositionY][enemyPositionX] == 0)
 			{
 				collisionUp = false;
@@ -742,6 +734,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				int changeDirectionNumber = 0;
 				srand(time(0));
 
+				// Changes direction based on available paths
 				if (map.map[enemyPositionY][enemyPositionX + 1] == 0 && map.map[enemyPositionY][enemyPositionX - 1] == 1)
 				{
 					if (justChangedDirection == false)
@@ -750,12 +743,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -772,12 +763,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -794,17 +783,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -815,16 +801,18 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-		/*	std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
 }
 
-// Continuos enemy movement ______________________________________________________________________________________________________________________________________________
+// Continuos enemy movement ________________________________________________________________________________________________________________________________________________________
 void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 {
 	if ((framesCounter % framesCounterDivider) == 0)
 	{
+		// Checks if enemy has collided with a wall or changed direction
 		CollisionCheck(inPlayerPosition);
+
+		// Moves enemy in the set direction if there is no collision detected
 		if (enemyDirection.x == 1 && collisionRight == false)
 		{
 			speed = Vector2d{ map.boxSize, 0 };

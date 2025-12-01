@@ -17,6 +17,7 @@ public:
 	bool collisionPlayerBooster = false;
 	float boosterTime = 5;
 
+	// Booster functions ____________________________________________________________________________________________________________________
 	// Selects a "random" position for the booster
 	Vector2d FindBoosterPosition();
 

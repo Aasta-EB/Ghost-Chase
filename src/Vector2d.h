@@ -8,6 +8,8 @@ public:
 	float x;
 	float y;
 
+	// Mathematical functions _______________________________________________________________________________
+	
 	// Calculating the vector between two points 
 	// (Coskun, P.K.S, personal communication, October 2025) 
 	Vector2d CalculateVectorToTarget(Vector2d inTargetedVector);
