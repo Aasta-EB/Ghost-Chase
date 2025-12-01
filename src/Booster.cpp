@@ -7,6 +7,7 @@ Vector2d Booster::FindBoosterPosition()
 
 	int boosterPlacementNumber = std::rand() % 5;
 
+	// Selects booster placement according to booster placement number result
 	switch (boosterPlacementNumber)
 	{
 	case 0:

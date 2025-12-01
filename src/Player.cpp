@@ -257,7 +257,7 @@ void Player::UpdatePlayer()
 	if (gameState == 2)
 	{
 		// Player input _______________________________________________________________________________________
-		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
+		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D)) // Right direction
 		{
 			// Checks for collision 
 			CollisionCheck();
@@ -275,7 +275,7 @@ void Player::UpdatePlayer()
 				playerDirection = { 1,0 };
 			}
 		}
-		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A))
+		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A)) // Left direction
 		{
 			// Checks for collision 
 			CollisionCheck();
@@ -293,7 +293,7 @@ void Player::UpdatePlayer()
 				playerDirection = { -1,0 };
 			}
 		}
-		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
+		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W)) // Up direction
 		{
 			// Checks for collision 
 			CollisionCheck();
@@ -311,7 +311,7 @@ void Player::UpdatePlayer()
 				playerDirection = { 0,-1 };
 			}
 		}
-		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
+		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S)) // Down direction
 		{
 			// Checks for collision 
 			CollisionCheck();
@@ -335,6 +335,8 @@ void Player::UpdatePlayer()
 		{
 			// Checks for collision before moving
 			CollisionCheck();
+
+			// Moves player 1 block in specified direction as long as no collision with wall in that direction
 			if (playerDirection.x == 1 && collisionRight == false)
 			{
 				position.x += speed.x;

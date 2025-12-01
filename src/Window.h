@@ -23,6 +23,7 @@ public:
 	// Game time
 	float timeGame;
 	
+	// Window functions _______________________________________________________________________________________________________________________
 	// Initiates (prepares) the game for playing
 	void InitGame();
 

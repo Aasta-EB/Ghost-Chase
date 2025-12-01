@@ -32,9 +32,10 @@ public:
 	
 
 	// Game state variables
-	int gameState = 1; // 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over
+	int gameState = 1; // 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over, 6 = Help Screen
 
-	// Player functions
+	// Player functions _____________________________________________________________________________________________________________________
+	// Player collision function
 	void CollisionCheck();
 
 	// Updates player each frame

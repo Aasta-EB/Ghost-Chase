@@ -31,7 +31,7 @@ public:
 	bool enemyHintExsists = false;
 	Vector2d enemyHintPosition = { 50, 50 };
 
-	// Enemy functions
+	// Enemy functions _____________________________________________________________________________________________________________________
 	// Drop hint function
 	void GetHintPosition(Vector2d inPosition);
 	

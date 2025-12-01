@@ -80,6 +80,7 @@ Vector2d Enemy::RandomEnemyPosition()
 	// Sets a default position to avoid uninitialized variable warning
 	Vector2d randomEnemyPosition = { 15 * map.boxSize, 10 * map.boxSize };
 
+	// Selects position relative to the result from choose position variable
 	switch (choosePosition)
 	{
 	case 0:
@@ -803,7 +804,7 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 	}
 }
 
-// Continuos enemy movement ______________________________________________________________________________________________________________________________________________
+// Continuos enemy movement ________________________________________________________________________________________________________________________________________________________
 void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 {
 	if ((framesCounter % framesCounterDivider) == 0)
