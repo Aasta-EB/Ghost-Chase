@@ -16,6 +16,8 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionRight = true;
+
+			// Checks for collisions on the sides of the player
 			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
 			{
 				collisionUp = true;
@@ -44,6 +46,8 @@ void Player::CollisionCheck()
 		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionRight = false;
+
+			// Checks for collision on the sides of the player
 			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
 			{
 				collisionUp = true;
@@ -73,6 +77,8 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionLeft = true;
+
+			// Checks for collisions on the sides of the player
 			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
 			{
 				collisionUp = true;
@@ -101,6 +107,8 @@ void Player::CollisionCheck()
 		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionLeft = false;
+
+			// Checks for collision on the sides of the player
 			if (map.map[playerPositionY - 1][playerPositionX + 1] == 1)
 			{
 				collisionUp = true;
@@ -130,6 +138,8 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionUp = true;
+
+			// Checks for collisions on the sides of the player
 			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
 			{
 				collisionLeft = true;
@@ -158,6 +168,8 @@ void Player::CollisionCheck()
 		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionUp = false;
+
+			// Checks for collision on the sides of the player
 			if (map.map[playerPositionY + 1][playerPositionX - 1] == 1)
 			{
 				collisionLeft = true;
@@ -187,6 +199,8 @@ void Player::CollisionCheck()
 		if (map.map[playerPositionY][playerPositionX] == 1)
 		{
 			collisionDown = true;
+
+			// Checks for collisions on the sides of the player
 			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
 			{
 				collisionLeft = true;
@@ -215,6 +229,8 @@ void Player::CollisionCheck()
 		else if (map.map[playerPositionY][playerPositionX] == 0)
 		{
 			collisionDown = false;
+
+			// Checks for collision on the sides of the player
 			if (map.map[playerPositionY - 1][playerPositionX - 1] == 1)
 			{
 				collisionLeft = true;
@@ -244,7 +260,10 @@ void Player::UpdatePlayer()
 		// Player input _______________________________________________________________________________________
 		if (IsKeyPressed(KEY_RIGHT) || IsKeyPressed(KEY_D))
 		{
+			// Checks for collision 
 			CollisionCheck();
+
+			// Changes player direction to right
 			playerDirection = { 1,0 };
 			if (playerDirection.x == 0 || playerDirection.x == -1 && collisionRight == false)
 			{
@@ -259,7 +278,10 @@ void Player::UpdatePlayer()
 		}
 		if (IsKeyPressed(KEY_LEFT) || IsKeyPressed(KEY_A))
 		{
+			// Checks for collision 
 			CollisionCheck();
+
+			// Changes player direction to left
 			playerDirection = { -1,0 };
 			if (playerDirection.x == 0 || playerDirection.x == 1 && collisionLeft == false)
 			{
@@ -274,7 +296,10 @@ void Player::UpdatePlayer()
 		}
 		if (IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W))
 		{
+			// Checks for collision 
 			CollisionCheck();
+
+			// Changes player direction to up
 			playerDirection = { 0,-1 };
 			if (playerDirection.y == 0 || playerDirection.y == -1 && collisionUp == false)
 			{
@@ -289,7 +314,10 @@ void Player::UpdatePlayer()
 		}
 		if (IsKeyPressed(KEY_DOWN) || IsKeyPressed(KEY_S))
 		{
+			// Checks for collision 
 			CollisionCheck();
+
+			// Changes player direction to down
 			playerDirection = { 0,1 };
 			if (playerDirection.y == 0 || playerDirection.y == 1 && collisionDown == false)
 			{
@@ -306,6 +334,7 @@ void Player::UpdatePlayer()
 		// Continuos player movement _____________________________________________________________________
 		if ((framesCounter % 10) == 0)
 		{
+			// Checks for collision before moving
 			CollisionCheck();
 			if (playerDirection.x == 1 && collisionRight == false)
 			{
