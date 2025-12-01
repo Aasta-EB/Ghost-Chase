@@ -10,6 +10,7 @@ void Enemy::GetHintPosition(Vector2d inPosition)
 // Enemy drops hint at its current position, player gets hint-points if collected _____________________________________________________________________________________________________________________
 void Enemy::DrawDropHint(Vector2d inPlayerPosition)
 {
+	// Setting the timer for when to drop the hints
 	if (dropHintTimer > 0.f)
 	{
 		dropHintTimer -= GetFrameTime();
@@ -23,11 +24,13 @@ void Enemy::DrawDropHint(Vector2d inPlayerPosition)
 		}
 	}
 
+	// Drawing the hint if it exsists
 	if (enemyHintExsists)
 	{
 		DrawCircle(enemyHintPosition.x, enemyHintPosition.y, 5, ORANGE);
 	}
 
+	// Checking for collision with the player
 	if (enemyHintExsists == true)
 	{
 		if (enemyHintPosition.x == inPlayerPosition.x && enemyHintPosition.y == inPlayerPosition.y)
