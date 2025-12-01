@@ -123,14 +123,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 		if (inPlayerPosition.x == position.x + 100 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*	std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-				enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.x *= -1;
 		}
 		else if (inPlayerPosition.x == position.x + 50 && map.map[enemyPositionY][enemyPositionX] != 1)
 		{
-			/*std::cout << enemyDirection.MultiplyVector(-1).x << " , " << enemyDirection.MultiplyVector(-1).y << "\n";
-			enemyDirection.MultiplyVector(-1);*/
 			enemyDirection.x *= -1;
 		}
 		else
@@ -404,12 +400,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -426,12 +420,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -448,17 +440,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -469,7 +458,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
 	if (enemyDirection.y == 1 && enemyDirection.x == 0) // Moving downwards __________________________________________________________________________________
 	{
@@ -584,12 +572,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -606,12 +592,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -628,17 +612,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -649,8 +630,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-		/*std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
-		//std::cout << enemyDirection.x << " , " << enemyDirection.y << "\n";
 	}
 	if (enemyDirection.y == -1 && enemyDirection.x == 0) // Moving upwards __________________________________________________________________
 	{
@@ -765,12 +744,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -787,12 +764,10 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 10 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -809,17 +784,14 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 						if (changeDirectionNumber >= 20 && changeDirectionNumber < 100)
 						{
 							enemyDirection = { 0,-1 };
-							//std::cout << "I continue this way \n";
 						}
 						else if (changeDirectionNumber >= 0 && changeDirectionNumber < 10)
 						{
 							enemyDirection = { 1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						else if (changeDirectionNumber >= 10 && changeDirectionNumber < 20)
 						{
 							enemyDirection = { -1,0 };
-							//std::cout << "I am changing my direction \n";
 						}
 						justChangedDirection = true;
 					}
@@ -830,7 +802,6 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 				}
 			}
 		}
-		/*	std::cout << enemyPositionY << " , " << enemyPositionX << "\n";*/
 	}
 }
 
