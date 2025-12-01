@@ -15,12 +15,11 @@ void Window::InitGame()
 	enemy.position = { enemy.RandomEnemyPosition().x, enemy.RandomEnemyPosition().y };
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
-	
+
 	// Sets the enemy speed based on the game difficulty
 	if (gameDifficulty == 0) enemy.framesCounterDivider = 15; // Easy
 	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10; // Medium
 	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5; // Hard
-
 
 	// Sets player variables
 	player.hintsCollected = 0;
@@ -37,7 +36,7 @@ void Window::InitGame()
 	// Sets the game time
 	timeGame = 60;
 
-	// Sets the new game state 
+	// Sets the new game state
 	player.gameState = 2; // Game on
 }
 
@@ -127,7 +126,6 @@ void Window::SetGameDifficulty()
 		DrawText("HARD", GetScreenWidth() / 2 + 50, 600, 35, RED);
 		break;
 	}
-
 }
 
 // Draws the actual game is playing state __________________________________________________________________________________________________________________________________________________________________
@@ -159,12 +157,9 @@ void Window::GameOn()
 	TimeCounter();
 
 	// Adds to player hints collected when collision with player and enemy hint
-	if (enemy.enemyHintExsists == true)
+	if (enemy.enemyHintExsists == true && enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y && player.hintsCollected < 10)
 	{
-		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
-		{
-			player.hintsCollected += 1;
-		}
+		player.hintsCollected += 1;
 	}
 
 	// Calculates distance between enemy
@@ -292,7 +287,7 @@ void Window::GameOverWindow()
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, GetScreenHeight() / 2 - 25, 20, GRAY);
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
-	
+
 	// Sets game difficulty
 	SetGameDifficulty();
 
@@ -317,7 +312,6 @@ void Window::GameOverWindow()
 	if (IsKeyPressed(KEY_M))
 	{
 		player.gameState = 1; // Back to main menu
-
 	}
 }
 
@@ -363,7 +357,7 @@ void Window::HelpWindow()
 {
 	// Screen text
 	DrawText("HELP", GetScreenWidth() / 2 - MeasureText("HELP", 50) / 2, 25, 50, GRAY);
-	
+
 	DrawText("MOVING: ", 50, 100, 20, YELLOW);
 	DrawText("TO MOVE AROUND, USE WASD OR THE ARROW-KEYS", 50, 120, 20, GRAY);
 
@@ -403,7 +397,7 @@ void Window::HelpWindow()
 	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
 	DrawRectangle(1000, 550, 100, 50, DARKBLUE);
 	DrawCircle(1075, 525, 5, GREEN);
-	
+
 	// Changes game state after user input
 	if (IsKeyPressed(KEY_M))
 	{
@@ -418,34 +412,32 @@ void Window::DrawGame()
 
 	ClearBackground(BLACK);
 
-	switch (player.gameState){
-	
+	switch (player.gameState) {
 		// Game states , 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over, 6 = Help screen
-		case 1:
-			//InitGame();
-			StartWindow();
-			break;
+	case 1:
+		//InitGame();
+		StartWindow();
+		break;
 
-		case 2:
-			GameOn();
-			break;
+	case 2:
+		GameOn();
+		break;
 
-		case 3:
-			GamePausedWindow();
-			break;
+	case 3:
+		GamePausedWindow();
+		break;
 
-		case 4:
-			GameWonWindow();
-			break;
+	case 4:
+		GameWonWindow();
+		break;
 
-		case 5:
-			GameOverWindow();
-			break;
+	case 5:
+		GameOverWindow();
+		break;
 
-		case 6:
-			HelpWindow();
-			break;
-
+	case 6:
+		HelpWindow();
+		break;
 	}
 
 	EndDrawing();
