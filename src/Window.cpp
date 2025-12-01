@@ -335,10 +335,6 @@ void Window::GamePausedWindow()
 	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 - 25, 20, GREEN);
 	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), GetScreenHeight() / 2 - 25, 20, GRAY);
 
-	// Sets game difficulty
-	SetGameDifficulty();
-
-
 	// Draws waves using calculate cosine wave
 	for (float x = 0; x < GetScreenHeight(); x++)
 	{
