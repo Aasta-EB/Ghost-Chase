@@ -50,6 +50,9 @@ public:
 	// Draws the game paused screen
 	void GamePausedWindow();
 
+	// Draws the help screen
+	void HelpWindow();
+
 	// Draws the entire game
 	void DrawGame();
 

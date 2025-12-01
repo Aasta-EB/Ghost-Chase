@@ -195,6 +195,10 @@ void Window::StartWindow()
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
 
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [SPACE] FOR HELP", 20) / 2, GetScreenHeight() / 2 + 50, 20, GRAY);
+	DrawText("[SPACE]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] FOR HELP", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 + 50, 20, DARKBLUE);
+	DrawText("FOR HELP", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] FOR HELP", 20) / 2 + MeasureText("PRESS [SPACE] ", 20), GetScreenHeight() / 2 + 50, 20, GRAY);
+
 	// Sets game difficulty
 	SetGameDifficulty();
 
@@ -220,6 +224,12 @@ void Window::StartWindow()
 	DrawCircle(1025, 150, 25, YELLOW);
 
 	DrawCircle(1075, 525, 5, GREEN);
+
+	// Goes to help screen after user input
+	if (IsKeyPressed(KEY_SPACE))
+	{
+		player.gameState = 6; // Pause screen
+	}
 
 	// Starts game after user input
 	if (IsKeyPressed(KEY_ENTER))
@@ -351,6 +361,60 @@ void Window::GamePausedWindow()
 	}
 }
 
+// Draws the help window _________________________________________________________________________________________________________________________________________________________________________
+void Window::HelpWindow()
+{
+	// Screen text
+	DrawText("HELP", GetScreenWidth() / 2 - MeasureText("HELP", 50) / 2, 25, 50, GRAY);
+	
+	DrawText("MOVING: ", 50, 100, 20, YELLOW);
+	DrawText("TO MOVE AROUND, USE WASD OR THE ARROW-KEYS", 50, 120, 20, GRAY);
+
+	DrawText("DIFFICULTIES: ", 50, 150, 20, RED);
+	DrawText("EASY: ENEMY IS SLOWER THAN PLAYER", 50, 170, 20, GRAY);
+	DrawText("MEDIUM: ENEMY AND PLAYER HAS EQUAL SPEED", 50, 190, 20, GRAY);
+	DrawText("HARD: ENEMY IS FASTER THAN PLAYER", 50, 210, 20, GRAY);
+
+	DrawText("ENEMY HINTS: ", 50, 240, 20, ORANGE);
+	DrawText("IS IT A LITTLE TOO DARK? COLLECT 10 ENEMY HINTS TO HAVE THE FEILD OF VIEW DISSAPEAR", 50, 260, 20, GRAY);
+
+	DrawText("BOOSTER: ", 50, 290, 20, GREEN);
+	DrawText("AFTER 30 SECONDS A BOOSTER WILL SPAWN", 50, 310, 20, GRAY);
+	DrawText("COLLECT IT TO GET AN INDICATION ON THE ENEMY'S POSITION FOR 5 SECONDS", 50, 330, 20, GRAY);
+
+	DrawText("TIMER: ", 50, 360, 20, DARKBLUE);
+	DrawText("YOU HAVE 60 SECONDS TO CATCH THE ENEMY, IF THE TIME RUNS OUT YOU LOSE", 50, 380, 20, GRAY);
+
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, 650, 20, GRAY);
+	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), 650, 20, GREEN);
+	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), 650, 20, GRAY);
+
+	// Draws waves using calculate cosine wave
+	for (float x = 0; x < GetScreenHeight(); x++)
+	{
+		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
+		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
+
+		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
+	}
+
+	// Draws visual
+	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
+	DrawRectangle(1000, 550, 100, 50, DARKBLUE);
+
+	DrawCircle(1075, 525, 5, GREEN);
+	
+	// Changes game state after user input
+	if (IsKeyPressed(KEY_M))
+	{
+		player.gameState = 1; // Back to main menu
+	}
+}
+
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::DrawGame()
 {
@@ -360,7 +424,7 @@ void Window::DrawGame()
 
 	switch (player.gameState){
 	
-		// Game states , 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over
+		// Game states , 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over, 6 = Help screen
 		case 1:
 			//InitGame();
 			StartWindow();
@@ -380,6 +444,9 @@ void Window::DrawGame()
 
 		case 5:
 			GameOverWindow();
+			break;
+		case 6:
+			HelpWindow();
 			break;
 
 	}
