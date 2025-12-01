@@ -127,49 +127,6 @@ void Window::SetGameDifficulty()
 
 }
 
-// Draws the start window of the game ______________________________________________________________________________________________________________________________________________________________________
-void Window::StartWindow()
-{
-	// Screen text
-	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
-	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
-	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
-	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
-
-	// Sets game difficulty
-	SetGameDifficulty();
-
-	// Draws waves using calculate cosine wave
-	for (float x = 0; x < GetScreenHeight(); x++)
-	{
-		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
-		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
-		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
-		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
-
-		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
-		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
-		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
-	}
-
-	// Draws visual
-	DrawRectangle(250, 0, 50, 200, DARKBLUE);
-	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
-	DrawRectangle(1000, 550, 100, 50, DARKBLUE);
-
-	DrawRectangle(350, 300, 50, 50, PINK);
-	DrawCircle(1025, 150, 25, YELLOW);
-
-	DrawCircle(1075, 525, 5, GREEN);
-
-	// Starts game after user input
-	if (IsKeyPressed(KEY_ENTER))
-	{
-		InitGame();
-		player.gameState = 2; // Game on
-	}
-}
-
 // Draws the actual game is playing state __________________________________________________________________________________________________________________________________________________________________
 void Window::GameOn()
 {
@@ -226,6 +183,49 @@ void Window::GameOn()
 	if (IsKeyPressed(KEY_P))
 	{
 		player.gameState = 3; // Pause game
+	}
+}
+
+// Draws the start window of the game ______________________________________________________________________________________________________________________________________________________________________
+void Window::StartWindow()
+{
+	// Screen text
+	DrawText("GHOST-CHASE", GetScreenWidth() / 2 - MeasureText("GHOST-CHASE", 75) / 2, GetScreenHeight() / 2 - 150, 75, WHITE);
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
+	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
+	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	// Sets game difficulty
+	SetGameDifficulty();
+
+	// Draws waves using calculate cosine wave
+	for (float x = 0; x < GetScreenHeight(); x++)
+	{
+		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
+		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
+
+		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
+	}
+
+	// Draws visual
+	DrawRectangle(250, 0, 50, 200, DARKBLUE);
+	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
+	DrawRectangle(1000, 550, 100, 50, DARKBLUE);
+
+	DrawRectangle(350, 300, 50, 50, PINK);
+	DrawCircle(1025, 150, 25, YELLOW);
+
+	DrawCircle(1075, 525, 5, GREEN);
+
+	// Starts game after user input
+	if (IsKeyPressed(KEY_ENTER))
+	{
+		InitGame();
+		player.gameState = 2; // Game on
 	}
 }
 

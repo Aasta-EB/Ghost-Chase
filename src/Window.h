@@ -35,11 +35,11 @@ public:
 	// Makes the player able to set the game difficulty
 	void SetGameDifficulty();
 
-	// Draws the start window of the game
-	void StartWindow();
-
 	// Draws the actual game is playing state
 	void GameOn();
+
+	// Draws the start window of the game
+	void StartWindow();
 
 	// Draws the win screen
 	void GameWonWindow();

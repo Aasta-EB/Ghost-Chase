@@ -9,26 +9,25 @@ Vector2d Booster::FindBoosterPosition()
 
 	int boosterPlacementNumber = std::rand() % 5;
 
-	if (boosterPlacementNumber == 0)
+	switch (boosterPlacementNumber)
 	{
+	case 0:
 		boosterPosition = { 12 * 50 + 25, 9 * 50 + 25 };
-	}
-	else if (boosterPlacementNumber == 1)
-	{
+		break;
+	case 1:
 		boosterPosition = { 25 * 50 + 25, 11 * 50 + 25 };
-	}
-	else if (boosterPlacementNumber == 2)
-	{
+		break;
+	case 2:
 		boosterPosition = { 7 * 50 + 25, 3 * 50 + 25 };
-	}
-	else if (boosterPlacementNumber == 3)
-	{
+		break;
+	case 3:
 		boosterPosition = { 9 * 50 + 25, 11 * 50 + 25 };
-	}
-	else if (boosterPlacementNumber == 4)
-	{
+		break;
+	case 4:
 		boosterPosition = { 21 * 50 + 25, 3 * 50 + 25 };
+		break;
 	}
+
 	return boosterPosition;
 }
 
