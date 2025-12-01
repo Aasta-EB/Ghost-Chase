@@ -16,6 +16,7 @@ void Window::InitGame()
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
 	
+	// Sets the enemy speed based on the game difficulty
 	if (gameDifficulty == 0) enemy.framesCounterDivider = 15; // Easy
 	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10; // Medium
 	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5; // Hard
