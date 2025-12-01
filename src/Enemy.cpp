@@ -45,6 +45,7 @@ Vector2d Enemy::RandomEnemyDirection()
 {
 	srand(time(0));
 
+	// Finds a "random" number from 0-3
 	int chooseDirection = std::rand() % 4;
 
 	Vector2d randomEnemyDirection = { 1 , 0 };
@@ -52,16 +53,16 @@ Vector2d Enemy::RandomEnemyDirection()
 	switch (chooseDirection)
 	{
 	case 0:
-		randomEnemyDirection = { 1 , 0 };
+		randomEnemyDirection = { 1 , 0 }; // Right direction
 		break;
 	case 1:
-		randomEnemyDirection = { -1 , 0 };
+		randomEnemyDirection = { -1 , 0 }; // Left direction
 		break;
 	case 2:
-		randomEnemyDirection = { 0 , 1 };
+		randomEnemyDirection = { 0 , 1 }; // Downwards direction
 		break;
 	case 3:
-		randomEnemyDirection = { 0 , -1 };
+		randomEnemyDirection = { 0 , -1 }; // Upwards direction
 		break;
 	}
 
@@ -73,7 +74,10 @@ Vector2d Enemy::RandomEnemyPosition()
 {
 	srand(time(0));
 
+	// Finds a "random" number from 0-4
 	int choosePosition = std::rand() % 5;
+
+	// Sets a default position to avoid uninitialized variable warning
 	Vector2d randomEnemyPosition = { 15 * map.boxSize, 10 * map.boxSize };
 
 	switch (choosePosition)
@@ -101,7 +105,7 @@ Vector2d Enemy::RandomEnemyPosition()
 // Enemy collision check ___________________________________________________________________________________________________________________________________________________________________________________
 void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 {
-	//position = enemyPosition;
+	// Calculating the actual enemy position
 	int enemyPositionX = position.x / 50;
 	int enemyPositionY = position.y / 50;
 
@@ -109,8 +113,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 
 	if (enemyDirection.x == 1 && enemyDirection.y == 0) // Moving right _________________________________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = (position.x + 50) / 50;
 		enemyPositionY = position.y / 50;
+
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
@@ -286,8 +293,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 	}
 	if (enemyDirection.x == -1 && enemyDirection.y == 0) // Moving left ______________________________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = (position.x - 50) / 50;
 		enemyPositionY = position.y / 50;
+
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
@@ -463,9 +473,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 	}
 	if (enemyDirection.y == 1 && enemyDirection.x == 0) // Moving downwards __________________________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y + 50) / 50;
 
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
@@ -642,8 +654,11 @@ void Enemy::CollisionCheck(Vector2d inPlayerPosition)
 	}
 	if (enemyDirection.y == -1 && enemyDirection.x == 0) // Moving upwards __________________________________________________________________
 	{
+		// Calculating the box in front of the enemy
 		enemyPositionX = position.x / 50;
 		enemyPositionY = (position.y - 50) / 50;
+		
+		// Setting up variable for choosing a random direction
 		int changeDirectionNumber = 0;
 		srand(time(0));
 
@@ -824,7 +839,10 @@ void Enemy::EnemyMovement(Vector2d inPlayerPosition)
 {
 	if ((framesCounter % framesCounterDivider) == 0)
 	{
+		// Checks if enemy has collided with a wall or changed direction
 		CollisionCheck(inPlayerPosition);
+
+		// Moves enemy in the set direction if there is no collision detected
 		if (enemyDirection.x == 1 && collisionRight == false)
 		{
 			speed = Vector2d{ map.boxSize, 0 };

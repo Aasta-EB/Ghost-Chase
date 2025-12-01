@@ -110,6 +110,7 @@ void Window::SetGameDifficulty()
 		}
 	}
 
+	// Draws the current difficulty
 	switch (gameDifficulty)
 	{
 	case 0:

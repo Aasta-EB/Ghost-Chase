@@ -3,8 +3,6 @@
 // Selects a "random" position for the booster _________________________________________________________________________________________________________________________________________
 Vector2d Booster::FindBoosterPosition()
 {
-	//chooseBoosterType = std::rand() % 2;
-
 	srand(time(0));
 
 	int boosterPlacementNumber = std::rand() % 5;
