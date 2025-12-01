@@ -447,6 +447,7 @@ void Window::DrawGame()
 		case 5:
 			GameOverWindow();
 			break;
+
 		case 6:
 			HelpWindow();
 			break;
