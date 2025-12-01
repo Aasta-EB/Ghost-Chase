@@ -304,7 +304,7 @@ void Player::UpdatePlayer()
 		}
 
 		// Continuos player movement _____________________________________________________________________
-		if ((framesCounter % framesCounterDivider) == 0)
+		if ((framesCounter % 10) == 0)
 		{
 			CollisionCheck();
 			if (playerDirection.x == 1 && collisionRight == false)

@@ -16,17 +16,15 @@ void Window::InitGame()
 	enemy.visualPosition = { enemy.position.x + 25, enemy.position.y + 25 };
 	enemy.enemyDirection = { enemy.RandomEnemyDirection().x, enemy.RandomEnemyDirection().y };
 	
-	if (gameDifficulty == 0) enemy.framesCounterDivider = 15;
-	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10;
-	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5;
+	if (gameDifficulty == 0) enemy.framesCounterDivider = 15; // Easy
+	else if (gameDifficulty == 1) enemy.framesCounterDivider = 10; // Medium
+	else if (gameDifficulty == 2) enemy.framesCounterDivider = 5; // Hard
 
 
 	// Sets player variables
-	player.playerScore = 0;
+	player.hintsCollected = 0;
 	player.framesCounter = 0;
-	player.framesCounterDivider = 10; 
 	player.position = { 13 * map.boxSize, 7 * map.boxSize };
-	player.size = { map.boxSize, map.boxSize };
 	player.speed = { map.boxSize, 0 };
 	player.playerDirection = { 1 , 0 };
 
@@ -40,6 +38,26 @@ void Window::InitGame()
 
 	// Sets the new game state 
 	player.gameState = 2; // Game on
+}
+
+// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
+void Window::TimeCounter()
+{
+	if (timeGame > 0.f) timeGame -= GetFrameTime();
+
+	// Rounding of number to have a whole number being printed
+	int actualTime = std::round(timeGame);
+
+	// Draws the time left, changes to red when less than 10 seconds left
+	if (actualTime > 10)
+	{
+		DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
+	}
+	else
+	{
+		DrawText("TIME: ", 1250, 20, 20, GRAY);
+		DrawText(TextFormat("%d", actualTime), 1250 + MeasureText("TIME: ", 20), 20, 20, RED);
+	}
 }
 
 // Booster to expose the enemy's position ___________________________________________________________________________________________________________________________________________________
@@ -64,34 +82,6 @@ void Window::ActivateBooster()
 	if (booster.collisionPlayerBooster == true)
 	{
 		booster.BoosterTimer(player.centrePlayerPosition, enemy.visualPosition);
-	}
-}
-
-// Enemy drops hint at its current position, player gets points if collected ________________________________________________________________________________________________________________
-void Window::DropHint()
-{
-	if (enemy.dropHintTimer > 0.f)
-	{
-		enemy.dropHintTimer -= GetFrameTime();
-	}
-	if (enemy.dropHintTimer < 0.f)
-	{
-		enemy.dropHintTimer = 4.f;
-		if (!enemy.enemyHintExsists)
-		{
-			enemy.GetHintPosition(enemy.visualPosition);
-		}
-	}
-	
-	enemy.DrawDropHint();
-
-	if (enemy.enemyHintExsists == true)
-	{
-		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
-		{
-			player.playerScore += 1;
-			enemy.enemyHintExsists = false;
-		}
 	}
 }
 
@@ -137,15 +127,63 @@ void Window::SetGameDifficulty()
 
 }
 
-// Counts the time left in game ___________________________________________________________________________________________________________________________________________________________________________
-void Window::TimeCounter()
+// Draws the actual game is playing state __________________________________________________________________________________________________________________________________________________________________
+void Window::GameOn()
 {
-	if (timeGame > 0.f) timeGame -= GetFrameTime();
+	// Grid/map
+	map.DrawMap();
 
-	// Rounding of number to have a whole number being printed
-	int actualTime = std::round(timeGame);
+	// Enemy related
+	if (player.hintsCollected < 10)
+	{
+		enemy.DrawDropHint(player.centrePlayerPosition);
+	}
+	enemy.DrawEnemy(player.position);
 
-	DrawText(TextFormat("TIME: %d", actualTime), 1250, 20, 20, GRAY);
+	// Player related
+	player.DrawPlayer();
+	ActivateBooster();
+
+	// Booster Arrow tester
+	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
+
+	// Limited vision related
+	if (player.hintsCollected < 10)
+	{
+		fov.DrawFOV({ player.position.x, player.position.y });
+	}
+
+	// Screen text
+	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
+	DrawText(TextFormat("HINTS COLLECTED: %d", player.hintsCollected), 1000, 20, 20, GRAY);
+	TimeCounter();
+
+	if (enemy.enemyHintExsists == true)
+	{
+		if (enemy.enemyHintPosition.x == player.centrePlayerPosition.x && enemy.enemyHintPosition.y == player.centrePlayerPosition.y)
+		{
+			player.hintsCollected += 1;
+		}
+	}
+
+	// Calculates distance between enemy
+	float distanceToEnemy = player.centrePlayerPosition.CalculateMagnitudeToTarget(enemy.visualPosition);
+
+	// Changes game state
+	if (distanceToEnemy < 50)
+	{
+		player.gameState = 4; // Game won
+	}
+	if (timeGame <= 0.f)
+	{
+		player.gameState = 5; // Game over
+	}
+
+	// Changes game state after user input
+	if (IsKeyPressed(KEY_P))
+	{
+		player.gameState = 3; // Pause game
+	}
 }
 
 // Draws the start window of the game ______________________________________________________________________________________________________________________________________________________________________
@@ -156,6 +194,10 @@ void Window::StartWindow()
 	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2, GetScreenHeight() / 2, 20, GRAY);
 	DrawText("[ENTER]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS ", 20) + 5, GetScreenHeight() / 2, 20, RED);
 	DrawText("TO START", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] TO START", 20) / 2 + MeasureText("PRESS [ENTER] ", 20), GetScreenHeight() / 2, 20, GRAY);
+
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [SPACE] FOR HELP", 20) / 2, GetScreenHeight() / 2 + 50, 20, GRAY);
+	DrawText("[SPACE]", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] FOR HELP", 20) / 2 + MeasureText("PRESS ", 20), GetScreenHeight() / 2 + 50, 20, DARKBLUE);
+	DrawText("FOR HELP", GetScreenWidth() / 2 - MeasureText("PRESS [ENTER] FOR HELP", 20) / 2 + MeasureText("PRESS [SPACE] ", 20), GetScreenHeight() / 2 + 50, 20, GRAY);
 
 	// Sets game difficulty
 	SetGameDifficulty();
@@ -183,59 +225,17 @@ void Window::StartWindow()
 
 	DrawCircle(1075, 525, 5, GREEN);
 
+	// Goes to help screen after user input
+	if (IsKeyPressed(KEY_SPACE))
+	{
+		player.gameState = 6; // Pause screen
+	}
+
 	// Starts game after user input
 	if (IsKeyPressed(KEY_ENTER))
 	{
 		InitGame();
 		player.gameState = 2; // Game on
-	}
-}
-
-// Draws the actual game is playing state __________________________________________________________________________________________________________________________________________________________________
-void Window::GameOn()
-{
-	// Grid/map
-	map.DrawMap();
-
-	// Enemy related
-	DropHint();
-	enemy.DrawEnemy(player.position);
-
-	// Player related
-	player.DrawPlayer();
-	ActivateBooster();
-
-	// Booster Arrow tester
-	//booster.ExposeEnemyPosition(player.centrePlayerPosition, enemy.visualPosition);
-
-	// Limited vision related
-	if (player.playerScore < 10)
-	{
-		fov.DrawFOV({ player.position.x, player.position.y });
-	}
-
-	// Screen text
-	DrawText("PRESS [P] TO PAUSE GAME", 50, 20, 20, GRAY);
-	DrawText(TextFormat("HINTS COLLECTED: %d", player.playerScore), 1000, 20, 20, GRAY);
-	TimeCounter();
-
-	// Calculates distance between enemy
-	float distanceToEnemy = player.centrePlayerPosition.CalculateMagnitudeToTarget(enemy.visualPosition);
-
-	// Changes game state
-	if (distanceToEnemy < 50)
-	{
-		player.gameState = 4; // Game won
-	}
-	if (timeGame <= 0.f)
-	{
-		player.gameState = 5; // Game over
-	}
-
-	// Changes game state after user input
-	if (IsKeyPressed(KEY_P))
-	{
-		player.gameState = 3; // Pause game
 	}
 }
 
@@ -361,6 +361,60 @@ void Window::GamePausedWindow()
 	}
 }
 
+// Draws the help window _________________________________________________________________________________________________________________________________________________________________________
+void Window::HelpWindow()
+{
+	// Screen text
+	DrawText("HELP", GetScreenWidth() / 2 - MeasureText("HELP", 50) / 2, 25, 50, GRAY);
+	
+	DrawText("MOVING: ", 50, 100, 20, YELLOW);
+	DrawText("TO MOVE AROUND, USE WASD OR THE ARROW-KEYS", 50, 120, 20, GRAY);
+
+	DrawText("DIFFICULTIES: ", 50, 150, 20, RED);
+	DrawText("EASY: ENEMY IS SLOWER THAN PLAYER", 50, 170, 20, GRAY);
+	DrawText("MEDIUM: ENEMY AND PLAYER HAS EQUAL SPEED", 50, 190, 20, GRAY);
+	DrawText("HARD: ENEMY IS FASTER THAN PLAYER", 50, 210, 20, GRAY);
+
+	DrawText("ENEMY HINTS: ", 50, 240, 20, ORANGE);
+	DrawText("IS IT A LITTLE TOO DARK? COLLECT 10 ENEMY HINTS TO HAVE THE FEILD OF VIEW DISSAPEAR", 50, 260, 20, GRAY);
+
+	DrawText("BOOSTER: ", 50, 290, 20, GREEN);
+	DrawText("AFTER 30 SECONDS A BOOSTER WILL SPAWN", 50, 310, 20, GRAY);
+	DrawText("COLLECT IT TO GET AN INDICATION ON THE ENEMY'S POSITION FOR 5 SECONDS", 50, 330, 20, GRAY);
+
+	DrawText("TIMER: ", 50, 360, 20, DARKBLUE);
+	DrawText("YOU HAVE 60 SECONDS TO CATCH THE ENEMY, IF THE TIME RUNS OUT YOU LOSE", 50, 380, 20, GRAY);
+
+	DrawText("PRESS", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2, 650, 20, GRAY);
+	DrawText("[M]", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS ", 20), 650, 20, GREEN);
+	DrawText("TO GO BACK TO MAIN SCREEN", GetScreenWidth() / 2 - MeasureText("PRESS [M] TO GO BACK TO MAIN SCREEN", 20) / 2 + MeasureText("PRESS [M] ", 20), 650, 20, GRAY);
+
+	// Draws waves using calculate cosine wave
+	for (float x = 0; x < GetScreenHeight(); x++)
+	{
+		Vector2d wavePosition = vector2d.CalculateCosineWave(10.f, 50.f, x);
+		DrawPixel(20 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(21 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(19 + wavePosition.y, wavePosition.x, YELLOW);
+
+		DrawPixel(1380 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1381 + wavePosition.y, wavePosition.x, YELLOW);
+		DrawPixel(1379 + wavePosition.y, wavePosition.x, YELLOW);
+	}
+
+	// Draws visual
+	DrawRectangle(1100, 450, 50, 250, DARKBLUE);
+	DrawRectangle(1000, 550, 100, 50, DARKBLUE);
+
+	DrawCircle(1075, 525, 5, GREEN);
+	
+	// Changes game state after user input
+	if (IsKeyPressed(KEY_M))
+	{
+		player.gameState = 1; // Back to main menu
+	}
+}
+
 // Draws the entire game ___________________________________________________________________________________________________________________________________________________________________________
 void Window::DrawGame()
 {
@@ -370,7 +424,7 @@ void Window::DrawGame()
 
 	switch (player.gameState){
 	
-		// Game states , 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over
+		// Game states , 1 = Start window, 2 = Game on, 3 = Game Paused, 4 = Game Won, 5 = Game Over, 6 = Help screen
 		case 1:
 			//InitGame();
 			StartWindow();
@@ -390,6 +444,9 @@ void Window::DrawGame()
 
 		case 5:
 			GameOverWindow();
+			break;
+		case 6:
+			HelpWindow();
 			break;
 
 	}

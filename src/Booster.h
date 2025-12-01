@@ -1,6 +1,6 @@
 #pragma once
-#include "Player.h"
-#include "Enemy.h"
+#include <random>
+#include "raylib.h"
 #include "Vector2d.h"
 
 class Booster
@@ -8,8 +8,6 @@ class Booster
 public:
 
 	// Acsessing other classes
-	Enemy enemy;
-	Player player;
 	Vector2d vector2d;
 
 
@@ -18,7 +16,6 @@ public:
 	bool exsists = false;
 	bool collisionPlayerBooster = false;
 	float boosterTime = 5;
-	int chooseBoosterType = 1; 
 
 	// Selects a "random" position for the booster
 	Vector2d FindBoosterPosition();

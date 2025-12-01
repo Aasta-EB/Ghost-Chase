@@ -1,5 +1,4 @@
 #include <raylib.h>
-#include <stdlib.h>                 // Required for: calloc(), free()
 
 #include "Grid.h"
 #include "Window.h"
